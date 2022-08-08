@@ -30,6 +30,7 @@ add_custom_target(installer-generate-deps
 add_subdirectory(data)
 add_subdirectory(docs)
 add_subdirectory(hooks)
+add_subdirectory(i18n)
 add_subdirectory(resources)
 add_subdirectory(src)
 add_subdirectory(tools)
