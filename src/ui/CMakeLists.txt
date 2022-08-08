@@ -181,12 +181,6 @@ set(SOURCE_FILES
     xrandr/xrandr_wrapper.cpp
     xrandr/xrandr_wrapper.h
 
-    images/images.qrc
-    styles/styles.qrc
-
-    # Required by SpinnerLabel.
-    widgets/spinner/spinner.qrc
-
     main_window.cpp
     main_window.h
     )
