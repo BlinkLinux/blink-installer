@@ -1,4 +1,6 @@
 
+pkg_check_modules(Parted REQUIRED IMPORTED_TARGET libparted)
+
 set(SOURCE_FILES
     device.cpp
     device.h
@@ -38,4 +40,5 @@ add_library(installer-partman STATIC
     )
 target_link_libraries(installer-partman
     Qt5::Core
+    PkgConfig::Parted
     )

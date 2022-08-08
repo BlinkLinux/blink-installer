@@ -18,9 +18,6 @@
 #include "partman/utils.h"
 
 #include <parted/parted.h>
-#include <string.h>
-#include <QDebug>
-#include <QDir>
 
 #include "partman/structs.h"
 #include "sysinfo/proc_partitions.h"
@@ -30,7 +27,7 @@ namespace installer {
 qint64 GetMaximumDeviceSize() {
   const PartitionItemList list = ParsePartitionItems();
   qint64 result = 0;
-  for (const PartitionItem item : list) {
+  for (const PartitionItem& item: list) {
     result = qMax(result, item.blocks);
   }
 
@@ -41,11 +38,11 @@ qint64 GetMaximumDeviceSize() {
 PartitionTableType GetPrimaryDiskPartitionTable() {
   // TODO(xushaohua): Read path to the first device.
   PedDevice* device = ped_device_get("/dev/sda");
-  if (device == NULL) {
+  if (device == nullptr) {
     return PartitionTableType::Unknown;
   }
   PedDiskType* disk_type = ped_disk_probe(device);
-  if (disk_type == NULL) {
+  if (disk_type == nullptr) {
     return PartitionTableType::Empty;
   }
 

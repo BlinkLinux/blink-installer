@@ -55,34 +55,34 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(Parted REQUIRED IMPORTED_TARGET libparted)
-pkg_check_modules(X11 REQUIRED IMPORTED_TARGET x11)
-pkg_check_modules(X11Ext REQUIRED IMPORTED_TARGET xext)
-pkg_check_modules(X11Tst REQUIRED IMPORTED_TARGET xtst)
-pkg_check_modules(X11RandR REQUIRED IMPORTED_TARGET xrandr)
-
-set(LINK_LIBS
-    Qt5::Gui
-    Qt5::Network
-    Qt5::Widgets
-    Qt5::X11Extras
-    Qt5::Xml
-
-    PkgConfig::Parted
-    PkgConfig::X11
-    PkgConfig::X11Ext
-    PkgConfig::X11Tst
-    PkgConfig::X11RandR
-
-    global_shortcut
-    qrencode
-    qtermwidget5
-    zlib_wrapper
-    )
+#pkg_check_modules(X11 REQUIRED IMPORTED_TARGET x11)
+#pkg_check_modules(X11Ext REQUIRED IMPORTED_TARGET xext)
+#pkg_check_modules(X11Tst REQUIRED IMPORTED_TARGET xtst)
+#pkg_check_modules(X11RandR REQUIRED IMPORTED_TARGET xrandr)
+#
+#set(LINK_LIBS
+#    Qt5::Gui
+#    Qt5::Network
+#    Qt5::Widgets
+#    Qt5::X11Extras
+#    Qt5::Xml
+#
+#    PkgConfig::Parted
+#    PkgConfig::X11
+#    PkgConfig::X11Ext
+#    PkgConfig::X11Tst
+#    PkgConfig::X11RandR
+#
+#    global_shortcut
+#    qrencode
+#    qtermwidget5
+#    zlib_wrapper
+#    )
 
 set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
 
 add_subdirectory(base)
+add_subdirectory(partman)
 
 # Set/get ini files.
 #add_executable(deepin-installer-settings
