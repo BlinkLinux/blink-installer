@@ -10,22 +10,21 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-if (CMAKE_BUILD_TYPE MATCHES Debug)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -Werror -Wextra")
-  # -fno-rtti, Disable real-time type information
-  # -fno-exceptions Disable exceptions
-  # -fsanitize=address Enable memory sanitize plugin
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Werror -Wextra -fno-exceptions")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-implicit-fallthrough")
+# Generate compile_commands.json project file.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-  # Enable Qt builtin debug mode
-  add_definitions("-DQT_MESSAGELOGCONTEXT")
-else()
-  # -Wl, -O2 Enable linker optimizations
-  #-Wl, --gc-sections Remove unused code resulting from -fdsta-sections and -ffunction-sections
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O2 -Wl,-O1 -Wl,--gc-sections")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -Wl,-O1 -Wl,--gc-sections -Wno-unused-result")
-endif()
+if (BUILD_TESTING)
+  # Enable CTest
+  enable_testing()
+endif ()
+
+add_custom_target(installer-generate-deps
+    COMMAND mkdir -pv ${CMAKE_BINARY_DIR}/deps
+    COMMAND cmake --graphviz=deps/deps.dot ..
+    COMMAND dot -Tsvg -o deps/deps.svg deps/deps.dot
+    COMMAND setsid xdg-open deps/deps.svg
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
 
 # Import folders
 add_subdirectory(data)
