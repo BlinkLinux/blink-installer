@@ -1,7 +1,7 @@
-Source: deepin-installer-reborn
+Source: blink-installer
 Section: utils
 Priority: extra
-Maintainer: Deepin Packages Builder <packages@deepin.com>
+Maintainer: Xu Shaohua <shaohua@biofan.org>
 Build-Depends:
     cmake (>=3.1),
     debhelper (>=9),
@@ -23,48 +23,30 @@ Build-Depends:
     qttools5-dev-tools,
     zlib1g-dev
 Standards-Version: 3.9.8
-Homepage: http://www.deepin.org
+Homepage: http://github.com/BlinkLinux/blink-installer
 
-Package: deepin-installer-timezones
-Architecture: all
-Depends:
-    ${shlibs:Depends},
-    ${misc:Depends}
-Description: Language package for timezone names
- Installer language package for timezone names
-
-Package: deepin-installer
+Package: blink-installer
 Architecture: any
 Depends:
     ${shlibs:Depends},
     ${misc:Depends},
-    btrfs-progs [i386 amd64],
-    deepin-installer-timezones,
+    btrfs-progs,
     dosfstools,
-    imagemagick [i386 amd64],
-    imageworsener [!i386 !amd64],
-    jfsutils [i386 amd64],
+    imagemagick,
+    imageworsener,
+    jfsutils,
     mtools,
     ntfs-3g,
     os-prober,
     parted,
     pciutils,
-    reiserfsprogs [i386 amd64],
+    reiserfsprogs,
     squashfs-tools,
-    tshark [i386 amd64],
+    tshark,
     udev,
     x11-xserver-utils,
-    xfsprogs [i386 amd64],
+    xfsprogs,
     xinit,
     xkb-data
-Description: Release version of deepin installer
- New version of deepin-installer, rewritten with Qt5.
-
-Package: deepin-installer-oem
-Architecture: any
-Depends:
-    ${shlibs:Depends},
-    ${misc:Depends},
-    deepin-installer
-Description: OEM tool
- OEM tool for deepin-installer
+Description: Release version of blink installer
+ Linux installator for debian based distributions.

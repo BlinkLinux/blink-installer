@@ -1,7 +1,7 @@
 # About
-Deepin Installer, release version.
+Blink Installer, for debian based linux distributions.
 
-# Dependencies
+## Dependencies
 * Qt 5.5+
 * btrfs-progs - btrfs filesystem utility
 * dosfstools - utilities for making and checking MS-DOS FAT filesystems
@@ -15,18 +15,12 @@ Deepin Installer, release version.
 * util-linux - miscellanous system utilities
 * xfsprogs - xfs filesystem utility
 
-# Restrictions
+## Restrictions
 * No DBus connections
 * No Window Manager
 * No window drag/drop operations
 * No cut/copy/paste operations
 
-# Unit test
-Run `deepin-installer-tests`
-
-# OEM tools
-Run `deepin-installer-oem`
-
-# Copyright
+## Copyright
 This project is released under GNU General Public License which can be found in
 LICENSE file.

@@ -1,8 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: deepin-installer-reborn
-Source: http://www.deepin.org
+Upstream-Name: blink-installer
+Source: http://github.com/BlinkLinux/blink-installer
 
 Files: *
+Copyright: 2022 Xu Shaohua <shaohua@biofan.org>
 Copyright: 2016 Xu Shaohua <xushaohua@deepin.com>
 License: GPL-3+
  This package is free software; you can redistribute it and/or modify
