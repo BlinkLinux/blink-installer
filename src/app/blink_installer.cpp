@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,23 +36,23 @@ int main(int argc, char* argv[]) {
   qputenv("LANG", installer::kDefaultLang);
 
   QApplication app(argc, argv);
-  app.setAttribute(Qt::AA_UseHighDpiPixmaps);
-  app.setAttribute(Qt::AA_EnableHighDpiScaling);
-  app.setApplicationDisplayName("Deepin Installer Reborn");
-  app.setApplicationName("deepin-installer");
-  app.setApplicationVersion(installer::kAppVersion);
-  app.setOrganizationDomain(installer::kOrganizationDomain);
-  app.setWindowIcon(QIcon(":/images/deepin_installer.svg"));
+  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+  QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QApplication::setApplicationDisplayName("Blink Installer");
+  QApplication::setApplicationName("blink-installer");
+  QApplication::setApplicationVersion(installer::kAppVersion);
+  QApplication::setOrganizationDomain(installer::kOrganizationDomain);
+  QApplication::setWindowIcon(QIcon(":/images/deepin_installer.svg"));
 
   // Parse argument list.
   installer::InstallerArgsParser args_parser;
   // Returns false if failed to parse arguments.
-  if (!args_parser.parse(app.arguments())) {
+  if (!args_parser.parse(QApplication::arguments())) {
     return 1;
   }
 
   // Initialize log service.
-  const char kLogFileName[] = "deepin-installer.log";
+  const char kLogFileName[] = "blink-installer.log";
   QString log_file;
   if (!installer::HasRootPrivilege()) {
     qCritical() << "Root privilege is required!";
@@ -82,5 +83,5 @@ int main(int argc, char* argv[]) {
   main_window.scanDevicesAndTimezone();
   main_window.fullscreen();
 
-  return app.exec();
+  return QApplication::exec();
 }

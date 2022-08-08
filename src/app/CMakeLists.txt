@@ -6,8 +6,10 @@ set(RESOURCE_FILES
     )
 
 add_executable(blink-installer
-    deepin_installer.cpp
+    blink_installer.cpp
     )
 target_link_libraries(blink-installer
-    installer-controllers
+    Qt5::Widgets
+
+    installer-ui
     )
