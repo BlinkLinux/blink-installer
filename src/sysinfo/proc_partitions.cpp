@@ -27,14 +27,14 @@ QList<PartitionItem> ParsePartitionItems() {
   PartitionItemList result;
 
   const QString content(ReadFile("/proc/partitions"));
-  const QStringList lines(content.split("\n", QString::SkipEmptyParts));
+  const QStringList lines(content.split("\n", Qt::SkipEmptyParts));
   const QRegExp space_exp("\\s+");
   for (const QString& line : lines) {
     // Skip header line.
     if (line.startsWith("major")) {
       continue;
     }
-    const QStringList parts(line.split(space_exp, QString::SkipEmptyParts));
+    const QStringList parts(line.split(space_exp, Qt::SkipEmptyParts));
     if (parts.length() != 4) {
       qWarning() << "Invalid partition item:" << parts;
       continue;

@@ -1,35 +1,35 @@
 
 set(SOURCE_FILES
-    sysinfo/dev_disk.cpp
-    sysinfo/dev_disk.h
-    sysinfo/iso3166.cpp
-    sysinfo/iso3166.h
-    sysinfo/keyboard.cpp
-    sysinfo/keyboard.h
-    sysinfo/machine.cpp
-    sysinfo/machine.h
-    sysinfo/proc_meminfo.cpp
-    sysinfo/proc_meminfo.h
-    sysinfo/proc_mounts.cpp
-    sysinfo/proc_mounts.h
-    sysinfo/proc_partitions.cpp
-    sysinfo/proc_partitions.h
-    sysinfo/proc_swaps.cpp
-    sysinfo/proc_swaps.h
-    sysinfo/release_version.cpp
-    sysinfo/release_version.h
-    sysinfo/timezone.cpp
-    sysinfo/timezone.h
-    sysinfo/users.cpp
-    sysinfo/users.h
-    sysinfo/validate_hostname.cpp
-    sysinfo/validate_hostname.h
-    sysinfo/validate_password.cpp
-    sysinfo/validate_password.h
-    sysinfo/validate_username.cpp
-    sysinfo/validate_username.h
-    sysinfo/virtual_machine.cpp
-    sysinfo/virtual_machine.h
+    dev_disk.cpp
+    dev_disk.h
+    iso3166.cpp
+    iso3166.h
+    keyboard.cpp
+    keyboard.h
+    machine.cpp
+    machine.h
+    proc_meminfo.cpp
+    proc_meminfo.h
+    proc_mounts.cpp
+    proc_mounts.h
+    proc_partitions.cpp
+    proc_partitions.h
+    proc_swaps.cpp
+    proc_swaps.h
+    release_version.cpp
+    release_version.h
+    timezone.cpp
+    timezone.h
+    users.cpp
+    users.h
+    validate_hostname.cpp
+    validate_hostname.h
+    validate_password.cpp
+    validate_password.h
+    validate_username.cpp
+    validate_username.h
+    virtual_machine.cpp
+    virtual_machine.h
     )
 
 set(TEST_FILES
@@ -52,4 +52,5 @@ add_library(installer-sysinfo STATIC
     )
 target_link_libraries(installer-sysinfo
     Qt5::Core
+    Qt5::Xml
     )

@@ -26,7 +26,7 @@ QList<MountItem> ParseMountItems() {
   const QString content(ReadFile("/proc/mounts"));
   const QStringList lines = content.split("\n");
   for (const QString& line : lines) {
-    const QStringList parts = line.split(" ", QString::SkipEmptyParts);
+    const QStringList parts = line.split(" ", Qt::SkipEmptyParts);
     if (parts.length() == 6) {
       const MountItem item = { parts[0], parts[1], parts[2], parts[3] };
       result.append(item);
