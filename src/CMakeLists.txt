@@ -55,10 +55,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 find_package(PkgConfig REQUIRED)
-#    global_shortcut
-#    qrencode
-#    qtermwidget5
-#    zlib_wrapper
 
 set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
 

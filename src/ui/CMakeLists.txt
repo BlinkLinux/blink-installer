@@ -1,4 +1,9 @@
 
+pkg_check_modules(X11 REQUIRED IMPORTED_TARGET x11)
+pkg_check_modules(X11Ext REQUIRED IMPORTED_TARGET xext)
+pkg_check_modules(X11Tst REQUIRED IMPORTED_TARGET xtst)
+pkg_check_modules(X11RandR REQUIRED IMPORTED_TARGET xrandr)
+
 set(SOURCE_FILES
     delegates/advanced_partition_animations.cpp
     delegates/advanced_partition_animations.h
@@ -192,10 +197,28 @@ set(TEST_FILES
     delegates/timezone_map_util_test.cpp
     )
 
+set(LINK_LIBS
+    Qt5::Widgets
+    Qt5::X11Extras
+
+    PkgConfig::X11
+    PkgConfig::X11Ext
+    PkgConfig::X11Tst
+    PkgConfig::X11RandR
+
+    global_shortcut
+    qrencode
+    qtermwidget5
+    zlib_wrapper
+
+    installer-partman
+    installer-service
+    installer-sysinfo
+    )
+
 add_library(installer-ui STATIC
     ${SOURCE_FILES}
     )
 target_link_libraries(installer-ui
-    Qt5::Widgets
-    Qt5::X11Extras
+    ${LINK_LIBS}
     )
