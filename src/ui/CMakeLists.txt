@@ -206,7 +206,7 @@ set(LINK_LIBS
     PkgConfig::X11Tst
     PkgConfig::X11RandR
 
-    global_shortcut
+    global-shortcut
     qrencode
     qtermwidget5
     zlib_wrapper

@@ -14,9 +14,9 @@ class GlobalShortcut : public QObject {
   Q_OBJECT
  public:
   explicit GlobalShortcut(QKeySequence key_sequence, QObject* parent = nullptr);
-  ~GlobalShortcut();
+  ~GlobalShortcut() override;
 
-  bool isRegistered() const { return is_registered_; }
+  [[nodiscard]] bool isRegistered() const { return is_registered_; }
 
   // Register this shortcut.
   // Returns true is success or false otherwise.
