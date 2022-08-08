@@ -1,0 +1,55 @@
+
+set(SOURCE_FILES
+    sysinfo/dev_disk.cpp
+    sysinfo/dev_disk.h
+    sysinfo/iso3166.cpp
+    sysinfo/iso3166.h
+    sysinfo/keyboard.cpp
+    sysinfo/keyboard.h
+    sysinfo/machine.cpp
+    sysinfo/machine.h
+    sysinfo/proc_meminfo.cpp
+    sysinfo/proc_meminfo.h
+    sysinfo/proc_mounts.cpp
+    sysinfo/proc_mounts.h
+    sysinfo/proc_partitions.cpp
+    sysinfo/proc_partitions.h
+    sysinfo/proc_swaps.cpp
+    sysinfo/proc_swaps.h
+    sysinfo/release_version.cpp
+    sysinfo/release_version.h
+    sysinfo/timezone.cpp
+    sysinfo/timezone.h
+    sysinfo/users.cpp
+    sysinfo/users.h
+    sysinfo/validate_hostname.cpp
+    sysinfo/validate_hostname.h
+    sysinfo/validate_password.cpp
+    sysinfo/validate_password.h
+    sysinfo/validate_username.cpp
+    sysinfo/validate_username.h
+    sysinfo/virtual_machine.cpp
+    sysinfo/virtual_machine.h
+    )
+
+set(TEST_FILES
+    dev_disk_test.cpp
+    iso3166_test.cpp
+    keyboard_test.cpp
+    proc_meminfo_test.cpp
+    proc_mounts_test.cpp
+    proc_partitions_test.cpp
+    proc_swaps_test.cpp
+    timezone_test.cpp
+    users_test.cpp
+    validate_hostname_test.cpp
+    validate_password_test.cpp
+    validate_username_test.cpp
+    )
+
+add_library(installer-sysinfo STATIC
+    ${SOURCE_FILES}
+    )
+target_link_libraries(installer-sysinfo
+    Qt5::Core
+    )
