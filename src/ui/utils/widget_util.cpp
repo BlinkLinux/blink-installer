@@ -17,13 +17,14 @@
 
 #include "ui/utils/widget_util.h"
 
-#include <QApplication>
 #include <QComboBox>
 #include <QDebug>
 #include <QDesktopWidget>
+#include <QGuiApplication>
 #include <QLayout>
 #include <QLayoutItem>
 #include <QMenu>
+#include <QScreen>
 
 namespace installer {
 
@@ -77,7 +78,8 @@ bool SetChildTransparent(QWidget* root, const QString& child_name) {
 void ShowFullscreen(QWidget* widget) {
   // NOTE(xushaohua): If geometry of primary screen changes too fast, this
   // function may return false screen geometry.
-  const QRect rect = qApp->desktop()->screenGeometry();
+  QScreen* screen = QGuiApplication::primaryScreen();
+  const QRect rect = screen->geometry();
   ShowFullscreen(widget, rect);
   widget->showFullScreen();
 }

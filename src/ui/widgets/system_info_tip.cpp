@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +20,9 @@
 
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QPainter>
 #include <QPaintEvent>
+#include <QPainter>
+#include <QPainterPath>
 
 #include "base/file_util.h"
 
@@ -65,7 +67,7 @@ void SystemInfoTip::setText(const QString& text) {
 
   // Width of label is based on its content.
   const QFontMetrics metrics(label_->font());
-  const int content_width = metrics.width(text);
+  const int content_width = metrics.horizontalAdvance(text);
   // Set world-wrap flag of label based on its content.
   if (content_width < kMaximumLabelWidth) {
     label_->setWordWrap(false);

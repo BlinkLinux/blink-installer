@@ -50,7 +50,7 @@ void DeviceModelLabel::paintEvent(QPaintEvent* event) {
   QFont font;
   font.setPixelSize(kFontSize);
   const QFontMetrics font_metrics(font);
-  const int text_width = font_metrics.width(this->text());
+  const int text_width = font_metrics.horizontalAdvance(this->text());
   const int text_height = font_metrics.height();
   const QColor text_color(QColor::fromRgb(255, 255, 255, 255));
   painter.setFont(font);

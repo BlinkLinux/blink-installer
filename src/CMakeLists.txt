@@ -85,6 +85,7 @@ add_subdirectory(base)
 add_subdirectory(partman)
 add_subdirectory(service)
 add_subdirectory(sysinfo)
+add_subdirectory(ui)
 
 # Set/get ini files.
 #add_executable(deepin-installer-settings

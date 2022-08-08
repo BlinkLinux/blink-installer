@@ -47,7 +47,7 @@ void PrepareInstallFrame::updateDescription(const QStringList& descriptions) {
   for (const QString& description : descriptions) {
     const QString content = prefix + description;
     modified_desc_list.append(content);
-    max_width = qMax(metrics.width(content), max_width);
+    max_width = qMax(metrics.horizontalAdvance(content), max_width);
   }
   const QString description_text = modified_desc_list.join("\n");
   qDebug() << "description:" << description_text;

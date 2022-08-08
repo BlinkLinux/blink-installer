@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,7 +91,7 @@ void TooltipPin::paintEvent(QPaintEvent* event) {
   QFont label_font;
   label_font.setPixelSize(12);
   const QFontMetrics label_font_metrics(label_font);
-  const int label_length = label_font_metrics.width(this->text());
+  const int label_length = label_font_metrics.horizontalAdvance(this->text());
   painter.setPen(QPen(Qt::black));
   painter.setFont(label_font);
   // Set text alignment to center.

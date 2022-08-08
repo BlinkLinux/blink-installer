@@ -197,4 +197,5 @@ add_library(installer-ui STATIC
     )
 target_link_libraries(installer-ui
     Qt5::Widgets
+    Qt5::X11Extras
     )
