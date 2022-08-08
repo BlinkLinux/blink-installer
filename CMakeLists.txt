@@ -27,7 +27,6 @@ add_custom_target(installer-generate-deps
     )
 
 # Import folders
-add_subdirectory(data)
 add_subdirectory(docs)
 add_subdirectory(hooks)
 add_subdirectory(i18n)
