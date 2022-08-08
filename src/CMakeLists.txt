@@ -1,7 +1,4 @@
 
-#set(CMAKE_C_COMPILER  /usr/bin/clang)
-#set(CMAKE_CXX_COMPILER  /usr/bin/clang++)
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -19,15 +16,6 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
   # -fsanitize=address Enable memory sanitize plugin
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Werror -Wextra -fno-exceptions")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-implicit-fallthrough")
-  # -fsanitize=address, Enable memory address sanitizer.
-#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
-  # -fsanitize=leak, Enable memory leak sanitizer.
-  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
-  # -fsanitize=memory, Enable detecting uninitited memory sanitizer.
-  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory "
-  #    "-fsanitize-memory-track-origins -fPIC -pie -fno-omit-frame-pointer")
-  
-#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wimplicit-fallthrough=1")
 
   # Enable Qt builtin debug mode
   add_definitions("-DQT_MESSAGELOGCONTEXT")
@@ -81,7 +69,6 @@ include_directories(AFTER ${X11TST_INCLUDE_DIRS})
 include_directories(AFTER ${X11RandR_INCLUDE_DIRS})
 
 add_subdirectory(third_party/global_shortcut)
-add_subdirectory(third_party/googletest)
 add_subdirectory(third_party/qrencode)
 add_subdirectory(third_party/qtermwidget)
 add_subdirectory(third_party/simpleini)

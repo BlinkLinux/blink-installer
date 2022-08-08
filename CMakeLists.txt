@@ -1,5 +1,8 @@
-project(blink-installer C CXX)
 cmake_minimum_required(VERSION 3.1)
+project(blink-installer
+    LANGUAGES C CXX
+    VERSION 3.1.0
+    )
 
 # Import folders
 add_subdirectory(data)
