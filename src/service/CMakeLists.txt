@@ -37,4 +37,5 @@ add_library(installer-service STATIC
     )
 target_link_libraries(installer-service
     Qt5::Core
+    Qt5::Network
     )

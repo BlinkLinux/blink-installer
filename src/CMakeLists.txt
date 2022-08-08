@@ -83,6 +83,7 @@ set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
 
 add_subdirectory(base)
 add_subdirectory(partman)
+add_subdirectory(service)
 
 # Set/get ini files.
 #add_executable(deepin-installer-settings

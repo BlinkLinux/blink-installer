@@ -77,10 +77,10 @@ QStringList ListAvatarFiles(const QString& dir_name) {
     return result;
   }
 
-  const QStringList name_filters = { "*.png", "*.jpg" };
+  const QStringList name_filters = {"*.png", "*.jpg"};
   const QFileInfoList info_list =
       dir.entryInfoList(name_filters, QDir::NoDotAndDotDot | QDir::Files);
-  for (const QFileInfo& info : info_list) {
+  for (const QFileInfo& info: info_list) {
     // Ignores "default.png" and "guest.png".
     if (info.size() > 0 &&
         (!info.fileName().startsWith("default")) &&
@@ -104,7 +104,7 @@ QDir GetOemDir() {
       g_oem_dir = kDeepinOemDir;
     }
   }
-  return QDir(g_oem_dir);
+  return g_oem_dir;
 }
 
 bool GetSettingsBool(const QString& key) {
@@ -134,14 +134,14 @@ QString GetSettingsString(const QString& key) {
   }
 
   qCritical() << "GetSettingsString() failed with key:" << key;
-  return QString();
+  return {};
 }
 
 QStringList GetSettingsStringList(const QString& key) {
   const QVariant value = GetSettingsValue(key);
   if (!value.isValid()) {
     qCritical() << "GetSettingsStringList() failed with key:" << key;
-    return QStringList();
+    return {};
   }
 
   return value.toString().split(';');
@@ -170,14 +170,14 @@ QString GetAutoPartFile() {
       oem_dir.absoluteFilePath(kAutoPartFile),
       builtin_dir.absoluteFilePath(kAutoPartFile),
   };
-  for (const QString filepath : script_files) {
+  for (const QString& filepath: script_files) {
     if (QFile::exists(filepath)) {
       return filepath;
     }
   }
 
   qCritical() << "GetAutoPartFile() not partition script found!";
-  return QString();
+  return {};
 }
 
 QStringList GetAvatars() {
@@ -193,14 +193,14 @@ QStringList GetAvatars() {
 }
 
 QString GetDefaultAvatar() {
-  const QString default_avatar(GetSettingsString(kSystemInfoDefaultAvator));
+  QString default_avatar(GetSettingsString(kSystemInfoDefaultAvator));
   if (!default_avatar.isEmpty() && QFile::exists(default_avatar)) {
     // Returns default avatar
     return default_avatar;
   }
 
   // Pick a random avatar.
-  const int num = static_cast<int>(time(NULL));
+  const int num = static_cast<int>(time(nullptr));
   const QStringList avatars = GetAvatars();
   if (avatars.isEmpty()) {
     return "";
@@ -214,7 +214,7 @@ QString GetOemHooksDir() {
 }
 
 QString GetReservedUsernameFile() {
-  const QString oem_file = GetOemDir().absoluteFilePath("reserved_usernames");
+  QString oem_file = GetOemDir().absoluteFilePath("reserved_usernames");
   if (QFile::exists(oem_file)) {
     return oem_file;
   }
@@ -224,7 +224,7 @@ QString GetReservedUsernameFile() {
 }
 
 QString GetVendorLogo() {
-  const QString oem_file = GetOemDir().absoluteFilePath("vendor.png");
+  QString oem_file = GetOemDir().absoluteFilePath("vendor.png");
   if (QFile::exists(oem_file)) {
     return oem_file;
   }
@@ -234,7 +234,7 @@ QString GetVendorLogo() {
 }
 
 QString GetWindowBackground() {
-  const QString oem_file = GetOemDir().absoluteFilePath(kOemWallpaperFilename);
+  QString oem_file = GetOemDir().absoluteFilePath(kOemWallpaperFilename);
   if (QFile::exists(oem_file)) {
     return oem_file;
   }
@@ -251,7 +251,7 @@ bool AppendConfigFile(const QString& conf_file) {
   QSettings target_settings(kInstallerConfigFile, QSettings::IniFormat);
   QSettings new_settings(conf_file, QSettings::IniFormat);
 
-  for (const QString& key : new_settings.allKeys()) {
+  for (const QString& key: new_settings.allKeys()) {
     const QVariant value = new_settings.value(key);
     target_settings.setValue(key, value);
   }
@@ -356,7 +356,7 @@ void AddConfigFile() {
 
   // Read default settings
   QSettings default_settings(kDefaultSettingsFile, QSettings::IniFormat);
-  for (const QString& key : default_settings.allKeys()) {
+  for (const QString& key: default_settings.allKeys()) {
     const QVariant value(default_settings.value(key));
     // Do not use section groups.
     target_settings.setValue(key, value);
@@ -365,8 +365,8 @@ void AddConfigFile() {
   // Read oem settings
   const QString oem_file = GetOemDir().absoluteFilePath(kOemSettingsFilename);
   if (QFile::exists(oem_file)) {
-    QSettings oem_settings(oem_file , QSettings::IniFormat);
-    for (const QString& key : oem_settings.allKeys()) {
+    QSettings oem_settings(oem_file, QSettings::IniFormat);
+    for (const QString& key: oem_settings.allKeys()) {
       const QVariant value = oem_settings.value(key);
       target_settings.setValue(key, value);
     }
