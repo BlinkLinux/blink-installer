@@ -54,7 +54,7 @@ int initShell(int argc, char** argv) {
   DeleteConfigFile();
   AddConfigFile();
 
-  qDebug() << "Version:" << kAppVersion;
+  qDebug() << "Version:" << kAppVersion << ", build id:" << kAppBuildId << ", built at:" << kAppBuildDate;
 
   const QString conf_file(args_parser.getConfFile());
   // Append customized configurations.

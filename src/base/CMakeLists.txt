@@ -2,7 +2,6 @@
 set(SOURCE_FILES
     command.cpp
     command.h
-    consts.h
     file_util.cpp
     file_util.h
     string_util.cpp
