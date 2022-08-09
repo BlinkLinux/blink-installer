@@ -213,3 +213,14 @@ add_library(installer-ui STATIC
 target_link_libraries(installer-ui
     ${LINK_LIBS}
     )
+
+if (BUILD_TESTING)
+  add_executable(installer-ui-tests
+      ${TEST_FILES}
+      )
+  target_link_libraries(installer-ui-tests
+      installer-ui
+      installer-tests
+      )
+  add_test(installer-ui-tests installer-ui-tests)
+endif()
