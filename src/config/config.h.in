@@ -1,0 +1,23 @@
+// Copyright (c) 2022 Xu Shaohua <shaohua@biofan.org>. All rights reserved.
+// Use of this source is governed by General Public License that can be found
+// in the LICENSE file.
+
+#ifndef CONFIG_CONFIG_H_
+#define CONFIG_CONFIG_H_
+
+namespace installer {
+
+constexpr const char* kAppVersion = "@INSTALLER_VERSION@";
+constexpr const char* kAppBuildId = "@INSTALLER_BUILD_ID@";
+constexpr const char* kAppBuildDate = "@INSTALLER_BUILD_DATE@";
+
+// Name of application.
+// This name can be used as folder name, like in /usr/share or /usr/lib.
+constexpr const char kAppName[] = "blink-installer";
+
+// Human readable name of application.
+constexpr const char kAppDisplayName[] = "Blink Installer";
+
+}  // namespace installer
+
+#endif  // CONFIG_CONFIG_H_

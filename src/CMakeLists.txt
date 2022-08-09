@@ -60,6 +60,8 @@ set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
 
 add_subdirectory(app)
 add_subdirectory(base)
+add_subdirectory(config)
+add_subdirectory(controllers)
 add_subdirectory(partman)
 add_subdirectory(service)
 add_subdirectory(sysinfo)
