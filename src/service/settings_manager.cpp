@@ -22,7 +22,7 @@
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <time.h>
+#include <ctime>
 #include <unistd.h>
 #include <QDateTime>
 #include <QDebug>
@@ -32,7 +32,7 @@
 #include <QHash>
 #include <QSettings>
 
-#include "base/consts.h"
+#include "config/config.h"
 #include "service/settings_name.h"
 
 namespace installer {

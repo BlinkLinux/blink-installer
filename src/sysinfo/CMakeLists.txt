@@ -55,4 +55,5 @@ target_link_libraries(installer-sysinfo
     Qt5::Xml
 
     installer-base
+    installer-config
     )

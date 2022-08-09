@@ -40,4 +40,5 @@ target_link_libraries(installer-service
     Qt5::Network
 
     installer-base
+    installer-config
     )

@@ -41,4 +41,6 @@ add_library(installer-partman STATIC
 target_link_libraries(installer-partman
     Qt5::Core
     PkgConfig::Parted
+
+    installer-sysinfo
     )

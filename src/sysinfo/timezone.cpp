@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +23,12 @@
 #endif
 #include <cmath>
 #include <libintl.h>
-#include <locale.h>
-#include <time.h>
+#include <clocale>
+#include <ctime>
 #include <QDebug>
 
-#include "base/consts.h"
 #include "base/file_util.h"
+#include "config/config.h"
 
 namespace installer {
 
