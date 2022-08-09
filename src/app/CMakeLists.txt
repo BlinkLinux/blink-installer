@@ -3,6 +3,7 @@ set(RESOURCE_FILES
     ../../resources/images/images.qrc
     ../../resources/spinner/spinner.qrc
     ../../resources/styles/styles.qrc
+    ${CMAKE_BINARY_DIR}/i18n/installer.qrc
 
     # Also include color-schems used in qtermwidget.
     ../third_party/qtermwidget/lib/color-schemes/color-schemes.qrc
