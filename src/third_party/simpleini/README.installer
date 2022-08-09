@@ -1,4 +1,6 @@
 Name: simpleini
-Homepage: https://github.com/brofield/simpleini
 Author: brofield
+Version: 4.19
+Homepage: https://github.com/brofield/simpleini
 License: MIT
+Description: Cross-platform C++ library providing a simple API to read and write INI-style configuration files
