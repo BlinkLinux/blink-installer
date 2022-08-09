@@ -7,12 +7,20 @@
 
 #include <QObject>
 
+#include "ui/main_window.h"
+
 namespace installer {
 
 class MainController : public QObject {
   Q_OBJECT
  public:
   explicit MainController(QObject* parent = nullptr);
+  ~MainController() override;
+
+  bool init();
+
+ private:
+  MainWindow* main_window_{nullptr};
 };
 
 }  // namespace installer
