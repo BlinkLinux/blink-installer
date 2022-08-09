@@ -1,7 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
   <qresource prefix="/spinner">
-    <file>generate_qrc.py</file>
     <file>loading_000.png</file>
     <file>loading_001.png</file>
     <file>loading_002.png</file>
