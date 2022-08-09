@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +40,7 @@ QString CountryCodeToTimezone(const QString& regdomain) {
   if (index > -1) {
     return list.at(index).timezone;
   } else {
-    return QString();
+    return {};
   }
 }
 

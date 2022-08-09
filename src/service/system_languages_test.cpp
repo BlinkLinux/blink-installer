@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <gtest/gtest.h>
+
 #include "service/system_language.h"
 
-#include "third_party/googletest/googletest/include/gtest/gtest.h"
-
-namespace service {
+namespace installer {
 namespace {
 
-TEST(SystemLanguageTest, GetLanguageList) {
+TEST(SystemLanguageTest, TestGetLanguageList) {
   const LanguageList lang_list= GetLanguageList();
   EXPECT_TRUE(lang_list.length() > 0);
   QStringList locale_list;
@@ -33,4 +34,4 @@ TEST(SystemLanguageTest, GetLanguageList) {
 }
 
 }  // namespace
-}  // namespace service
+}  // namespace installer

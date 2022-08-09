@@ -82,16 +82,6 @@ bool RemoveFolderRecursively(const QString& path) {
 
 }  // namespace
 
-void HooksPack::init(HookType type, int progress_begin, int progress_end,
-                     HooksPack* next) {
-  this->type = type;
-  this->progress_begin = progress_begin;
-  this->progress_end = progress_end;
-  this->next = next;
-  this->hooks = ListHooks(type);
-  this->current_hook = -1;
-}
-
 bool CopyHooks() {
   // First, remove old folder.
   if (!RemoveFolderRecursively(kTargetHooksDir)) {
@@ -142,6 +132,15 @@ bool ChrootCopyHooks() {
   }
 
   return true;
+}
+
+HooksPack::HooksPack(HookType type, int progress_begin, int progress_end, HooksPack* next)
+  : type(type),
+    current_hook(-1),
+    progress_begin(progress_begin),
+    progress_end(progress_end),
+    next(next) {
+  hooks = ListHooks(type);
 }
 
 }  // namespace installer

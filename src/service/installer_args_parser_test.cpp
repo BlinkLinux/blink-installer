@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "installer_args_parser.h"
+#include <gtest/gtest.h>
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "installer_args_parser.h"
 
 namespace installer {
 namespace {

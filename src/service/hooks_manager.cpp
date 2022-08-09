@@ -94,7 +94,7 @@ void HooksManager::initConnections() {
 }
 
 void HooksManager::runNextHook() {
-  hooks_pack_->current_hook ++;
+  hooks_pack_->current_hook++;
   if (hooks_pack_->current_hook >= hooks_pack_->hooks.length()) {
     // Clear environment of current hooks pack.
     if (hooks_pack_->type == HookType::BeforeChroot) {
@@ -172,16 +172,12 @@ void HooksManager::handleRunHooks() {
     return;
   }
 
-  HooksPack* before_chroot = new HooksPack();
-  HooksPack* in_chroot = new HooksPack();
-  HooksPack* after_chroot = new HooksPack();
-
-  before_chroot->init(HookType::BeforeChroot, kBeforeChrootStartVal,
-                      kBeforeChrootEndVal, in_chroot);
-  in_chroot->init(HookType::InChroot, kInChrootStartVal,
-                  kInChrootEndVal, after_chroot);
-  after_chroot->init(HookType::AfterChroot, kAfterChrootStartVal,
-                     kAfterChrootEndVal, nullptr);
+  auto* after_chroot = new HooksPack(HookType::AfterChroot, kAfterChrootStartVal,
+                                     kAfterChrootEndVal, nullptr);
+  auto* in_chroot = new HooksPack(HookType::InChroot, kInChrootStartVal,
+                                  kInChrootEndVal, after_chroot);
+  auto* before_chroot = new HooksPack(HookType::BeforeChroot, kBeforeChrootStartVal,
+                                      kBeforeChrootEndVal, in_chroot);
 
   hooks_pack_ = before_chroot;
   this->runHooksPack();

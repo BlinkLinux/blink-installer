@@ -50,4 +50,16 @@ target_link_libraries(installer-service
 
     installer-base
     installer-config
+    installer-sysinfo
     )
+
+if (BUILD_TESTING)
+  add_executable(installer-service-tests
+      ${TEST_FILES}
+      )
+  target_link_libraries(installer-service-tests
+      installer-service
+      installer-tests
+      )
+  add_test(installer-service-tests installer-service-tests)
+endif()

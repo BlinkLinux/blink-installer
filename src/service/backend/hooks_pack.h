@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,22 +24,21 @@
 
 namespace installer {
 
-enum class HookType {
-  BeforeChroot,
+enum class HookType : quint8 {
+  BeforeChroot = 0,
   InChroot,
   AfterChroot,
 };
 
 struct HooksPack {
-  void init(HookType type, int progress_begin, int progress_end,
-            HooksPack* next);
+  HooksPack(HookType type, int progress_begin, int progress_end, HooksPack* next);
 
-  HookType type;
-  QStringList hooks;
-  int current_hook;
-  int progress_begin;
-  int progress_end;
-  HooksPack* next = nullptr;
+  HookType type{};
+  QStringList hooks{};
+  int current_hook{};
+  int progress_begin{};
+  int progress_end{};
+  HooksPack* next{nullptr};
 };
 
 // Copy hooks from system and oem folder to /tmp/installer

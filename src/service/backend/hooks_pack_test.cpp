@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "service/backend/hooks_pack.h"
+#include <gtest/gtest.h>
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "service/backend/hooks_pack.h"
 
 namespace installer {
 namespace {
 
 TEST(HooksPackTest, HooksPackInitTest) {
-  HooksPack before_chroot;
-  before_chroot.init(HookType::BeforeChroot, 0, 20, false, nullptr);
+  HooksPack before_chroot(HookType::BeforeChroot, 0, 20, nullptr);
   EXPECT_FALSE(before_chroot.hooks.isEmpty());
 }
 
