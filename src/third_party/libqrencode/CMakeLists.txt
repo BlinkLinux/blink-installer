@@ -2,18 +2,18 @@ cmake_minimum_required(VERSION 3.1.0)
 
 project(QRencode VERSION 4.1.1 LANGUAGES C)
 
-option(WITH_TOOLS "Build utility tools"  YES )
+option(WITH_TOOLS "Build utility tools"  NO )
 option(WITH_TESTS "Build tests"  NO )
 option(WITHOUT_PNG "Disable PNG support" NO)
-option(GPROF "Generate extra code to write profile information" OFF)
+option(GPROF "Generate extra code to write profile information" ON)
 option(COVERAGE "Generate extra code to write coverage information" OFF)
 option(ASAN "Use AddressSanitizer" OFF)
 option(BUILD_SHARED_LIBS "Enable build of shared libraries" NO)
 
-if(BUILD_TESTING)
-    set(WITH_TESTS ON)
-    message(DEPRECATION "use WITH_TESTS option instead BUILD_TESTING")
-endif()
+#if(BUILD_TESTING)
+#    set(WITH_TESTS ON)
+#    message(DEPRECATION "use WITH_TESTS option instead BUILD_TESTING")
+#endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -130,10 +130,10 @@ set(VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION
 configure_file(qrencode.1.in qrencode.1 @ONLY)
 configure_file(libqrencode.pc.in libqrencode.pc @ONLY)
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/qrencode.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libqrencode.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-install(FILES qrencode.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(TARGETS qrencode DESTINATION ${CMAKE_INSTALL_LIBDIR})
+#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/qrencode.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libqrencode.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+#install(FILES qrencode.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+#install(TARGETS qrencode DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 ## Build utility tools
 if(WITH_TOOLS)
