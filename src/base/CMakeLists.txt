@@ -22,3 +22,14 @@ add_library(installer-base STATIC
 target_link_libraries(installer-base
     Qt5::Core
     )
+
+if (BUILD_TESTING)
+  add_executable(installer-base-tests
+      ${TEST_FILES}
+      )
+  target_link_libraries(installer-base-tests
+      installer-base
+      installer-tests
+      )
+  add_test(installer-base-tests installer-base-tests)
+endif()
