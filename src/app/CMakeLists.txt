@@ -18,3 +18,8 @@ target_link_libraries(blink-installer
 
     installer-ui
     )
+
+install(TARGETS
+        blink-installer
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+        )
