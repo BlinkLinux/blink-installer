@@ -16,7 +16,7 @@ add_executable(blink-installer
 target_link_libraries(blink-installer
     Qt5::Widgets
 
-    installer-ui
+    installer-controllers
     )
 
 install(TARGETS

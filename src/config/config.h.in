@@ -18,6 +18,9 @@ constexpr const char kAppName[] = "blink-installer";
 // Human readable name of application.
 constexpr const char kAppDisplayName[] = "Blink Installer";
 
+// Default locale used in program.
+constexpr char kDefaultLang[] = "en_US.UTF-8";
+
 }  // namespace installer
 
 #endif  // CONFIG_CONFIG_H_
