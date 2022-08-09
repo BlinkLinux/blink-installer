@@ -1,0 +1,64 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/slide">
+    <file>zh_CN/01-deepin-file-manager.png</file>
+    <file>zh_CN/02-deepin-app-store.png</file>
+    <file>zh_CN/03-deepin-movie.png</file>
+    <file>zh_CN/04-deepin-image-viewer.png</file>
+    <file>zh_CN/05-deepin-screenshot.png</file>
+    <file>zh_CN/06-deepin-music.png</file>
+    <file>zh_CN/07-deepin-terminal.png</file>
+    <file>zh_CN/08-deepin-cloud-print.png</file>
+    <file>zh_CN/09-deepin-utility.png</file>
+    <file>zh_CN/10-deepin-remote-assistance.png</file>
+    <file>zh_CN/11-deepin-community.png</file>
+    <file>zh_CN/12-deepin-dock.png</file>
+    <file>zh_CN/13-deepin-control-center.png</file>
+    <file>zh_CN/14-deepin-kernel.png</file>
+    <file>zh_CN/15-animation.png</file>
+    <file>zh_CN/16-wps-youdao-dict.png</file>
+    <file>zh_CN/18-netease-cloud-music.png</file>
+    <file>zh_CN/19-deepin-screen-recorder.png</file>
+    <file>zh_CN/20-wps.png</file>
+    <file>zh_CN/21-youdao-dict.png</file>
+
+    <file>zh_TW/01-deepin-file-manager.png</file>
+    <file>zh_TW/02-deepin-app-store.png</file>
+    <file>zh_TW/03-deepin-movie.png</file>
+    <file>zh_TW/04-deepin-image-viewer.png</file>
+    <file>zh_TW/05-deepin-screenshot.png</file>
+    <file>zh_TW/06-deepin-music.png</file>
+    <file>zh_TW/07-deepin-terminal.png</file>
+    <file>zh_TW/08-deepin-cloud-print.png</file>
+    <file>zh_TW/09-deepin-utility.png</file>
+    <file>zh_TW/10-deepin-remote-assistance.png</file>
+    <file>zh_TW/11-deepin-community.png</file>
+    <file>zh_TW/12-deepin-dock.png</file>
+    <file>zh_TW/13-deepin-control-center.png</file>
+    <file>zh_TW/14-deepin-kernel.png</file>
+    <file>zh_TW/15-animation.png</file>
+    <file>zh_TW/16-wps.png</file>
+    <file>zh_TW/17-deepin-screen-recorder.png</file>
+
+    <file>default/01-deepin-file-manager.png</file>
+    <file>default/02-deepin-app-store.png</file>
+    <file>default/03-deepin-movie.png</file>
+    <file>default/04-deepin-image-viewer.png</file>
+    <file>default/05-deepin-screenshot.png</file>
+    <file>default/06-deepin-music.png</file>
+    <file>default/07-deepin-terminal.png</file>
+    <file>default/08-deepin-cloud-print.png</file>
+    <file>default/09-deepin-utility.png</file>
+    <file>default/10-deepin-remote-assistance.png</file>
+    <file>default/11-deepin-community.png</file>
+    <file>default/12-deepin-dock.png</file>
+    <file>default/13-deepin-control-center.png</file>
+    <file>default/14-deepin-kernel.png</file>
+    <file>default/15-animation.png</file>
+    <file>default/16-wps.png</file>
+    <file>default/17-skype.png</file>
+    <file>default/18-spotify.png</file>
+    <file>default/19-deepin-screen-recorder.png</file>
+
+  </qresource>
+</RCC>
