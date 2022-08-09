@@ -1,21 +1,56 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
-project(CuteLogger)
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_AUTOMOC ON)
-find_package(Qt5Core REQUIRED)
+PROJECT(CuteLogger)
 
-add_definitions(-DCUTELOGGER_LIBRARY)
+FIND_PACKAGE(Qt5Core REQUIRED)
 
-set(SOURCES
-    CuteLogger/AbstractAppender.cpp CuteLogger/AbstractAppender.h
-    CuteLogger/AbstractStringAppender.cpp CuteLogger/AbstractStringAppender.h
-    CuteLogger/ConsoleAppender.cpp CuteLogger/ConsoleAppender.h
-    CuteLogger/CuteLogger_global.h
-    CuteLogger/FileAppender.cpp CuteLogger/FileAppender.h
-    CuteLogger/Logger.cpp CuteLogger/Logger.h
-    CuteLogger/RollingFileAppender.cpp CuteLogger/RollingFileAppender.h
-    )
+ADD_DEFINITIONS(-DCUTELOGGER_LIBRARY)
 
-add_library(CuteLogger STATIC ${SOURCES})
-target_link_libraries(CuteLogger Qt5::Core)
+INCLUDE_DIRECTORIES(BEFORE include)
+
+SET(sources
+  src/Logger.cpp
+  src/AbstractAppender.cpp
+  src/AbstractStringAppender.cpp
+  src/ConsoleAppender.cpp
+  src/FileAppender.cpp
+  src/RollingFileAppender.cpp
+)
+
+SET(includes
+  include/Logger.h
+  include/FileAppender.h
+  include/CuteLogger_global.h
+  include/ConsoleAppender.h
+  include/AbstractStringAppender.h
+  include/AbstractAppender.h
+  include/RollingFileAppender.h
+)
+
+
+# OutputDebugAppender is only for Windows systems
+IF(WIN32)
+  SET(sources ${sources} src/OutputDebugAppender.cpp)
+  SET(includes ${includes} include/OutputDebugAppender.h)
+ENDIF(WIN32)
+
+
+SET(library_target CuteLogger)
+
+ADD_LIBRARY(${library_target} STATIC ${sources} ${includes})
+TARGET_LINK_LIBRARIES(${library_target} Qt5::Core)
+TARGET_INCLUDE_DIRECTORIES(${library_target} PUBLIC include)
+
+#INSTALL(TARGETS ${library_target} DESTINATION lib)
+
+SET(ENABLE_TESTS OFF CACHE BOOL "Enable building CuteLogger tests")
+IF (ENABLE_TESTS)
+  SET(CMAKE_AUTOMOC ON)
+  FIND_PACKAGE(Qt5Test REQUIRED)
+
+  ADD_EXECUTABLE(basictest test/basictest.cpp)
+  TARGET_LINK_LIBRARIES(basictest Qt5::Core Qt5::Test CuteLogger)
+ENDIF ()

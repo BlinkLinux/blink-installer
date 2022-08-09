@@ -3,7 +3,7 @@
 
 #include <QDateTime>
 
-#include "FileAppender.h"
+#include <FileAppender.h>
 
 /*!
  * \brief The RollingFileAppender class extends FileAppender so that the underlying file is rolled over at a user chosen frequency.

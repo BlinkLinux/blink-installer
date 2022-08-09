@@ -2,7 +2,7 @@
 #define ANDROIDAPPENDER_H
 
 // Local
-#include "AbstractStringAppender.h"
+#include <AbstractStringAppender.h>
 
 
 class AndroidAppender : public AbstractStringAppender

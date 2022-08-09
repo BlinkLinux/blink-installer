@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2010 Karl-Heinz Reichel (khreichel at googlemail dot com)
+  Copyright (c) 2010 Boris Moiseev (cyberbobs at gmail dot com)
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License version 2.1
@@ -11,19 +11,45 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU Lesser General Public License for more details.
 */
+#ifndef FILEAPPENDER_H
+#define FILEAPPENDER_H
 
-#ifndef OUTPUTDEBUGAPPENDER_H
-#define OUTPUTDEBUGAPPENDER_H
-
+// Logger
 #include "CuteLogger_global.h"
-#include "AbstractStringAppender.h"
+#include <AbstractStringAppender.h>
+
+// Qt
+#include <QFile>
+#include <QTextStream>
 
 
-class CUTELOGGERSHARED_EXPORT OutputDebugAppender : public AbstractStringAppender
+class CUTELOGGERSHARED_EXPORT FileAppender : public AbstractStringAppender
 {
+  public:
+    FileAppender(const QString& fileName = QString());
+    ~FileAppender();
+
+    QString fileName() const;
+    void setFileName(const QString&);
+
+    bool flushOnWrite() const;
+    void setFlushOnWrite(bool);
+
+    bool flush();
+
+    bool reopenFile();
+
   protected:
     virtual void append(const QDateTime& timeStamp, Logger::LogLevel logLevel, const char* file, int line,
                         const char* function, const QString& category, const QString& message);
+    bool openFile();
+    void closeFile();
+
+  private:
+    QFile m_logFile;
+    bool m_flushOnWrite;
+    QTextStream m_logStream;
+    mutable QMutex m_logFileMutex;
 };
 
-#endif // OUTPUTDEBUGAPPENDER_H
+#endif // FILEAPPENDER_H

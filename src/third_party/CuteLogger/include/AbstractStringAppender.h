@@ -11,26 +11,36 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU Lesser General Public License for more details.
 */
-#ifndef CONSOLEAPPENDER_H
-#define CONSOLEAPPENDER_H
+#ifndef ABSTRACTSTRINGAPPENDER_H
+#define ABSTRACTSTRINGAPPENDER_H
 
+// Local
 #include "CuteLogger_global.h"
-#include "AbstractStringAppender.h"
+#include <AbstractAppender.h>
+
+// Qt
+#include <QReadWriteLock>
 
 
-class CUTELOGGERSHARED_EXPORT ConsoleAppender : public AbstractStringAppender
+class CUTELOGGERSHARED_EXPORT AbstractStringAppender : public AbstractAppender
 {
   public:
-    ConsoleAppender();
+    AbstractStringAppender();
+
     virtual QString format() const;
-    void ignoreEnvironmentPattern(bool ignore);
+    void setFormat(const QString&);
+
+    static QString stripFunctionName(const char*);
 
   protected:
-    virtual void append(const QDateTime& timeStamp, Logger::LogLevel logLevel, const char* file, int line,
-                        const char* function, const QString& category, const QString& message);
+    QString formattedString(const QDateTime& timeStamp, Logger::LogLevel logLevel, const char* file, int line,
+                            const char* function, const QString& category, const QString& message) const;
 
   private:
-    bool m_ignoreEnvPattern;
+    static QByteArray qCleanupFuncinfo(const char*);
+
+    QString m_format;
+    mutable QReadWriteLock m_formatLock;
 };
 
-#endif // CONSOLEAPPENDER_H
+#endif // ABSTRACTSTRINGAPPENDER_H
