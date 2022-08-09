@@ -44,3 +44,14 @@ target_link_libraries(installer-partman
 
     installer-sysinfo
     )
+
+if (BUILD_TESTING)
+  add_executable(installer-partman-tests
+      ${TEST_FILES}
+      )
+  target_link_libraries(installer-partman-tests
+      installer-tests
+      installer-partman
+      )
+  add_test(installer-partman-tests installer-partman-tests)
+endif()

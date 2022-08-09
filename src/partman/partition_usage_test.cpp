@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "partman/partition_usage.h"
-
+#include <gtest/gtest.h>
 #include <QDebug>
 #include <QList>
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "partman/partition_usage.h"
 
-namespace partman {
+namespace installer {
 
 TEST(TestPartitionUsage, PartitionUsage) {
   QList<QPair<QString, FsType>> entries = {
@@ -42,7 +42,7 @@ TEST(TestPartitionUsage, PartitionUsage) {
 //      {"/dev/sdc14", FsType::Xfs},
   };
 
-  for (const QPair<QString, FsType>& entry : entries) {
+  for (const QPair<QString, FsType>& entry: entries) {
     qint64 freespace;
     qint64 total;
     EXPECT_TRUE(ReadUsage(entry.first, entry.second, freespace, total));
@@ -54,4 +54,4 @@ TEST(TestPartitionUsage, PartitionUsage) {
   }
 }
 
-}  // namespace partman
+}  // namespace installer

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,18 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <gtest/gtest.h>
+
 #include "partman/os_prober.h"
 
-#include "third_party/googletest/include/gtest/gtest.h"
-
-namespace partman {
-namespace {
+namespace installer {
 
 TEST(TestOsProber, GetOsTypeItems) {
-  const OsTypeItems os_type_items = GetOsTypeItems();
+  const OsProberItems os_type_items = GetOsProberItems();
   EXPECT_FALSE(os_type_items.isEmpty());
-  EXPECT_TRUE(os_type_items.value("/dev/sdc1") == OsType::Linux);
+  EXPECT_TRUE(os_type_items.first().type == OsType::Linux);
 }
 
-}  // namespace
-}  // namespace partman
+}  // namespace installer
