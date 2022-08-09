@@ -17,7 +17,7 @@
 
 #include "sysinfo/validate_hostname.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 namespace installer {
 
@@ -36,7 +36,8 @@ ValidateHostnameState ValidateHostname(const QString& hostname,
     return ValidateHostnameState::ReservedError;
   }
 
-  const QRegExp reg("[a-z0-9-]{1,63}", Qt::CaseInsensitive);
+  // TODO(Shaohua): Check regexp pattern.
+  const QRegularExpression pattern("[a-z0-9-]{1,63}", QRegularExpression::CaseInsensitiveOption);
   const QStringList parts = hostname.split('.');
   if (parts.isEmpty()) {
     return ValidateHostnameState::InvalidChar;
@@ -45,7 +46,7 @@ ValidateHostnameState ValidateHostname(const QString& hostname,
   for (const QString& part : parts) {
     if (part.startsWith('-') ||
         part.endsWith('-') ||
-        !reg.exactMatch(part)) {
+        !pattern.match(part).isValid()) {
       return ValidateHostnameState::InvalidChar;
     }
   }

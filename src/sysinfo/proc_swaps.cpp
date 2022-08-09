@@ -17,7 +17,7 @@
 
 #include "sysinfo/proc_swaps.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStringList>
 
 #include "base/file_util.h"
@@ -30,7 +30,7 @@ SwapItemList ParseSwaps() {
 
   for (const QString& line : content.split('\n')) {
     if ((!line.isEmpty()) && (!line.startsWith("Filename"))) {
-      const QStringList parts(line.split(QRegExp("\\s+")));
+      const QStringList parts(line.split(QRegularExpression("\\s+")));
       if (parts.length() == 5) {
         SwapItem item = {
             parts.at(0),

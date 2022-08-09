@@ -19,6 +19,7 @@
 #include "sysinfo/proc_partitions.h"
 
 #include <QDebug>
+#include <QRegularExpression>
 
 #include "base/file_util.h"
 
@@ -29,7 +30,7 @@ QList<PartitionItem> ParsePartitionItems() {
 
   const QString content(ReadFile("/proc/partitions"));
   const QStringList lines(content.split("\n", Qt::SkipEmptyParts));
-  const QRegExp space_exp("\\s+");
+  const QRegularExpression space_exp("\\s+");
   for (const QString& line : lines) {
     // Skip header line.
     if (line.startsWith("major")) {

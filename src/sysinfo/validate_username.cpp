@@ -18,7 +18,7 @@
 #include "sysinfo/validate_username.h"
 
 #include <QDebug>
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include "base/file_util.h"
 
@@ -69,8 +69,9 @@ ValidateUsernameState ValidateUsername(const QString& username,
     return ValidateUsernameState::FirstCharError;
   }
 
-  const QRegExp reg("[a-z][a-z0-9_-]*");
-  if (!reg.exactMatch(username)) {
+  // TODO(Shaohua): Check regexp pattern.
+  const QRegularExpression pattern("[a-z][a-z0-9_-]*");
+  if (!pattern.match(username).isValid()) {
     return ValidateUsernameState::InvalidCharError;
   }
 
