@@ -1,0 +1,9 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/misc">
+    <file>languages.json</file>
+    <file>reserved_usernames</file>
+    <file>timezone_alias</file>
+    <file>tz_backward</file>
+  </qresource>
+</RCC>

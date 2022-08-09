@@ -1,3 +1,15 @@
+
+set(SOURCE_FILES
+    misc/misc.h
+    )
+
+add_library(installer-resources STATIC
+    ${SOURCE_FILES}
+    )
+set_target_properties(installer-resources
+    PROPERTIES LINKER_LANGUAGE CXX
+    )
+
 ## Install resources/ folder, excluding desktop file and icons.
 #
 #install(
