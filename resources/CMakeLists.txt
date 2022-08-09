@@ -1,5 +1,6 @@
 
 set(SOURCE_FILES
+    icons/icons.h
     misc/misc.h
     )
 

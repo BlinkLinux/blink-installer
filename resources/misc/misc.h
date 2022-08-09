@@ -8,10 +8,10 @@
 namespace installer {
 
 constexpr const char kMiscLanguages[] = ":/misc/languages.json";
-constexpr const char kMiscReservedUsernames[] = ":/misc/reserved_usernames";
-constexpr const char kMiscTimezoneAlias[] = ":/misc/timezone_alias";
-constexpr const char kMiscTzBackward[] = ":/misc/tz_backward";
+constexpr const char kMiscReservedUsernames[] = ":/misc/reserved-usernames";
+constexpr const char kMiscTimezoneAlias[] = ":/misc/timezone-alias";
+constexpr const char kMiscTzBackward[] = ":/misc/tz-backward";
 
 }  // namespace installer
 
-#endif //BLINK_INSTALLER_RESOURCES_MISC_MISC_H_
+#endif  // BLINK_INSTALLER_RESOURCES_MISC_MISC_H_
