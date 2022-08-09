@@ -24,7 +24,7 @@ import sys
 
 def get_language_list():
     """Parse language list and returns locale list."""
-    path = "resources/languages.json"
+    path = "resources/misc/languages.json"
     with open(path) as fh:
         obj = json.load(fh)
     if obj:
