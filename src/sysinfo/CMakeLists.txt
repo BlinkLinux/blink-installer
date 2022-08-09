@@ -57,3 +57,14 @@ target_link_libraries(installer-sysinfo
     installer-base
     installer-config
     )
+
+if (BUILD_TESTING)
+  add_executable(installer-sysinfo-tests
+      ${TEST_FILES}
+      )
+  target_link_libraries(installer-sysinfo-tests
+      installer-sysinfo
+      installer-tests
+      )
+  add_test(installer-sysinfo-tests installer-sysinfo-tests)
+endif()

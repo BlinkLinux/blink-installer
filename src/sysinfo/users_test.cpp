@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,11 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sysinfo/users.h"
-
+#include <gtest/gtest.h>
 #include <QString>
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "sysinfo/users.h"
 
 namespace installer {
 namespace {
