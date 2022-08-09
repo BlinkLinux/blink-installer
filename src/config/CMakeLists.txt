@@ -1,5 +1,4 @@
 
-
 function(generate_config_file)
   set(INSTALLER_VERSION ${PROJECT_VERSION})
 
@@ -36,6 +35,9 @@ add_library(installer-config STATIC
     )
 add_dependencies(installer-config
     installer-generate-config-files
+    )
+set_target_properties(installer-config
+    PROPERTIES LINKER_LANGUAGE CXX
     )
 target_include_directories(installer-config
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/..

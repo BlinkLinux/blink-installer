@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 project(blink-installer
-    LANGUAGES C CXX
+    LANGUAGES CXX
     VERSION 3.1.0
     )
 
