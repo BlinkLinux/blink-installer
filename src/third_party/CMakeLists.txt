@@ -1,7 +1,7 @@
 
 add_subdirectory(CuteLogger)
 add_subdirectory(global_shortcut)
-add_subdirectory(qrencode)
+add_subdirectory(libqrencode)
 add_subdirectory(qtermwidget)
 add_subdirectory(simpleini)
 add_subdirectory(timezones)

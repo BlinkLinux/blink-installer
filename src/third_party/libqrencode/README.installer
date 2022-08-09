@@ -1,0 +1,6 @@
+Name: libqrencode
+Author: Kentaro Fukuchi
+Version: 4.1.1
+License: LGPLv2.1
+Home: https://github.com/fukuchi/libqrencode
+Description: QR Code encoding library
