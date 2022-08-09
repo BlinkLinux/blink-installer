@@ -12,37 +12,16 @@ set_target_properties(installer-resources
     PROPERTIES LINKER_LANGUAGE CXX
     )
 
-## Install resources/ folder, excluding desktop file and icons.
-#
-#install(
-#    FILES ${CMAKE_CURRENT_SOURCE_DIR}/default_wallpaper.jpg
-#    ${CMAKE_CURRENT_SOURCE_DIR}/languages.json
-#    ${CMAKE_CURRENT_SOURCE_DIR}/oem_settings.json
-#    ${CMAKE_CURRENT_SOURCE_DIR}/reserved_usernames
-#    ${CMAKE_CURRENT_SOURCE_DIR}/timezone_alias
-#    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-installer/resources
-#)
-#
-## Install PolicyKit file.
-#install(
-#    FILES ${CMAKE_CURRENT_SOURCE_DIR}/com.deepin.pkexec.installer.policy
-#    ${CMAKE_CURRENT_SOURCE_DIR}/com.deepin.pkexec.installer-first-boot.policy
-#    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/polkit-1/actions/
-#)
-#
-#install(
-#    FILES ${CMAKE_CURRENT_SOURCE_DIR}/deepin-installer-oem.desktop
-#    ${CMAKE_CURRENT_SOURCE_DIR}/deepin-installer.desktop
-#    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
-#)
-#
-#install(
-#    FILES ${CMAKE_CURRENT_SOURCE_DIR}/deepin-installer-oem.svg
-#    ${CMAKE_CURRENT_SOURCE_DIR}/deepin-installer.svg
-#    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
-#)
-#
-#
+install(
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/blink-installer.desktop
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
+)
+
+install(
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/blink-installer.svg
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
+)
+
 ## Install default_settings.ini based on current architecture.
 #set(INSTALLER_BUILD_ARCH "")
 #execute_process(COMMAND uname -m
@@ -84,5 +63,3 @@ set_target_properties(installer-resources
 #else()
 #  message(FATAL_ERROR "Not supportted architecture: ${INSTALLER_BUILD_ARCH}")
 #endif ()
-#
-#add_subdirectory(slide)

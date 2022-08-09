@@ -35,3 +35,10 @@ else()
                     WORLD_READ WORLD_EXECUTE
     )
 endif()
+
+# Install PolicyKit file.
+install(
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/com.deepin.pkexec.installer.policy
+    ${CMAKE_CURRENT_SOURCE_DIR}/com.deepin.pkexec.installer-first-boot.policy
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/polkit-1/actions/
+)
