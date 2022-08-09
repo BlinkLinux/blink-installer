@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/delegates/installer_args_parser.h"
+#include "installer_args_parser.h"
 
 #include <QCoreApplication>
 #include <QDebug>
@@ -38,14 +39,11 @@ bool InstallerArgsParser::parse(const QStringList& args) {
 
   // Add pre-defined options.
   QCommandLineParser parser;
-  const QCommandLineOption conf_file_option(
-      "conf","Read config from <file>", "file", "");
+  const QCommandLineOption conf_file_option("conf","Read config from <file>", "file", "");
   parser.addOption(conf_file_option);
-  const QCommandLineOption log_file_option(
-      "log", "Write log to <file>", "file", "");
+  const QCommandLineOption log_file_option("log", "Write log to <file>", "file", "");
   parser.addOption(log_file_option);
-  const QCommandLineOption auto_install_option(
-      "auto-install", "Enable auto-install mode", "", "");
+  const QCommandLineOption auto_install_option("auto-install", "Enable auto-install mode", "", "");
   parser.addOption(auto_install_option);
   parser.addHelpOption();
   parser.addVersionOption();

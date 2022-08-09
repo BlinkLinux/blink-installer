@@ -16,8 +16,6 @@ set(SOURCE_FILES
     delegates/frameless_list_delegate.h
     delegates/full_disk_delegate.cpp
     delegates/full_disk_delegate.h
-    delegates/installer_args_parser.cpp
-    delegates/installer_args_parser.h
     delegates/install_slide_frame_util.cpp
     delegates/install_slide_frame_util.h
     delegates/language_delegate.cpp
@@ -186,7 +184,6 @@ set(SOURCE_FILES
     )
 
 set(TEST_FILES
-    delegates/installer_args_parser_test.cpp
     delegates/install_slide_frame_util_test.cpp
     delegates/timezone_map_util_test.cpp
     )

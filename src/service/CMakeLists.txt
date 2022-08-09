@@ -15,6 +15,8 @@ set(SOURCE_FILES
     first_boot_hook_worker.h
     hooks_manager.cpp
     hooks_manager.h
+    installer_args_parser.cpp
+    installer_args_parser.h
     log_manager.cpp
     log_manager.h
     power_manager.cpp
@@ -30,6 +32,13 @@ set(SOURCE_FILES
     settings_name.h
     timezone_manager.cpp
     timezone_manager.h
+    )
+
+set(TEST_FILES
+    backend/hooks_pack_test.cpp
+    installer_args_parser_test.cpp
+    system_languages_test.cpp
+    timezone_manager_test.cpp
     )
 
 add_library(installer-service STATIC
