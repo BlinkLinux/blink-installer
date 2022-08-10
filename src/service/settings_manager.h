@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +77,7 @@ QString GetWindowBackground();
 // Append settings in |conf_file| into default conf file.
 bool AppendConfigFile(const QString& conf_file);
 
-// Operations of /etc/deepin-installer.conf
+// Operations of /etc/blink-installer.conf
 bool DeleteConfigFile();
 
 // Setup uefi mode or not.
@@ -110,7 +111,7 @@ void WritePartitionInfo(const QString& root_disk,
 // Whether swap file is required. Swap file is created in before_chroot/.
 void WriteRequiringSwapFile(bool is_required);
 
-// Save current settings to /etc/deepin-installer.conf
+// Save current settings to /etc/blink-installer.conf
 // Other settings will be updated later.
 void AddConfigFile();
 

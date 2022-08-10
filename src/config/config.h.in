@@ -21,6 +21,9 @@ constexpr const char kAppDisplayName[] = "Blink Installer";
 // Default locale used in program.
 constexpr char kDefaultLang[] = "en_US.UTF-8";
 
+// Absolute path to settings file.
+constexpr const char kInstallerConfigFile[] = "/etc/blink-installer.conf";
+
 }  // namespace installer
 
 #endif  // CONFIG_CONFIG_H_

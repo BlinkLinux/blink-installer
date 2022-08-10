@@ -44,29 +44,26 @@ namespace {
 // Absolute path to oem dir.
 QString g_oem_dir;
 
-const char kLocaleKey[] = "DI_LOCALE";
-
-// Absolute path to installer config file.
-const char kInstallerConfigFile[] = "/etc/deepin-installer.conf";
+constexpr const char kLocaleKey[] = "DI_LOCALE";
 
 // Absolute path to default installer settings
-const char kDefaultSettingsFile[] = RESOURCES_DIR "/settings/default_settings.ini";
+constexpr const char kDefaultSettingsFile[] = RESOURCES_DIR "/settings/default_settings.ini";
 
 // File name of installer wallpaper.
-const char kOemWallpaperFilename[] = "installer-background.jpg";
+constexpr const char kOemWallpaperFilename[] = "installer-background.jpg";
 
 // File name of auto partition script.
-const char kAutoPartFile[] = "auto_part.sh";
+constexpr const char kAutoPartFile[] = "auto_part.sh";
 // File name of architecture specific of auto partition script.
-const char kAutoPartArchSpecFile[] = "auto_part_%1.sh";
+constexpr const char kAutoPartArchSpecFile[] = "auto_part_%1.sh";
 
 // Absolute path to oem folder.
-const char kDebugOemDir[] = "/tmp/oem";
-const char kUbuntuOemDir[] = "/cdrom/oem";
-const char kDeepinOemDir[] = "/lib/live/mount/medium/oem";
+constexpr const char kDebugOemDir[] = "/tmp/oem";
+constexpr const char kUbuntuOemDir[] = "/cdrom/oem";
+constexpr const char kDeepinOemDir[] = "/lib/live/mount/medium/oem";
 
 // Filename of oem settings
-const char kOemSettingsFilename[] = "settings.ini";
+constexpr const char kOemSettingsFilename[] = "settings.ini";
 
 void AppendToConfigFile(const QString& key, const QVariant& value) {
   QSettings settings(kInstallerConfigFile, QSettings::IniFormat);

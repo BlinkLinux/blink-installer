@@ -28,6 +28,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "config/config.h"
 #include "resources/styles/styles.h"
 #include "service/log_manager.h"
 #include "service/process_util.h"
@@ -46,11 +47,6 @@ constexpr const int kWindowWidth = 860;
 constexpr const int kWindowHeight = 480;
 constexpr const int kBtnHeight = 40;
 constexpr const int kSettingsPageId = 2;
-
-// Absolute path to settings file.
-// Same in service/settings_manager.cpp.
-// TODO(Shaohua): Move to config.h
-constexpr const char kInstallerConfigFile[] = "/etc/deepin-installer.conf";
 
 }  // namespace
 
