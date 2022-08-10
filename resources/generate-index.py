@@ -16,7 +16,12 @@ def generate_entry(fd, folder, filename):
     parts = folder.removeprefix(".").split("/")
     parts[0] = parts[0].removesuffix("s")
     prefix = "".join(part.capitalize() for part in parts)
-    name_parts = os.path.splitext(filename)[0].split("-")
+    (basename, ext_name) = os.path.splitext(filename)
+    if "-" in basename:
+        name_parts = basename.split("-")
+    else:
+        name_parts = basename.split("_")
+    name_parts.append(ext_name.replace(".", ""))
     key = "".join(part.capitalize() for part in name_parts)
     value = ":/{}/{}".format(folder, filename)
     item = 'constexpr const char k{0}{1}[] = "{2}";\n'.format(prefix, key, value)
