@@ -1,3 +1,4 @@
+
 message(STATUS "check job syntax")
 file(GLOB_RECURSE files "*.job")
 foreach(file ${files})
@@ -11,9 +12,10 @@ foreach(file ${files})
 	endif()
 endforeach(file)
 message(STATUS "check job syntax - OK")
+
 install(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-installer
+    DESTINATION ${INSTALLER_SHARE_DIR}
     FILES_MATCHING PATTERN "*"
     PATTERN "CMakeLists.txt" EXCLUDE
     PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE

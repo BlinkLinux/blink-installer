@@ -29,6 +29,6 @@ execute_process(COMMAND uname -m
 message("build arch: ${INSTALLER_BUILD_ARCH}")
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/default_settings_${INSTALLER_BUILD_ARCH}.ini
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/blink-installer/resources
+        DESTINATION ${INSTALLER_SHARE_DIR}/resources
         RENAME default_settings.ini
         )

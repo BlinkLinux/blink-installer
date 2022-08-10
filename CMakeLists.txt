@@ -26,6 +26,8 @@ add_custom_target(installer-generate-deps
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
 
+set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
+
 # Import folders
 add_subdirectory(docs)
 add_subdirectory(hooks)

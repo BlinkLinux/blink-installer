@@ -39,7 +39,6 @@ find_package(Qt5 5.12 COMPONENTS
 
 find_package(PkgConfig REQUIRED)
 
-set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
 # Defines path to resource directories
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${CMAKE_SOURCE_DIR}/hooks\"")
