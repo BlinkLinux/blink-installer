@@ -1,8 +1,10 @@
 
 set(SOURCE_FILES
     icons/icons.h
+    images/images.h
     misc/misc.h
     slide/slide.h
+    styles/styles.h
     )
 
 add_library(installer-resources STATIC
