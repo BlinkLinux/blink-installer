@@ -34,7 +34,7 @@ bool MainController::init() {
   }
 
   // Initialize log service.
-  const char kLogFileName[] = "blink-installer.log";
+  constexpr const char kLogFileName[] = "blink-installer.log";
   QString log_file;
   if (!HasRootPrivilege()) {
     qCritical() << "Root privilege is required!";

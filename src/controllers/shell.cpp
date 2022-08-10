@@ -10,6 +10,7 @@
 
 #include "config/config.h"
 #include "controllers/main_controller.h"
+#include "resources/icons/icons.h"
 
 namespace installer {
 
@@ -26,7 +27,7 @@ int initShell(int argc, char** argv) {
   QApplication::setApplicationName(kAppName);
   QApplication::setApplicationVersion(kAppVersion);
   QApplication::setOrganizationDomain("biofan.org");
-  QApplication::setWindowIcon(QIcon(":/icons/blink-installer.svg"));
+  QApplication::setWindowIcon(QIcon(kIconsBlinkInstallerSvg));
 
   QScopedPointer<MainController> controller(new MainController);
   if (!controller->init()) {
