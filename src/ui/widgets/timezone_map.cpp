@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +26,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "service/settings_manager.h"
 #include "ui/delegates/timezone_map_util.h"
 #include "ui/widgets/popup_menu.h"
@@ -34,19 +36,17 @@ namespace installer {
 
 namespace {
 
-const int kZonePinHeight = 30;
-const int kZonePinMinimumWidth = 60;
+constexpr const int kZonePinHeight = 30;
+constexpr const int kZonePinMinimumWidth = 60;
 
-const double kDistanceThreshold = 100.0;
-const char kDotFile[] = ":/images/indicator_active.png";
-const char kTimezoneMapFile[] = ":/images/timezone_map_big.png";
+constexpr const double kDistanceThreshold = 100.0;
 
 // At absolute position of |zone| on a map with size (map_width, map_height).
 QPoint ZoneInfoToPosition(const ZoneInfo& zone, int map_width, int map_height) {
   // TODO(xushaohua): Call round().
   const int x = int(ConvertLongitudeToX(zone.longitude) * map_width);
   const int y = int(ConvertLatitudeToY(zone.latitude) * map_height);
-  return QPoint(x, y);
+  return {x, y};
 }
 
 }  // namespace
@@ -69,7 +69,7 @@ TimezoneMap::~TimezoneMap() {
   }
 }
 
-const QString TimezoneMap::getTimezone() const {
+const QString& TimezoneMap::getTimezone() const {
   return current_zone_.timezone;
 }
 
@@ -124,16 +124,16 @@ void TimezoneMap::initConnections() {
 }
 
 void TimezoneMap::initUI() {
-  QLabel* background_label = new QLabel(this);
+  auto* background_label = new QLabel(this);
   background_label->setObjectName("background_label");
-  QPixmap timezone_pixmap(kTimezoneMapFile);
+  QPixmap timezone_pixmap(kImageTimezoneMapBigPng);
   Q_ASSERT(!timezone_pixmap.isNull());
   background_label->setPixmap(timezone_pixmap);
 
   Q_ASSERT(this->parentWidget());
   // Set parent widget of dot_ to TimezoneFrame.
   dot_ = new QLabel(this->parentWidget());
-  const QPixmap dot_pixmap(kDotFile);
+  const QPixmap dot_pixmap(kImageIndicatorActivePng);
   Q_ASSERT(!dot_pixmap.isNull());
   dot_->setPixmap(dot_pixmap);
   dot_->setFixedSize(dot_pixmap.size());

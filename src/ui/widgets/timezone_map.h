@@ -37,10 +37,10 @@ class TimezoneMap : public QFrame {
 
  public:
   explicit TimezoneMap(QWidget* parent = nullptr);
-  ~TimezoneMap();
+  ~TimezoneMap() override;
 
   // Get current selected timezone, might be empty.
-  const QString getTimezone() const;
+  const QString& getTimezone() const;
 
  signals:
   void timezoneUpdated(const QString& timezone);
