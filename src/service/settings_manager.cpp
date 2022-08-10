@@ -46,9 +46,6 @@ QString g_oem_dir;
 
 constexpr const char kLocaleKey[] = "DI_LOCALE";
 
-// Absolute path to default installer settings
-constexpr const char kDefaultSettingsFile[] = RESOURCES_DIR "/settings/default_settings.ini";
-
 // File name of installer wallpaper.
 constexpr const char kOemWallpaperFilename[] = "installer-background.jpg";
 

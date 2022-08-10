@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,49 +21,22 @@
 #include <QDebug>
 
 #include "base/file_util.h"
+#include "resources/slide/slide.h"
 #include "service/settings_manager.h"
 
 namespace installer {
 
-namespace {
-
-const char kDefaultSlide[] = "default";
-
-const char kSlideFolder[] = RESOURCES_DIR "/slide";
-
-}  // namespace
-
-QString GetSlideDir(const QString& locale) {
-  QDir installer_dir(kSlideFolder);
-  Q_ASSERT(installer_dir.exists());
+QStringList GetOemSlideFiles(const QString& locale) {
   QDir oem_dir(GetOemDir());
 
   // Check existence of folders one by one.
-  QFileInfo file_info(oem_dir.absoluteFilePath(locale));
-  if (file_info.isDir() && file_info.exists()) {
-    return file_info.absoluteFilePath();
+  QDir slide_dir(oem_dir.absoluteFilePath(locale));
+  if (!slide_dir.exists()) {
+    return {};
   }
-
-  file_info.setFile(installer_dir.absoluteFilePath(locale));
-  if (file_info.isDir() && file_info.exists()) {
-    return file_info.absoluteFilePath();
-  }
-
-  file_info.setFile(oem_dir.absoluteFilePath(kDefaultSlide));
-  if (file_info.isDir() && file_info.exists()) {
-    return file_info.absoluteFilePath();
-  }
-
-  return installer_dir.absoluteFilePath(kDefaultSlide);
-}
-
-QStringList GetSlideFiles(const QString& locale) {
-  QStringList slide_files;
-
-  QDir slide_dir(GetSlideDir(locale));
-  Q_ASSERT(slide_dir.exists());
 
   // List all png files in slide folder.
+  QStringList slide_files;
   QString filepath;
   for (const QString& filename : slide_dir.entryList({"*.png"}, QDir::Files)) {
     filepath = slide_dir.absoluteFilePath(filename);
@@ -70,7 +44,26 @@ QStringList GetSlideFiles(const QString& locale) {
       slide_files.append(filepath);
     }
   }
+  return slide_files;
+}
 
+QStringList GetSlideFiles(const QString& locale) {
+  QStringList slide_files = GetOemSlideFiles(locale);
+  if (slide_files.isEmpty()) {
+    if (locale == "zh_CN") {
+      for (const auto* name: kSlideListZhCN) {
+        slide_files.append(name);
+      }
+    } else if (locale == "zh_TW") {
+      for (const auto* name: kSlideListZhTW) {
+        slide_files.append(name);
+      }
+    } else {
+      for (const auto* name: kSlideListDefault) {
+        slide_files.append(name);
+      }
+    }
+  }
   return slide_files;
 }
 

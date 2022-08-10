@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,10 +22,6 @@
 #include <QStringList>
 
 namespace installer {
-
-// Get absolute path to slide folder, based on |locale|.
-// |locale| might be empty or like "zh_CN" or "en_US".
-QString GetSlideDir(const QString& locale);
 
 // Get slide image file list with specific |locale|.
 QStringList GetSlideFiles(const QString& locale);

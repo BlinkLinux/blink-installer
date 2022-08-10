@@ -23,11 +23,6 @@
 namespace installer {
 namespace {
 
-TEST(InstallSlideFrameUtil, GetSlideDir) {
-  EXPECT_TRUE(GetSlideDir("zh_CN").endsWith("zh_CN"));
-  EXPECT_TRUE(GetSlideDir("ru_RU").endsWith("default"));
-}
-
 TEST(InstallSlideFrameUtil, GetSlideFiles) {
   EXPECT_FALSE(GetSlideFiles("en_US").isEmpty());
   EXPECT_FALSE(GetSlideFiles("zh_CN").isEmpty());
