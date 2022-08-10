@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +28,7 @@
 #include <QShowEvent>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/delegates/simple_partition_delegate.h"
@@ -40,9 +42,9 @@ namespace installer {
 namespace {
 
 // 4 partitions are displays at each row.
-const int kDiskColumns = 4;
+constexpr const int kDiskColumns = 4;
 
-const int kWindowWidth = 960;
+constexpr const int kWindowWidth = 960;
 
 }  // namespace
 
@@ -70,8 +72,7 @@ bool SimplePartitionFrame::validate() {
       break;
     }
     case SimpleValidateState::RootMissing: {
-      msg_label_->setText(
-          tr("Please select one of the partitions to install!"));
+      msg_label_->setText(tr("Please select one of the partitions to install!"));
       break;
     }
     case SimpleValidateState::RootTooSmall: {
@@ -100,10 +101,9 @@ void SimplePartitionFrame::showEvent(QShowEvent* event) {
 
   QAbstractButton* button = button_group_->checkedButton();
   if (button) {
-    SimplePartitionButton* part_button =
-        dynamic_cast<SimplePartitionButton*>(button);
+    auto* part_button = dynamic_cast<SimplePartitionButton*>(button);
     Q_ASSERT(part_button);
-    if (part_button && part_button->selected()) {
+    if (part_button->selected()) {
       // Display install_tip is button is selected.
       this->showInstallTip(button);
     }
@@ -123,8 +123,7 @@ void SimplePartitionFrame::appendOperations() {
     }
   }
 
-  SimplePartitionButton* button =
-      dynamic_cast<SimplePartitionButton*>(button_group_->checkedButton());
+  auto* button = dynamic_cast<SimplePartitionButton*>(button_group_->checkedButton());
   Q_ASSERT(button);
   if (!button) {
     qCritical() << "no partition button selected";
@@ -205,14 +204,14 @@ void SimplePartitionFrame::initConnections() {
 void SimplePartitionFrame::initUI() {
   button_group_ = new QButtonGroup(this);
 
-  QLabel* tip_icon = new QLabel();
-  tip_icon->setPixmap(QPixmap(":/images/install_icon.png"));
+  auto* tip_icon = new QLabel();
+  tip_icon->setPixmap(QPixmap(kImageInstallIconPng));
 
   tip_label_ = new QLabel(tr("Install here"));
   tip_label_->setObjectName("tip_label");
   tip_label_->setFixedHeight(18);
 
-  QHBoxLayout* tip_layout = new QHBoxLayout();
+  auto* tip_layout = new QHBoxLayout();
   tip_layout->setContentsMargins(0, 0, 0, 0);
   tip_layout->setSpacing(0);
   tip_layout->addStretch();
@@ -240,7 +239,7 @@ void SimplePartitionFrame::initUI() {
   grid_wrapper_->setLayout(grid_layout_);
   install_tip_->setParent(grid_wrapper_);
 
-  QScrollArea* scroll_area = new QScrollArea();
+  auto* scroll_area = new QScrollArea();
   scroll_area->setObjectName("scroll_area");
   scroll_area->setWidget(grid_wrapper_);
   scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -251,7 +250,7 @@ void SimplePartitionFrame::initUI() {
   msg_label_->setObjectName("msg_label");
   msg_label_->setFixedHeight(20);
 
-  QVBoxLayout* main_layout = new QVBoxLayout();
+  auto* main_layout = new QVBoxLayout();
   main_layout->setContentsMargins(0, 0, 0, 0);
   main_layout->setSpacing(0);
   main_layout->addWidget(scroll_area, Qt::AlignHCenter);
@@ -283,7 +282,7 @@ void SimplePartitionFrame::repaintDevices() {
   // Draw partitions.
   int row = 0, column = 0;
   for (const Device& device : delegate_->virtual_devices()) {
-    DeviceModelLabel* device_model_label = new DeviceModelLabel();
+    auto* device_model_label = new DeviceModelLabel();
     device_model_label->setText(GetDeviceModelCapAndPath(device));
     device_model_label->setFixedSize(kWindowWidth, 20);
 
@@ -303,7 +302,7 @@ void SimplePartitionFrame::repaintDevices() {
           partition.getByteLength() <= 2 * kMebiByte) {
         continue;
       }
-      SimplePartitionButton* button = new SimplePartitionButton(partition);
+      auto* button = new SimplePartitionButton(partition);
       button_group_->addButton(button);
       grid_layout_->addWidget(button, row, column, Qt::AlignHCenter);
       // Select root partition.
@@ -331,7 +330,7 @@ void SimplePartitionFrame::repaintDevices() {
 
   // Add place holder. It is used for install_tip
   row += 1;
-  QLabel* place_holder_label = new QLabel(this);
+  auto* place_holder_label = new QLabel(this);
   place_holder_label->setObjectName("place_holder_label");
   place_holder_label->setFixedSize(kWindowWidth, 30);
   grid_layout_->addWidget(place_holder_label, row, 0,
@@ -359,8 +358,7 @@ void SimplePartitionFrame::onPartitionButtonClicked() {
   // Hide tooltip.
   install_tip_->hide();
 
-  SimplePartitionButton* button =
-      dynamic_cast<SimplePartitionButton*>(this->sender());
+  auto* button = dynamic_cast<SimplePartitionButton*>(this->sender());
   Q_ASSERT(button);
   if (!button) {
     qCritical() << "no partition button is selected";
@@ -395,8 +393,7 @@ void SimplePartitionFrame::onPartitionButtonClicked() {
 
 void SimplePartitionFrame::onPartitionButtonToggled(QAbstractButton* button,
                                                     bool checked) {
-  SimplePartitionButton* part_button =
-      dynamic_cast<SimplePartitionButton*>(button);
+  auto* part_button = dynamic_cast<SimplePartitionButton*>(button);
   if (!part_button) {
     qCritical() << "no partition button is selected";
     return;

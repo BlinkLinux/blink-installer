@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
 #include <QLabel>
 #include <QtCore/QEvent>
 
+#include "resources/images/images.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/nav_button.h"
 #include "ui/widgets/title_label.h"
@@ -41,8 +43,7 @@ void InstallSuccessFrame::changeEvent(QEvent* event) {
     comment_label_->setText(
         tr("Reboot to enjoy the new experience with deepin, "
            "hope you like it!"));
-    eject_label_->setText(
-        tr("Please remove the installation media before reboot"));
+    eject_label_->setText(tr("Please remove the installation media before reboot"));
     reboot_button_->setText(tr("Experience now"));
   } else {
     QFrame::changeEvent(event);
@@ -55,21 +56,20 @@ void InstallSuccessFrame::initConnections() {
 }
 
 void InstallSuccessFrame::initUI() {
-  QLabel* status_label = new QLabel();
-  status_label->setPixmap(QPixmap(":/images/succeed.png"));
+  auto* status_label = new QLabel();
+  status_label->setPixmap(QPixmap(kImageSucceedPng));
   title_label_ = new TitleLabel(tr("Successfully Installed"));
   comment_label_ = new CommentLabel(
       tr("Reboot to enjoy the new experience with deepin, hope you like it!"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
 
-  eject_label_ = new CommentLabel(
-      tr("Please remove the installation media before reboot"));
+  eject_label_ = new CommentLabel(tr("Please remove the installation media before reboot"));
   reboot_button_ = new NavButton(tr("Experience now"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addStretch();

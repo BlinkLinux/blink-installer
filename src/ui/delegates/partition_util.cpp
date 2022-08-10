@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,13 +18,14 @@
 
 #include "ui/delegates/partition_util.h"
 
-#include <math.h>
+#include <cmath>
 
 #include <QFileInfo>
 #include <QRegularExpression>
 
 #include "partman/os_prober.h"
 #include "partman/utils.h"
+#include "resources/images/images.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "sysinfo/proc_meminfo.h"
@@ -34,11 +36,11 @@ namespace installer {
 namespace {
 
 // Maximum length of partition label.
-const int kLabelMaxLen = 25;
+constexpr const int kLabelMaxLen = 25;
 
 // Mount points of live system in use currently.
-const char kCasperMountPoint[] = "/cdrom";
-const char kLiveMountPoint[] = "/lib/live/mount/medium";
+constexpr const char kCasperMountPoint[] = "/cdrom";
+constexpr const char kLiveMountPoint[] = "/lib/live/mount/medium";
 
 // Get distribution description at partition |path| if it contains an OS.
 QString GetOsDescription(const QString& path) {
@@ -149,7 +151,7 @@ QString GetInstallerDevicePath() {
   }
 
   // Returns an empty string if not found.
-  return QString();
+  return {};
 }
 
 QString GetLocalFsTypeName(FsType fs_type) {
@@ -178,16 +180,16 @@ QString GetLocalFsTypeName(FsType fs_type) {
 QString GetOsTypeIcon(OsType os_type) {
   switch (os_type) {
     case OsType::Linux: {
-      return ":/images/driver_linux_32.png";
+      return kImageDriverLinux32Png;
     }
     case OsType::Mac: {
-      return ":/images/driver_mac_32.png";
+      return kImageDriverMac32Png;
     }
     case OsType::Windows: {
-      return ":/images/driver_windows_32.png";
+      return kImageDriverWindows32Png;
     }
     default: {
-      return ":/images/driver_32.png";
+      return kImageDriver32Png;
     }
   }
 }
@@ -195,16 +197,16 @@ QString GetOsTypeIcon(OsType os_type) {
 QString GetOsTypeLargeIcon(OsType os_type) {
   switch (os_type) {
     case OsType::Linux: {
-      return ":/images/driver_linux_128.png";
+      return kImageDriverLinux128Png;
     }
     case OsType::Mac: {
-      return ":/images/driver_mac_128.png";
+      return kImageDriverMac128Png;
     }
     case OsType::Windows: {
-      return ":/images/driver_windows_128.png";
+      return kImageDriverWindows128Png;
     }
     default: {
-      return ":/images/driver_128.png";
+      return kImageDriver128Png;
     }
   }
 }
@@ -235,7 +237,7 @@ QString GetPartitionLabel(const Partition& partition) {
       return GetPartitionName(partition.path);
     }
     default: {
-      return QString();
+      return {};
     }
   }
 }
@@ -269,7 +271,7 @@ QString GetPartitionLabelAndPath(const Partition& partition) {
       return name;
     }
     default: {
-      return QString();
+      return {};
     }
   }
 }
@@ -403,8 +405,7 @@ QString TrimText(const QString& text, int max_len) {
 }
 
 qint64 ParsePartitionSize(const QString& size, qint64 device_length) {
-  QRegularExpression pattern("(\\d+)(mib|gib|%)",
-                             QRegularExpression::CaseInsensitiveOption);
+  QRegularExpression pattern("(\\d+)(mib|gib|%)", QRegularExpression::CaseInsensitiveOption);
   const QRegularExpressionMatch match = pattern.match(size);
   if (match.hasMatch()) {
     bool ok;

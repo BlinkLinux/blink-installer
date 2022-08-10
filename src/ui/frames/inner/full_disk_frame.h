@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,11 +33,14 @@ class FullDiskDelegate;
 
 class FullDiskFrame : public QFrame {
  public:
-  explicit FullDiskFrame(FullDiskDelegate* delegate,
-                                  QWidget* parent = nullptr);
-  ~FullDiskFrame();
+  explicit FullDiskFrame(FullDiskDelegate* delegate, QWidget* parent = nullptr);
+  ~FullDiskFrame() override;
 
   bool validate() const;
+
+ public slots:
+  void onDeviceRefreshed();
+  void onPartitionButtonToggled(QAbstractButton* button, bool checked);
 
  protected:
   void changeEvent(QEvent* event) override;
@@ -60,10 +64,6 @@ class FullDiskFrame : public QFrame {
   QLabel* tip_label_ = nullptr;
   QGridLayout* grid_layout_ = nullptr;
   QFrame* grid_wrapper_ = nullptr;
-
- public slots:
-  void onDeviceRefreshed();
-  void onPartitionButtonToggled(QAbstractButton* button, bool checked);
 };
 
 }  // namespace installer

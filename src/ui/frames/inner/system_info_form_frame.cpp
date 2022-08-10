@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "sysinfo/validate_hostname.h"
@@ -124,30 +126,30 @@ void SystemInfoFormFrame::initConnections() {
 void SystemInfoFormFrame::initUI() {
   title_label_ = new TitleLabel(tr("Create User Account"));
   comment_label_ = new CommentLabel(tr("Input username and password"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
 
   avatar_button_ = new AvatarButton();
 
-  username_edit_ = new LineEdit(":/images/username_12.png");
+  username_edit_ = new LineEdit(kImageUsername12Png);
   username_edit_->setPlaceholderText(tr("Username"));
   username_edit_->setText(GetSettingsString(kSystemInfoDefaultUsername));
   username_edit_->setReadOnly(GetSettingsBool(kSystemInfoLockUsername));
 
-  hostname_edit_ = new LineEdit(":/images/hostname_12.png");
+  hostname_edit_ = new LineEdit(kImageHostname12Png);
   hostname_edit_->setPlaceholderText(tr("Computer name"));
   hostname_edit_->setText(GetSettingsString(kSystemInfoDefaultHostname));
   hostname_edit_->setReadOnly(GetSettingsBool(kSystemInfoLockHostname));
 
-  password_edit_ = new LineEdit(":/images/password_12.png");
+  password_edit_ = new LineEdit(kImagePassword12Png);
   password_edit_->setPlaceholderText(tr("Password"));
   password_edit_->setEchoMode(QLineEdit::Password);
   password_edit_->setText(GetSettingsString(kSystemInfoDefaultPassword));
   password_edit_->setReadOnly(GetSettingsBool(kSystemInfoLockPassword));
 
-  password2_edit_ = new LineEdit(":/images/password_12.png");
+  password2_edit_ = new LineEdit(kImagePassword12Png);
   password2_edit_->setPlaceholderText(tr("Confirm password"));
   password2_edit_->setEchoMode(QLineEdit::Password);
   password2_edit_->setText(password_edit_->text());
@@ -158,7 +160,7 @@ void SystemInfoFormFrame::initUI() {
 
   next_button_ = new NavButton(tr("Next"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addSpacing(50);

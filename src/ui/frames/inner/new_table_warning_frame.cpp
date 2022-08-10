@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
@@ -71,18 +73,18 @@ void NewTableWarningFrame::initConnections() {
 }
 
 void NewTableWarningFrame::initUI() {
-  QLabel* warning_label = new QLabel();
-  QPixmap warning_pixmap(":/images/warning.png");
+  auto* warning_label = new QLabel();
+  QPixmap warning_pixmap(kImageWarningPng);
   warning_label->setPixmap(warning_pixmap);
   title_label_ = new TitleLabel(tr("Full Disk Format Warning"));
   title_label_->setObjectName("title_label");
 
-  QLabel* disk_label = new QLabel();
+  auto* disk_label = new QLabel();
   disk_label->setPixmap(QPixmap(GetOsTypeLargeIcon(OsType::Empty)));
   disk_name_label_ = new QLabel();
   disk_name_label_->setObjectName("disk_name_label");
 
-  QHBoxLayout* title_layout = new QHBoxLayout();
+  auto* title_layout = new QHBoxLayout();
   title_layout->setContentsMargins(0, 0, 0, 0);
   title_layout->setSpacing(0);
   title_layout->addStretch();
@@ -94,7 +96,7 @@ void NewTableWarningFrame::initUI() {
   comment_label_ = new CommentLabel(
       tr("Continuing with installation will format the whole disk, "
          "please make a backup of all your data to avoid data loss"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
@@ -102,7 +104,7 @@ void NewTableWarningFrame::initUI() {
   cancel_button_ = new NavButton(tr("Cancel"));
   confirm_button_ = new NavButton(tr("Continue"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addStretch();

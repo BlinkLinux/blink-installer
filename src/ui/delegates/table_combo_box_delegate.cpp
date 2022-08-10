@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,18 +22,20 @@
 #include <QPainter>
 #include <QStyle>
 
+#include "resources/images/images.h"
+
 namespace installer {
 
 namespace {
 
 // Left margin of text content.
-const int kTextLeftMargin = 25;
+constexpr const int kTextLeftMargin = 25;
 
 // Right margin of selected item, used to locate background image.
-const int kSelectedRightMargin = 20;
+constexpr const int kSelectedRightMargin = 20;
 
 // Size of bottom border.
-const int kBorderBottom = 1;
+constexpr const int kBorderBottom = 1;
 
 }  // namespace
 
@@ -51,7 +54,7 @@ void TableComboBoxDelegate::paint(QPainter* painter,
                               rect.height() - kBorderBottom);
   if (option.state & QStyle::State_Selected) {
     // Draw background image of selected item.
-    const QPixmap pixmap(":/images/list_view_selected.png");
+    const QPixmap pixmap(kImageListViewSelectedPng);
     const int x = rect.x() + rect.width() - pixmap.width() -
                   kSelectedRightMargin;
     const int y = rect.y() + (rect.height() - pixmap.height()) / 2;

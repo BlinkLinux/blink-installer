@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +25,7 @@
 #include <QScrollArea>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "ui/delegates/full_disk_delegate.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/widgets/simple_disk_button.h"
@@ -34,9 +36,9 @@ namespace installer {
 namespace {
 
 // 4 partitions are displays at each row.
-const int kDiskColumns = 4;
+constexpr const int kDiskColumns = 4;
 
-const int kWindowWidth = 960;
+constexpr const int kWindowWidth = 960;
 
 }  // namespace
 
@@ -78,13 +80,13 @@ void FullDiskFrame::initConnections() {
 void FullDiskFrame::initUI() {
   button_group_ = new QButtonGroup(this);
 
-  QLabel* tip_icon = new QLabel();
-  tip_icon->setPixmap(QPixmap(":/images/install_icon.png"));
+  auto* tip_icon = new QLabel();
+  tip_icon->setPixmap(QPixmap(kImageInstallIconPng));
   tip_label_ = new QLabel(tr("Install here"));
   tip_label_->setObjectName("tip_label");
   tip_label_->setFixedHeight(18);
 
-  QHBoxLayout* tip_layout = new QHBoxLayout();
+  auto* tip_layout = new QHBoxLayout();
   tip_layout->setContentsMargins(0, 0, 0, 0);
   tip_layout->setSpacing(0);
   tip_layout->addStretch();
@@ -112,14 +114,14 @@ void FullDiskFrame::initUI() {
   grid_wrapper_->setLayout(grid_layout_);
   install_tip_->setParent(grid_wrapper_);
 
-  QScrollArea* scroll_area = new QScrollArea();
+  auto* scroll_area = new QScrollArea();
   scroll_area->setObjectName("scroll_area");
   scroll_area->setWidget(grid_wrapper_);
   scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   scroll_area->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   scroll_area->setWidgetResizable(true);
 
-  QVBoxLayout* main_layout = new QVBoxLayout();
+  auto* main_layout = new QVBoxLayout();
   main_layout->setContentsMargins(0, 0, 0, 0);
   main_layout->setSpacing(0);
   main_layout->addWidget(scroll_area, Qt::AlignHCenter);
@@ -161,7 +163,7 @@ void FullDiskFrame::repaintDevices() {
       qWarning() << "Partition on device is busy!" << device.path;
       continue;
     }
-    SimpleDiskButton* button = new SimpleDiskButton(device);
+    auto* button = new SimpleDiskButton(device);
 
     button_group_->addButton(button);
     grid_layout_->addWidget(button, row, column, Qt::AlignHCenter);
@@ -176,7 +178,7 @@ void FullDiskFrame::repaintDevices() {
 
   // Add place holder. It is used for install_tip
   row += 1;
-  QLabel* place_holder_label = new QLabel(this);
+  auto* place_holder_label = new QLabel(this);
   place_holder_label->setObjectName("place_holder_label");
   place_holder_label->setFixedSize(kWindowWidth, 30);
   grid_layout_->addWidget(place_holder_label, row, 0,
@@ -199,7 +201,7 @@ void FullDiskFrame::onDeviceRefreshed() {
 
 void FullDiskFrame::onPartitionButtonToggled(QAbstractButton* button,
                                              bool checked) {
-  SimpleDiskButton* part_button = dynamic_cast<SimpleDiskButton*>(button);
+  auto* part_button = dynamic_cast<SimpleDiskButton*>(button);
   if (!part_button) {
     qCritical() << "no disk button is selected";
     return;

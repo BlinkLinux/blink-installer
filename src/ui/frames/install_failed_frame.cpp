@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "ui/delegates/main_window_util.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
@@ -33,13 +35,13 @@ namespace installer {
 
 namespace {
 
-const int kContentWindowWidth = 580;
-const int kContentWindowHeight = 320;
+constexpr const int kContentWindowWidth = 580;
+constexpr const int kContentWindowHeight = 320;
 
-const int kQrMargin = 8;
-const int kQrWindowSize = 280;
+constexpr const int kQrMargin = 8;
+constexpr const int kQrWindowSize = 280;
 
-const int kControlButtonSize = 32;
+constexpr const int kControlButtonSize = 32;
 
 }  // namespace
 
@@ -89,18 +91,18 @@ void InstallFailedFrame::initConnections() {
 }
 
 void InstallFailedFrame::initUI() {
-  QLabel* status_label = new QLabel();
-  status_label->setPixmap(QPixmap(":/images/failed.png"));
+  auto* status_label = new QLabel();
+  status_label->setPixmap(QPixmap(kImageFailedPng));
   title_label_ = new TitleLabel(tr("Installation Failed"));
   comment_label_ = new CommentLabel(
       tr("Sorry for the inconvenience, you can photo or scan the QR code "
          "to send error log, so we can better solve the issue."));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
 
-  QFrame* content_frame = new QFrame();
+  auto* content_frame = new QFrame();
   content_frame->setObjectName("content_frame");
   content_frame->setFixedSize(kContentWindowWidth, kContentWindowHeight);
   content_label_ = new QLabel(content_frame);
@@ -124,7 +126,7 @@ void InstallFailedFrame::initUI() {
 
   reboot_button_ = new NavButton(tr("Exit installation"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addStretch();

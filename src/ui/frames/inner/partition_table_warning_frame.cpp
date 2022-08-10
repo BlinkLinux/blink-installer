@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +24,7 @@
 #include <QLabel>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/expanded_nav_button.h"
@@ -89,11 +91,11 @@ void PartitionTableWarningFrame::initConnections() {
 }
 
 void PartitionTableWarningFrame::initUI() {
-  QLabel* warning_label = new QLabel();
-  QPixmap warning_pixmap(":/images/warning.png");
+  auto* warning_label = new QLabel();
+  QPixmap warning_pixmap(kImageWarningPng);
   warning_label->setPixmap(warning_pixmap);
   title_label_ = new TitleLabel(tr("Warning"));
-  QHBoxLayout* title_layout = new QHBoxLayout();
+  auto* title_layout = new QHBoxLayout();
   title_layout->setContentsMargins(0, 0, 0, 0);
   title_layout->setSpacing(0);
   title_layout->addStretch();
@@ -106,7 +108,7 @@ void PartitionTableWarningFrame::initUI() {
       tr("Unable to install directly due to EFI motherboard boot loader "
          "and MBR disk detected, please select one of the solutions below "
          "to continue."));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
@@ -130,7 +132,7 @@ void PartitionTableWarningFrame::initUI() {
       this);
   list_item2_->setObjectName("list_item2");
   list_item2_->setWordWrap(true);
-  QVBoxLayout* left_frame_layout = new QVBoxLayout();
+  auto* left_frame_layout = new QVBoxLayout();
   left_frame_layout->setContentsMargins(20, 20, 20, 20);
   left_frame_layout->setSpacing(0);
   left_frame_layout->addWidget(list_title1_);
@@ -140,7 +142,7 @@ void PartitionTableWarningFrame::initUI() {
   left_frame_layout->addWidget(list_title2_);
   left_frame_layout->addWidget(list_item2_);
   left_frame_layout->addStretch();
-  QFrame* left_frame = new QFrame();
+  auto* left_frame = new QFrame();
   left_frame->setObjectName("left_frame");
   left_frame->setFixedWidth(480);
   left_frame->setLayout(left_frame_layout);
@@ -155,13 +157,13 @@ void PartitionTableWarningFrame::initUI() {
       this);
   list_item3_->setObjectName("list_item3");
   list_item3_->setWordWrap(true);
-  QVBoxLayout* right_frame_layout = new QVBoxLayout();
+  auto* right_frame_layout = new QVBoxLayout();
   right_frame_layout->setContentsMargins(20, 20, 20, 20);
   right_frame_layout->setSpacing(0);
   right_frame_layout->addWidget(list_title3_);
   right_frame_layout->addWidget(list_item3_);
   right_frame_layout->addStretch();
-  QFrame* right_frame = new QFrame();
+  auto* right_frame = new QFrame();
   right_frame->setObjectName("right_frame");
   right_frame->setFixedWidth(480);
   right_frame->setLayout(right_frame_layout);
@@ -170,7 +172,7 @@ void PartitionTableWarningFrame::initUI() {
   accept_button_ = new ExpandedNavButton(tr("Continue"));
   cancel_button_ = new NavButton(tr("Back"));
 
-  QGridLayout* content_layout = new QGridLayout();
+  auto* content_layout = new QGridLayout();
   content_layout->setContentsMargins(0, 0, 0, 0);
   content_layout->setAlignment(Qt::AlignCenter);
   content_layout->setVerticalSpacing(kMainLayoutSpacing);
@@ -182,7 +184,7 @@ void PartitionTableWarningFrame::initUI() {
   content_layout->addWidget(reject_button_, 1, 0);
   content_layout->addWidget(accept_button_, 1, 1);
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addStretch();

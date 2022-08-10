@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/images/images.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/widgets/rounded_progress_bar.h"
 
@@ -28,10 +30,10 @@ namespace installer {
 
 namespace {
 
-const int kButtonWidth = 220;
-const int kButtonHeight = 220;
-const int kOsIconWidth = 120;
-const int kOsIconHeight = 120;
+constexpr const int kButtonWidth = 220;
+constexpr const int kButtonHeight = 220;
+constexpr const int kOsIconWidth = 120;
+constexpr const int kOsIconHeight = 120;
 
 }  // namespace
 
@@ -49,7 +51,7 @@ SimplePartitionButton::SimplePartitionButton(const Partition& partition,
 void SimplePartitionButton::setSelected(bool selected) {
   selected_ = selected;
   if (selected) {
-    const QPixmap pixmap(":/images/driver_install_128.png");
+    const QPixmap pixmap(kImageDriverInstall128Png);
     os_label_->setPixmap(pixmap);
   } else {
     QPixmap pixmap(GetOsTypeLargeIcon(partition_.os));

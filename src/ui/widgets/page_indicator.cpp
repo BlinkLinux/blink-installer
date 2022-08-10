@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,14 +21,16 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
+#include "resources/images/images.h"
+
 namespace installer {
 
 PageIndicator::PageIndicator(int pages, QWidget* parent)
   : QFrame(parent),
     pages_(pages),
     current_page_(-1),
-    indicator_active_(":/images/indicator_active.svg"),
-    indicator_inactive_(":/images/indicator_inactive.svg") {
+    indicator_active_(kImageIndicatorActiveSvg),
+    indicator_inactive_(kImageIndicatorInactiveSvg) {
   Q_ASSERT(pages > 0);
   this->setObjectName("page_indicator");
 
@@ -50,7 +53,7 @@ void PageIndicator::initUI() {
   layout_->setAlignment(Qt::AlignCenter);
 
   for (int i = 0; i < pages_; i++) {
-    QLabel* label = new QLabel();
+    auto* label = new QLabel();
     label->setFixedSize(13, 13);
     layout_->addWidget(label);
   }
@@ -60,7 +63,7 @@ void PageIndicator::initUI() {
 
 void PageIndicator::updateIndicators() {
   for (int i = 0; i < pages_; i++) {
-    QLabel* label = qobject_cast<QLabel*>(layout_->itemAt(i)->widget());
+    auto* label = qobject_cast<QLabel*>(layout_->itemAt(i)->widget());
     Q_ASSERT(label);
     if (label != nullptr) {
       if (i == current_page_) {
