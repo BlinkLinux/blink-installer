@@ -27,7 +27,7 @@
 #include "service/log_manager.h"
 #include "service/settings_manager.h"
 #include "sysinfo/users.h"
-#include "ui/delegates/language_delegate.h"
+#include "service/languages.h"
 #include "ui/first_boot_setup_window.h"
 
 int main(int argc, char* argv[]) {

@@ -18,8 +18,6 @@ set(SOURCE_FILES
     delegates/full_disk_delegate.h
     delegates/install_slide_frame_util.cpp
     delegates/install_slide_frame_util.h
-    delegates/language_delegate.cpp
-    delegates/language_delegate.h
     delegates/main_window_util.cpp
     delegates/main_window_util.h
     delegates/partition_util.cpp

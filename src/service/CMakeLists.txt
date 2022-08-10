@@ -17,6 +17,8 @@ set(SOURCE_FILES
     hooks_manager.h
     installer_args_parser.cpp
     installer_args_parser.h
+    languages.cpp
+    languages.h
     log_manager.cpp
     log_manager.h
     power_manager.cpp

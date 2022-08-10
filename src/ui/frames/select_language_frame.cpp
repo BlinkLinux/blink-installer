@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +28,7 @@
 #include "base/file_util.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
-#include "ui/delegates/language_delegate.h"
+#include "service/languages.h"
 #include "ui/frames/consts.h"
 #include "ui/models/language_list_model.h"
 #include "ui/views/frameless_list_view.h"

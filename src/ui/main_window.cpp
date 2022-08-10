@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +28,7 @@
 #include <QTranslator>
 
 #include "base/file_util.h"
+#include "service/languages.h"
 #include "service/power_manager.h"
 #include "service/screen_brightness.h"
 #include "service/settings_manager.h"
@@ -34,7 +36,6 @@
 #include "sysinfo/users.h"
 #include "sysinfo/virtual_machine.h"
 #include "third_party/global_shortcut/global_shortcut.h"
-#include "ui/delegates/language_delegate.h"
 #include "ui/delegates/main_window_util.h"
 #include "ui/frames/confirm_quit_frame.h"
 #include "ui/frames/control_panel_frame.h"
