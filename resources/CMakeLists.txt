@@ -11,6 +11,9 @@ add_library(installer-resources STATIC
 set_target_properties(installer-resources
     PROPERTIES LINKER_LANGUAGE CXX
     )
+target_include_directories(installer-resources
+    PUBLIC ${CMAKE_SOURCE_DIR}
+    )
 
 install(
     FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/blink-installer.desktop

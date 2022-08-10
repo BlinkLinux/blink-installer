@@ -3,6 +3,7 @@
   <qresource prefix="/misc">
     <file>languages.json</file>
     <file>reserved-usernames</file>
+    <file>scan-regdomain.sh</file>
     <file>timezone-alias</file>
     <file>tz-backward</file>
   </qresource>

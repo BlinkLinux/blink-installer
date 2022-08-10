@@ -52,6 +52,7 @@ target_link_libraries(installer-service
 
     installer-base
     installer-config
+    installer-resources
     installer-sysinfo
     )
 

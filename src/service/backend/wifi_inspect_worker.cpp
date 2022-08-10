@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,18 +23,17 @@
 #include <QRegularExpression>
 
 #include "base/command.h"
+#include "resources/misc/misc.h"
 
 namespace installer {
 
 namespace {
 
 // Number of beacon packets to capture before exit.
-const char kTsharkPackets[] = "200";
+constexpr const char kTsharkPackets[] = "200";
 
 // Time in seconds before exit.
-const char kTsharkDuration[] = "10";
-
-const char kScanRegdomainFile[] = TOOLS_DIR "/scan_regdomain.sh";
+constexpr const char kTsharkDuration[] = "10";
 
 // Read output of scan_regdomain.sh and extract country code.
 QStringList ParseRegdomainList(const QString& text) {
@@ -93,8 +93,7 @@ void WiFiInspectWorker::doScanning() {
   // Then capture packets with tshark.
   // At last, disable monitor mode.
   QString out, err;
-  if (RunScriptFile({kScanRegdomainFile, kTsharkPackets, kTsharkDuration},
-                    out, err)) {
+  if (RunScriptFile({kMiscScanRegDomain, kTsharkPackets, kTsharkDuration}, out, err)) {
     QStringList list = ParseRegdomainList(out);
     if (!list.isEmpty()) {
       // Get the most used country code.

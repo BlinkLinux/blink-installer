@@ -9,6 +9,7 @@ namespace installer {
 
 constexpr const char kMiscLanguages[] = ":/misc/languages.json";
 constexpr const char kMiscReservedUsernames[] = ":/misc/reserved-usernames";
+constexpr const char kMiscScanRegDomain[] = ":/misc/scan-regdomain.sh";
 constexpr const char kMiscTimezoneAlias[] = ":/misc/timezone-alias";
 constexpr const char kMiscTzBackward[] = ":/misc/tz-backward";
 
