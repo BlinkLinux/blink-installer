@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +30,7 @@ const char kInChroot[] = "in_chroot";
 const char kAfterChroot[] = "after_chroot";
 
 const char kSettingsName[] = "settings.ini";
-const char kDefaultSettingsFile[] = RESOURCES_DIR "/default_settings.ini";
+const char kDefaultSettingsFile[] = RESOURCES_DIR "/settings/default_settings.ini";
 const char kDefaultOemJsonFile[] = RESOURCES_DIR "/oem_settings.json";
 
 // Returns absolute path to $HOME/oem/ folder.

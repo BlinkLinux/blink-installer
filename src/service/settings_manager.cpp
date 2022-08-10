@@ -33,6 +33,8 @@
 #include <QSettings>
 
 #include "config/config.h"
+#include "resources/icons/icons.h"
+#include "resources/images/images.h"
 #include "service/settings_name.h"
 
 namespace installer {
@@ -48,8 +50,8 @@ const char kLocaleKey[] = "DI_LOCALE";
 const char kInstallerConfigFile[] = "/etc/deepin-installer.conf";
 
 // Absolute path to default installer settings
-const char kDefaultSettingsFile[] = RESOURCES_DIR "/default_settings.ini";
-const char kDefaultWallpaperFile[] = RESOURCES_DIR "/default_wallpaper.jpg";
+const char kDefaultSettingsFile[] = RESOURCES_DIR "/settings/default_settings.ini";
+
 // File name of installer wallpaper.
 const char kOemWallpaperFilename[] = "installer-background.jpg";
 
@@ -231,7 +233,7 @@ QString GetVendorLogo() {
   }
 
   // Returns builtin logo.
-  return ":/images/logo.png";
+  return kImageLogoPng;
 }
 
 QString GetWindowBackground() {
@@ -240,7 +242,7 @@ QString GetWindowBackground() {
     return oem_file;
   }
 
-  return kDefaultWallpaperFile;
+  return kIconsDefaultWallpaper;
 }
 
 bool AppendConfigFile(const QString& conf_file) {
