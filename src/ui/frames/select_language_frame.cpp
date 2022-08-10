@@ -26,6 +26,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "service/languages.h"
@@ -72,7 +73,7 @@ void SelectLanguageFrame::changeEvent(QEvent* event) {
 
 bool SelectLanguageFrame::eventFilter(QObject* obj, QEvent* event) {
   if (event->type() == QEvent::KeyPress) {
-    QKeyEvent* key_event = static_cast<QKeyEvent*>(event);
+    auto* key_event = static_cast<QKeyEvent*>(event);
     if (key_event->key() == Qt::Key_Return ||
         key_event->key() == Qt::Key_Enter) {
       // Simulate button click event.
@@ -92,14 +93,14 @@ void SelectLanguageFrame::initConnections() {
 }
 
 void SelectLanguageFrame::initUI() {
-  QLabel* logo_label = new QLabel();
+  auto* logo_label = new QLabel();
   logo_label->setPixmap(QPixmap(GetVendorLogo()));
 
-  QLabel* subtitle_label = new QLabel("Select system language");
+  auto* subtitle_label = new QLabel("Select system language");
   subtitle_label->setObjectName("subtitle_label");
   subtitle_label->setWordWrap(false);
   subtitle_label->setAlignment(Qt::AlignHCenter);
-  QLabel* subtitle2_label = new QLabel("请选择您的语言");
+  auto* subtitle2_label = new QLabel("请选择您的语言");
   subtitle2_label->setObjectName("subtitle2_label");
   subtitle2_label->setWordWrap(false);
   subtitle2_label->setAlignment(Qt::AlignHCenter);
@@ -111,7 +112,7 @@ void SelectLanguageFrame::initUI() {
   next_button_ = new NavButton(tr("Next"));
   next_button_->setEnabled(false);
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addSpacing(30);
@@ -125,7 +126,7 @@ void SelectLanguageFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/select_language_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleSelectLanguageFrameCss));
 }
 
 void SelectLanguageFrame::updateTranslator(const QString& locale) {

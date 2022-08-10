@@ -27,26 +27,27 @@
 #include <QStringListModel>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/popup_menu_delegate.h"
 
 namespace installer {
 
 namespace {
 
-const int kBorderRadius = 5;
-const int kBorderDiameter = kBorderRadius * 2;
+constexpr const int kBorderRadius = 5;
+constexpr const int kBorderDiameter = kBorderRadius * 2;
 
 // _____
 // \ | /
 //  \|/
-const int kTriangleHeight = 6;
+constexpr const int kTriangleHeight = 6;
 
 // Height of menu item is also defined in styles/popup_menu.css
-const int kMenuItemHeight = 24;
-const int kMenuViewVerticalMargin = 4;
-const int kMenuViewBottomPadding = 5;
-const int kMenuViewHorizontalMargins = 20;
-const int kMenuViewMinimumWidth = 60;
+constexpr const int kMenuItemHeight = 24;
+constexpr const int kMenuViewVerticalMargin = 4;
+constexpr const int kMenuViewBottomPadding = 5;
+constexpr const int kMenuViewHorizontalMargins = 20;
+constexpr const int kMenuViewMinimumWidth = 60;
 
 }  // namespace
 
@@ -94,7 +95,7 @@ void PopupMenu::setStringList(const QStringList& strings) {
 
 bool PopupMenu::eventFilter(QObject* obj, QEvent* event) {
   if (event->type() == QEvent::MouseButtonPress) {
-    QMouseEvent* mouse_event = static_cast<QMouseEvent*>(event);
+    auto* mouse_event = static_cast<QMouseEvent*>(event);
     // If mouse press event is not happened within menu area, hide menu.
     if (!this->geometry().contains(mouse_event->pos())) {
       this->hide();
@@ -179,10 +180,10 @@ void PopupMenu::initUI() {
   menu_view_->setUniformItemSizes(true);
   menu_view_->setSelectionMode(QListView::SingleSelection);
   menu_view_->setEditTriggers(QListView::NoEditTriggers);
-  PopupMenuDelegate* popup_delegate = new PopupMenuDelegate(this);
+  auto* popup_delegate = new PopupMenuDelegate(this);
   menu_view_->setItemDelegate(popup_delegate);
   menu_view_->setMouseTracking(true);
-  menu_view_->setStyleSheet(ReadFile(":/styles/popup_menu.css"));
+  menu_view_->setStyleSheet(ReadFile(kStylePopupMenuCss));
 
   this->setContentsMargins(0, 0, 0, 0);
 }

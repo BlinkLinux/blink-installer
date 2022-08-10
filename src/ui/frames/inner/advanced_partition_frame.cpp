@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +27,7 @@
 #include <QTimer>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/delegates/advanced_partition_animations.h"
@@ -37,13 +39,13 @@ namespace installer {
 
 namespace {
 
-const int kWindowWidth = 960;
+constexpr const int kWindowWidth = 960;
 
 // Vertical spacing between error message labels.
-const int kMsgLabelSpacing = 2;
+constexpr const int kMsgLabelSpacing = 2;
 
-const char kErrMsgLabel[] = "err_msg_label";
-const char kLastErrMsgLabel[] = "last_err_msg_label";
+constexpr const char kErrMsgLabel[] = "err_msg_label";
+constexpr const char kLastErrMsgLabel[] = "last_err_msg_label";
 
 }  // namespace
 
@@ -115,7 +117,7 @@ void AdvancedPartitionFrame::initUI() {
   msg_layout_->setContentsMargins(0, 0, 0, 0);
   msg_layout_->setSpacing(kMsgLabelSpacing);
 
-  QVBoxLayout* msg_container_layout = new QVBoxLayout();
+  auto* msg_container_layout = new QVBoxLayout();
   msg_container_layout->setContentsMargins(0, 0, 0, 0);
   msg_container_layout->setSpacing(0);
   msg_container_layout->addWidget(msg_head_label_);
@@ -135,20 +137,20 @@ void AdvancedPartitionFrame::initUI() {
   partition_layout_->setSpacing(0);
   partition_layout_->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
-  QFrame* partition_list_frame = new QFrame();
+  auto* partition_list_frame = new QFrame();
   partition_list_frame->setObjectName("partition_list_frame");
   partition_list_frame->setContentsMargins(0, 0, 0, 0);
   partition_list_frame->setLayout(partition_layout_);
   partition_list_frame->setFixedWidth(kWindowWidth);
 
-  QVBoxLayout* scroll_layout = new QVBoxLayout();
+  auto* scroll_layout = new QVBoxLayout();
   scroll_layout->setContentsMargins(0, 0, 0, 0);
   scroll_layout->setSpacing(0);
   scroll_layout->addWidget(msg_container_frame_);
   scroll_layout->addSpacing(8);
   scroll_layout->addWidget(partition_list_frame);
 
-  QFrame* scroll_frame = new QFrame();
+  auto* scroll_frame = new QFrame();
   scroll_frame->setObjectName("scroll_frame");
   scroll_frame->setContentsMargins(0, 0, 0, 0);
   scroll_frame->setLayout(scroll_layout);
@@ -180,7 +182,7 @@ void AdvancedPartitionFrame::initUI() {
   editing_button_->setCheckable(true);
   editing_button_->setChecked(false);
 
-  QHBoxLayout* bottom_layout = new QHBoxLayout();
+  auto* bottom_layout = new QHBoxLayout();
   bottom_layout->setContentsMargins(15, 10, 15, 10);
   bottom_layout->setSpacing(0);
   // Show bootloader button only if EFI mode is off.
@@ -194,13 +196,13 @@ void AdvancedPartitionFrame::initUI() {
   bottom_layout->addStretch();
   bottom_layout->addWidget(editing_button_);
 
-  QFrame* bottom_frame = new QFrame();
+  auto* bottom_frame = new QFrame();
   bottom_frame->setObjectName("bottom_frame");
   bottom_frame->setContentsMargins(0, 0, 0, 0);
   bottom_frame->setLayout(bottom_layout);
   bottom_frame->setFixedWidth(kWindowWidth);
 
-  QVBoxLayout* main_layout = new QVBoxLayout();
+  auto* main_layout = new QVBoxLayout();
   main_layout->setContentsMargins(0, 0, 0, 0);
   main_layout->setSpacing(0);
   main_layout->addWidget(scroll_area_, 1, Qt::AlignHCenter);
@@ -214,7 +216,7 @@ void AdvancedPartitionFrame::initUI() {
   QSizePolicy container_policy(QSizePolicy::Fixed, QSizePolicy::Expanding);
   container_policy.setVerticalStretch(100);
   this->setSizePolicy(container_policy);
-  this->setStyleSheet(ReadFile(":/styles/advanced_partition_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleAdvancedPartitionFrameCss));
 }
 
 AdvancedPartitionButton* AdvancedPartitionFrame::getAppropriateButtonForState(
@@ -224,8 +226,7 @@ AdvancedPartitionButton* AdvancedPartitionFrame::getAppropriateButtonForState(
   const int root_required = GetSettingsInt(kPartitionMinimumDiskSpaceRequired);
 
   for (QAbstractButton* button : partition_button_group_->buttons()) {
-    AdvancedPartitionButton* part_button =
-        qobject_cast<AdvancedPartitionButton*>(button);
+    auto* part_button = qobject_cast<AdvancedPartitionButton*>(button);
     if (part_button == nullptr) {
       continue;
     }
@@ -278,8 +279,7 @@ AdvancedPartitionButton* AdvancedPartitionFrame::getAppropriateButtonForState(
   }
 
   for (QAbstractButton* button : partition_button_group_->buttons()) {
-    AdvancedPartitionButton* part_button =
-        qobject_cast<AdvancedPartitionButton*>(button);
+    auto* part_button = qobject_cast<AdvancedPartitionButton*>(button);
     if (part_button == nullptr) {
       continue;
     }
@@ -342,7 +342,7 @@ void AdvancedPartitionFrame::repaintDevices() {
   ClearLayout(partition_layout_);
 
   for (const Device& device : delegate_->virtual_devices()) {
-    QLabel* model_label = new QLabel();
+    auto* model_label = new QLabel();
     model_label->setObjectName("model_label");
     model_label->setText(GetDeviceModelCapAndPath(device));
     model_label->setContentsMargins(15, 10, 0, 5);
@@ -352,7 +352,7 @@ void AdvancedPartitionFrame::repaintDevices() {
         // Ignores extended partition and currently in-used partitions.
         continue;
       }
-      AdvancedPartitionButton* button = new AdvancedPartitionButton(partition);
+      auto* button = new AdvancedPartitionButton(partition);
       button->setEditable(editing_button_->isChecked());
       partition_layout_->addWidget(button);
       partition_button_group_->addButton(button);
@@ -383,8 +383,7 @@ void AdvancedPartitionFrame::scrollContentToTop() {
 }
 
 void AdvancedPartitionFrame::showErrorMessage(AdvancedValidateState state) {
-  AdvancedPartitionErrorLabel* error_label =
-      new AdvancedPartitionErrorLabel();
+  auto* error_label = new AdvancedPartitionErrorLabel();
   error_label->setObjectName(kLastErrMsgLabel);
 
   error_labels_.append(error_label);
@@ -567,8 +566,7 @@ void AdvancedPartitionFrame::onErrorLabelEntered() {
   hovered_part_button_ = nullptr;
 
   QObject* obj = this->sender();
-  AdvancedPartitionErrorLabel* label =
-      qobject_cast<AdvancedPartitionErrorLabel*>(obj);
+  auto* label = qobject_cast<AdvancedPartitionErrorLabel*>(obj);
   if (label == nullptr) {
     return;
   }

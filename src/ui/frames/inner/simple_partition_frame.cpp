@@ -29,6 +29,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/delegates/simple_partition_delegate.h"
@@ -264,7 +265,7 @@ void SimplePartitionFrame::initUI() {
   QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Expanding);
   policy.setVerticalStretch(100);
   this->setSizePolicy(policy);
-  this->setStyleSheet(ReadFile(":/styles/simple_partition_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleSimplePartitionFrameCss));
 }
 
 void SimplePartitionFrame::repaintDevices() {

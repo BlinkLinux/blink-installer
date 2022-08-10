@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,17 +20,16 @@
 #include <QDebug>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "ui/widgets/pointer_button.h"
 
 namespace {
 
-const char kStyleFile[] = ":/styles/advanced_partition_button.css";
-
-const char kCtlBtnState[] = "ctlState";
-const char kCtlBtnStateDelete[] = "delete";
-const char kCtlBtnStateEdit[] = "edit";
-const char kCtlBtnStateNew[] = "new";
-const char kCtlBtnStateHide[] = "hide";
+constexpr const char kCtlBtnState[] = "ctlState";
+constexpr const char kCtlBtnStateDelete[] = "delete";
+constexpr const char kCtlBtnStateEdit[] = "edit";
+constexpr const char kCtlBtnStateNew[] = "new";
+constexpr const char kCtlBtnStateHide[] = "hide";
 
 }  // namespace
 
@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 
   installer::PointerButton ctl_btn;
   ctl_btn.setObjectName("control_button");
-  ctl_btn.setStyleSheet(installer::ReadFile(":/styles/advanced_partition_button.css"));
+  ctl_btn.setStyleSheet(installer::ReadFile(kStyleAdvancedPartitionButtonCss));
   ctl_btn.setFixedSize(18, 18);
   ctl_btn.setProperty(kCtlBtnState, kCtlBtnStateNew);
   ctl_btn.setFlat(true);

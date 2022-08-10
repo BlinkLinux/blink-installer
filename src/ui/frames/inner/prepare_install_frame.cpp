@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +25,7 @@
 #include <QTextEdit>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/nav_button.h"
@@ -85,7 +87,7 @@ void PrepareInstallFrame::initUI() {
   comment_label_ = new CommentLabel(
       tr("Please make a backup of important data and confirm "
          "the following operations"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
@@ -107,7 +109,7 @@ void PrepareInstallFrame::initUI() {
   abort_button_ = new NavButton(tr("Back"));
   continue_button_ = new NavButton(tr("Continue"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addStretch();
@@ -122,7 +124,7 @@ void PrepareInstallFrame::initUI() {
   layout->addWidget(continue_button_, 0, Qt::AlignCenter);
 
   this->setLayout(layout);
-  this->setStyleSheet(ReadFile(":/styles/prepare_install_frame.css"));
+  this->setStyleSheet(ReadFile(kStylePrepareInstallFrameCss));
 }
 
 }  // namespace installer

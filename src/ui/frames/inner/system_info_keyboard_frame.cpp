@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +24,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/frames/consts.h"
@@ -37,7 +39,7 @@ namespace installer {
 
 namespace {
 
-const int kLayoutWidth = 860;
+constexpr const int kLayoutWidth = 860;
 
 }  // namespace
 
@@ -120,7 +122,7 @@ void SystemInfoKeyboardFrame::initUI() {
   variant_model_ = new KeyboardLayoutVariantModel(this);
   variant_view_->setModel(variant_model_);
 
-  QHBoxLayout* keyboard_layout = new QHBoxLayout();
+  auto* keyboard_layout = new QHBoxLayout();
   keyboard_layout->setContentsMargins(0, 0, 0, 0);
   keyboard_layout->setSpacing(0);
   keyboard_layout->addStretch();
@@ -130,7 +132,7 @@ void SystemInfoKeyboardFrame::initUI() {
   keyboard_layout->addWidget(variant_view_);
   keyboard_layout->addStretch();
 
-  QFrame* keyboard_wrapper = new QFrame();
+  auto* keyboard_wrapper = new QFrame();
   keyboard_wrapper->setObjectName("keyboard_wrapper");
   keyboard_wrapper->setFixedWidth(kLayoutWidth);
   keyboard_wrapper->setContentsMargins(0, 0, 0, 0);
@@ -148,7 +150,7 @@ void SystemInfoKeyboardFrame::initUI() {
 
   back_button_ = new NavButton(tr("Back"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addSpacing(kMainLayoutSpacing + 40);
@@ -163,7 +165,7 @@ void SystemInfoKeyboardFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  const QString style = ReadFile(":/styles/system_info_keyboard_frame.css");
+  const QString style = ReadFile(kStyleSystemInfoKeyboardFrameCss);
   this->setStyleSheet(style);
 
   // Update style of list views, adding border radius.

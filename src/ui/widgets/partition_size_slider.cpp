@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +25,7 @@
 #include <QSlider>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "partman/structs.h"
 
 namespace installer {
@@ -99,10 +101,10 @@ void PartitionSizeSlider::initUI() {
   // Disable context menu.
   editor_->setContextMenuPolicy(Qt::NoContextMenu);
 
-  QLabel* size_label = new QLabel("MB");
+  auto* size_label = new QLabel("MB");
   size_label->setObjectName("size_label");
 
-  QHBoxLayout* layout = new QHBoxLayout();
+  auto* layout = new QHBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addWidget(slider_);
@@ -113,7 +115,7 @@ void PartitionSizeSlider::initUI() {
   this->setContentsMargins(10, 0, 10, 0);
   // Same as TableComboBox
   this->setFixedSize(280, 36);
-  this->setStyleSheet(ReadFile(":/styles/partition_size_slider.css"));
+  this->setStyleSheet(ReadFile(kStylePartitionSizeSliderCss));
 }
 
 void PartitionSizeSlider::onEditorTextChanged(const QString& text) {

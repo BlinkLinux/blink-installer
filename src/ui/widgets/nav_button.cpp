@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +19,14 @@
 #include "ui/widgets/nav_button.h"
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 
 namespace installer {
 
 NavButton::NavButton(const QString& text, QWidget* parent)
   : FlatButton(text, parent) {
   this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  this->setStyleSheet(ReadFile(":/styles/nav_button.css"));
+  this->setStyleSheet(ReadFile(kStyleNavButtonCss));
   this->setFixedSize(310, 36);
 }
 

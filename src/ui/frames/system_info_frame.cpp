@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,21 +22,22 @@
 #include <QStackedLayout>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/frames/inner/system_info_avatar_frame.h"
 #include "ui/frames/inner/system_info_form_frame.h"
 #include "ui/frames/inner/system_info_keyboard_frame.h"
-#include "timezone_frame.h"
+#include "ui/frames/timezone_frame.h"
 #include "ui/widgets/pointer_button.h"
 
 namespace installer {
 
 namespace {
 
-const int kInvalidPageId = -1;
-const int kAvatarPageId = 0;
-const int kFormPageId = 1;
+constexpr const int kInvalidPageId = -1;
+constexpr const int kAvatarPageId = 0;
+constexpr const int kFormPageId = 1;
 
 }  // namespace
 
@@ -112,7 +114,7 @@ void SystemInfoFrame::initUI() {
   stacked_layout_->addWidget(form_frame_);
   stacked_layout_->addWidget(keyboard_frame_);
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addLayout(head_layout_);
@@ -120,11 +122,11 @@ void SystemInfoFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/system_info_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleSystemInfoFrameCss));
 }
 
 void SystemInfoFrame::updateHeadBar() {
-  const QString name = stacked_layout_->currentWidget()->objectName();
+//  const QString name = stacked_layout_->currentWidget()->objectName();
   const int page = stacked_layout_->currentIndex();
 
   // Only show header bar in avatar page and form page.

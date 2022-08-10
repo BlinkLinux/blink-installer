@@ -28,6 +28,7 @@
 #include <QTranslator>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/languages.h"
 #include "service/power_manager.h"
 #include "service/screen_brightness.h"
@@ -253,13 +254,13 @@ void MainWindow::initUI() {
   close_button_->setFlat(true);
   close_button_->setFocusPolicy(Qt::TabFocus);
   close_button_->setFixedSize(12, 12);
-  close_button_->setStyleSheet(ReadFile(":/styles/close_button.css"));
-  QHBoxLayout* close_layout = new QHBoxLayout();
+  close_button_->setStyleSheet(ReadFile(kStyleCloseButtonCss));
+  auto* close_layout = new QHBoxLayout();
   close_layout->setContentsMargins(0, 0, 0, 0);
   close_layout->setSpacing(0);
   close_layout->addStretch();
   close_layout->addWidget(close_button_);
-  QFrame* close_button_wrapper = new QFrame();
+  auto* close_button_wrapper = new QFrame();
   close_button_wrapper->setFixedHeight(16);
   // Add 4px at top and right margin.
   close_button_wrapper->setContentsMargins(0, 4, 4, 0);
@@ -268,15 +269,15 @@ void MainWindow::initUI() {
   stacked_layout_ = new QStackedLayout();
 
   // Use a wrapper to hold its position.
-  QFrame* page_indicator_wrapper = new QFrame();
+  auto* page_indicator_wrapper = new QFrame();
   page_indicator_wrapper->setFixedHeight(48);
   page_indicator_ = new PageIndicator(GetVisiblePages(),
                                       page_indicator_wrapper);
-  QHBoxLayout* indicator_layout = new QHBoxLayout();
+  auto* indicator_layout = new QHBoxLayout();
   indicator_layout->addWidget(page_indicator_);
   page_indicator_wrapper->setLayout(indicator_layout);
 
-  QVBoxLayout* vbox_layout = new QVBoxLayout();
+  auto* vbox_layout = new QVBoxLayout();
   vbox_layout->setContentsMargins(0, 0, 0, 0);
   vbox_layout->setSpacing(0);
   vbox_layout->addWidget(close_button_wrapper);

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
 
 #include "ui/frames/install_progress_frame.h"
 
-#include <math.h>
+#include <cmath>
 #include <QDebug>
 #include <QEvent>
 #include <QPropertyAnimation>
@@ -28,6 +29,7 @@
 
 #include "base/file_util.h"
 #include "base/thread_util.h"
+#include "resources/styles/styles.h"
 #include "service/hooks_manager.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
@@ -42,17 +44,14 @@ namespace installer {
 
 namespace {
 
-const int kProgressBarWidth = 640;
-const int kTooltipWidth = 60;
-const int kTooltipHeight = 31;
-const int kTooltipLabelMargin = 2;
-const int kTooltipFrameWidth = kProgressBarWidth + kTooltipWidth;
-
-const int kRetainingInterval = 3000;
-
-const int kSimulationTimerInterval = 3000;
-
-const int kProgressAnimationDuration = 500;
+constexpr const int kProgressBarWidth = 640;
+constexpr const int kTooltipWidth = 60;
+constexpr const int kTooltipHeight = 31;
+constexpr const int kTooltipLabelMargin = 2;
+constexpr const int kTooltipFrameWidth = kProgressBarWidth + kTooltipWidth;
+constexpr const int kRetainingInterval = 3000;
+constexpr const int kSimulationTimerInterval = 3000;
+constexpr const int kProgressAnimationDuration = 500;
 
 }  // namespace
 
@@ -81,10 +80,8 @@ InstallProgressFrame::~InstallProgressFrame() {
 }
 
 void InstallProgressFrame::startSlide() {
-  const bool disable_slide =
-      GetSettingsBool(kInstallProgressPageDisableSlide);
-  const bool disable_animation =
-      GetSettingsBool(kInstallProgressPageDisableSlideAnimation);
+  const bool disable_slide = GetSettingsBool(kInstallProgressPageDisableSlide);
+  const bool disable_animation = GetSettingsBool(kInstallProgressPageDisableSlideAnimation);
   const int duration = GetSettingsInt(kInstallProgressPageAnimationDuration);
   slide_frame_->startSlide(disable_slide, disable_animation, duration);
 }
@@ -153,14 +150,14 @@ void InstallProgressFrame::initUI() {
   comment_label_ = new CommentLabel(
       tr("You can experience the incredible pleasure of deepin after "
          "the time for just a cup of coffee"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
 
   slide_frame_ = new InstallProgressSlideFrame();
 
-  QFrame* tooltip_frame = new QFrame();
+  auto* tooltip_frame = new QFrame();
   tooltip_frame->setObjectName("tooltip_frame");
   tooltip_frame->setContentsMargins(0, 0, 0, 0);
   tooltip_frame->setFixedSize(kTooltipFrameWidth, kTooltipHeight);
@@ -184,7 +181,7 @@ void InstallProgressFrame::initUI() {
   progress_bar_->setOrientation(Qt::Horizontal);
   progress_bar_->setValue(0);
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addStretch();
@@ -201,7 +198,7 @@ void InstallProgressFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/install_progress_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleInstallProgressFrameCss));
 
   progress_animation_ = new QPropertyAnimation(this, "progress", this);
   progress_animation_->setDuration(kProgressAnimationDuration);

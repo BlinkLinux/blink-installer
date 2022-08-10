@@ -25,34 +25,35 @@
 #include <QPainterPath>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 
 namespace installer {
 
 namespace {
 
 // Top margin of window relative to its original position.
-const int kWindowTopMargin = -3;
+constexpr const int kWindowTopMargin = -3;
 
-const int kBorderRadius = 4;
-const int kBorderDiameter = kBorderRadius * 2;
+constexpr const int kBorderRadius = 4;
+constexpr const int kBorderDiameter = kBorderRadius * 2;
 
 // _____
 // \ | /
 //  \|/
-const int kTriangleHeight = 6;
-const int kTriangleWidth = 10;
-const int kTriangleHalfWidth = kTriangleWidth / 2;
-const int kTriangleLeftMargin = 36;
+constexpr const int kTriangleHeight = 6;
+constexpr const int kTriangleWidth = 10;
+constexpr const int kTriangleHalfWidth = kTriangleWidth / 2;
+constexpr const int kTriangleLeftMargin = 36;
 
 // Same width as line edit.
-const int kMaximumWindowWidth = 550;
-const int kMinimumWindowHeight = 32;
-const int kWindowMarginLeft = 8;
-const int kWindowMarginTop = 10;
-const int kWindowMarginRight = 8;
-const int kWindowMarginBottom = 6;
-const int kMaximumLabelWidth = kMaximumWindowWidth - kWindowMarginLeft -
-                               kWindowMarginRight;
+constexpr const int kMaximumWindowWidth = 550;
+constexpr const int kMinimumWindowHeight = 32;
+constexpr const int kWindowMarginLeft = 8;
+constexpr const int kWindowMarginTop = 10;
+constexpr const int kWindowMarginRight = 8;
+constexpr const int kWindowMarginBottom = 6;
+constexpr const int kMaximumLabelWidth = kMaximumWindowWidth - kWindowMarginLeft -
+    kWindowMarginRight;
 
 }  // namespace
 
@@ -130,7 +131,7 @@ void SystemInfoTip::initUI() {
   label_->setWordWrap(false);
   label_->setMaximumWidth(kMaximumLabelWidth);
 
-  QHBoxLayout* layout = new QHBoxLayout();
+  auto* layout = new QHBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(label_);
 
@@ -140,7 +141,7 @@ void SystemInfoTip::initUI() {
   this->setMaximumWidth(kMaximumWindowWidth);
   this->setMinimumHeight(kMinimumWindowHeight);
 
-  this->setStyleSheet(ReadFile(":/styles/system_info_tip.css"));
+  this->setStyleSheet(ReadFile(kStyleSystemInfoTipCss));
 }
 
 }  // namespace installer

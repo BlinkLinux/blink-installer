@@ -24,6 +24,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
@@ -120,7 +121,7 @@ void NewTableWarningFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  const QString style(ReadFile(":/styles/new_table_warning_frame.css"));
+  const QString style(ReadFile(kStyleNewTableWarningFrameCss));
   this->setStyleSheet(style);
   AppendStyleSheet(title_label_, style);
 }

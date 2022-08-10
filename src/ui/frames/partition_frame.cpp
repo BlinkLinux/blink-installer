@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +24,7 @@
 #include <QStackedLayout>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/delegates/advanced_partition_delegate.h"
@@ -51,10 +53,10 @@ namespace installer {
 
 namespace {
 
-const char kLeftBtn[] = "left_frame_button";
-const char kMidBtn[] = "mid_frame_button";
-const char kRightBtn[] = "right_frame_button";
-const char kSoloBtn[] = "solo_frame_button";
+constexpr const char kLeftBtn[] = "left_frame_button";
+constexpr const char kMidBtn[] = "mid_frame_button";
+constexpr const char kRightBtn[] = "right_frame_button";
+constexpr const char kSoloBtn[] = "solo_frame_button";
 
 }  // namespace
 
@@ -204,12 +206,12 @@ void PartitionFrame::initUI() {
   comment_label_ = new CommentLabel(
       tr("Please make sure important data were made a backup, "
          "then select the disk to install"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
 
-  QButtonGroup* button_group = new QButtonGroup(this);
+  auto* button_group = new QButtonGroup(this);
   full_disk_frame_button_ = new PointerButton(tr("Full Disk"));
   full_disk_frame_button_->setCheckable(true);
   full_disk_frame_button_->setFlat(true);
@@ -226,7 +228,7 @@ void PartitionFrame::initUI() {
   button_group->addButton(full_disk_frame_button_);
   button_group->addButton(simple_frame_button_);
   button_group->addButton(advanced_frame_button_);
-  QHBoxLayout* button_layout = new QHBoxLayout();
+  auto* button_layout = new QHBoxLayout();
   button_layout->setContentsMargins(0, 0, 0, 0);
   button_layout->setSpacing(0);
   button_layout->addStretch();
@@ -267,7 +269,7 @@ void PartitionFrame::initUI() {
   }
   partition_stacked_layout_->addWidget(advanced_partition_frame_);
 
-  QHBoxLayout* partition_stacked_wrapper_layout = new QHBoxLayout();
+  auto* partition_stacked_wrapper_layout = new QHBoxLayout();
   partition_stacked_wrapper_layout->setContentsMargins(0, 0, 0, 0);
   partition_stacked_wrapper_layout->setSpacing(0);
   partition_stacked_wrapper_layout->addStretch();
@@ -276,11 +278,11 @@ void PartitionFrame::initUI() {
 
   // and advanced partition page.
   next_button_ = new NavButton(tr("Start installation"));
-  QHBoxLayout* next_layout = new QHBoxLayout();
+  auto* next_layout = new QHBoxLayout();
   next_layout->setContentsMargins(0, 0, 0, 0);
   next_layout->addWidget(next_button_);
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addWidget(title_label_, 0, Qt::AlignHCenter);
@@ -300,7 +302,7 @@ void PartitionFrame::initUI() {
   main_frame_ = new QFrame();
   main_frame_->setContentsMargins(0, 0, 0, 0);
   main_frame_->setLayout(layout);
-  main_frame_->setStyleSheet(ReadFile(":/styles/partition_main_frame.css"));
+  main_frame_->setStyleSheet(ReadFile(kStylePartitionMainFrameCss));
 
   main_layout_ = new QStackedLayout();
   main_layout_->setContentsMargins(0, 0, 0, 0);

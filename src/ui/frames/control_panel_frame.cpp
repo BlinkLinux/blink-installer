@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +28,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/log_manager.h"
 #include "service/process_util.h"
 #include "ui/widgets/pointer_button.h"
@@ -38,18 +40,17 @@ namespace installer {
 namespace {
 
 // Read log file each 1000ms.
-const int kReadLogInterval = 1000;
+constexpr const int kReadLogInterval = 1000;
 
-const int kWindowWidth = 860;
-const int kWindowHeight = 480;
-
-const int kBtnHeight = 40;
-
-const int kSettingsPageId = 2;
+constexpr const int kWindowWidth = 860;
+constexpr const int kWindowHeight = 480;
+constexpr const int kBtnHeight = 40;
+constexpr const int kSettingsPageId = 2;
 
 // Absolute path to settings file.
 // Same in service/settings_manager.cpp.
-const char kInstallerConfigFile[] = "/etc/deepin-installer.conf";
+// TODO(Shaohua): Move to config.h
+constexpr const char kInstallerConfigFile[] = "/etc/deepin-installer.conf";
 
 }  // namespace
 
@@ -76,7 +77,7 @@ void ControlPanelFrame::toggleVisible() {
     this->move(x_orig, y_orig);
     this->show();
     this->raise();
-    QPropertyAnimation* animation = new QPropertyAnimation(this, "pos", this);
+    auto* animation = new QPropertyAnimation(this, "pos", this);
     animation->setStartValue(QPoint(x_orig, y_orig));
     animation->setEndValue(QPoint(x, y));
     animation->setDuration(300);
@@ -96,7 +97,7 @@ void ControlPanelFrame::toggleVisible() {
     this->move(x_orig, y_orig);
     this->show();
     this->raise();
-    QPropertyAnimation* animation = new QPropertyAnimation(this, "pos", this);
+    auto* animation = new QPropertyAnimation(this, "pos", this);
     animation->setStartValue(QPoint(x_orig, y_orig));
     animation->setEndValue(QPoint(x, y));
     animation->setDuration(100);
@@ -183,7 +184,7 @@ void ControlPanelFrame::initUI() {
   suicide_button_->setText("Suicide");
   suicide_button_->setFixedHeight(kBtnHeight);
 
-  QHBoxLayout* page_layout = new QHBoxLayout();
+  auto* page_layout = new QHBoxLayout();
   page_layout->addWidget(page_combo_box_, 0,
                          Qt::AlignLeft | Qt::AlignTop);
   page_layout->addWidget(refresh_devices_button_, 0,
@@ -196,7 +197,7 @@ void ControlPanelFrame::initUI() {
                          Qt::AlignLeft | Qt::AlignTop);
   page_layout->addStretch();
 
-  QFrame* page_frame = new QFrame();
+  auto* page_frame = new QFrame();
   page_frame->setContentsMargins(0, 0, 0, 0);
   page_frame->setLayout(page_layout);
 
@@ -228,7 +229,7 @@ void ControlPanelFrame::initUI() {
   stacked_widget_->addWidget(settings_viewer_);
   stacked_widget_->addWidget(term_widget_);
 
-  QHBoxLayout* layout = new QHBoxLayout();
+  auto* layout = new QHBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addWidget(stacked_widget_);
@@ -236,7 +237,7 @@ void ControlPanelFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/control_panel_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleControlPanelFrameCss));
   this->setFixedSize(kWindowWidth, kWindowHeight);
 }
 
@@ -265,7 +266,7 @@ void ControlPanelFrame::onTimerTimeout() {
   }
   log_content_ = content;
 
-  QTextCursor cursor = log_viewer_->textCursor();
+//  QTextCursor cursor = log_viewer_->textCursor();
   // Restore vertical position when log content is updated.
   const int pos = log_viewer_->verticalScrollBar()->value();
   log_viewer_->setPlainText(log_content_);

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +19,7 @@
 #include "ui/widgets/table_combo_box.h"
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/table_combo_box_delegate.h"
 #include "ui/utils/widget_util.h"
 
@@ -30,7 +32,7 @@ TableComboBox::TableComboBox(QWidget* parent) : QComboBox(parent) {
   this->setFixedSize(310, 36);
   QAbstractItemDelegate* delegate = new TableComboBoxDelegate(this);
   this->setItemDelegate(delegate);
-  this->setStyleSheet(ReadFile(":/styles/table_combo_box.css"));
+  this->setStyleSheet(ReadFile(kStyleTableComboBoxCss));
 
   SetQComboBoxTransparent(this);
 }

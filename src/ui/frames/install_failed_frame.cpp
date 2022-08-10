@@ -24,6 +24,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/main_window_util.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
@@ -140,7 +141,7 @@ void InstallFailedFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/install_failed_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleInstallFailedFrameCss));
 }
 
 void InstallFailedFrame::onControlButtonClicked() {

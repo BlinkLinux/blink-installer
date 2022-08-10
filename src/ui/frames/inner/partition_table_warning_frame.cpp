@@ -25,6 +25,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/expanded_nav_button.h"
@@ -197,7 +198,7 @@ void PartitionTableWarningFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/partition_table_warning_frame.css"));
+  this->setStyleSheet(ReadFile(kStylePartitionTableWarningFrameCss));
 }
 
 void PartitionTableWarningFrame::onConfirmButtonClicked() {

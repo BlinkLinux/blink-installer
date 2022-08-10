@@ -23,6 +23,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/widgets/rounded_progress_bar.h"
 
@@ -92,7 +93,7 @@ void SimplePartitionButton::initUI() {
 
   this->setLayout(layout);
 
-  this->setStyleSheet(ReadFile(":/styles/simple_partition_button.css"));
+  this->setStyleSheet(ReadFile(kStyleSimplePartitionButtonCss));
   this->setCheckable(true);
   this->setFixedSize(kButtonWidth, kButtonHeight);
 }

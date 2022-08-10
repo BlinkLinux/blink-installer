@@ -26,6 +26,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/full_disk_delegate.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/widgets/simple_disk_button.h"
@@ -134,7 +135,7 @@ void FullDiskFrame::initUI() {
   QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Expanding);
   policy.setVerticalStretch(100);
   this->setSizePolicy(policy);
-  this->setStyleSheet(ReadFile(":/styles/simple_disk_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleSimpleDiskFrameCss));
 }
 
 void FullDiskFrame::repaintDevices() {

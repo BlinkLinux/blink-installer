@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +26,7 @@
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/delegates/avatar_list_delegate.h"
@@ -91,7 +93,7 @@ void SystemInfoAvatarFrame::initConnections() {
 void SystemInfoAvatarFrame::initUI() {
   title_label_ = new TitleLabel(tr("User Avatar"));
   comment_label_ = new CommentLabel(tr("Select an avatar for your account"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
@@ -101,9 +103,9 @@ void SystemInfoAvatarFrame::initUI() {
 
   const QStringList avatars = GetAvatars();
   list_view_ = new PointerListView();
-  QStringListModel* list_model = new QStringListModel(avatars, list_view_);
+  auto* list_model = new QStringListModel(avatars, list_view_);
   list_view_->setModel(list_model);
-  AvatarListDelegate* list_delegate = new AvatarListDelegate(list_view_);
+  auto* list_delegate = new AvatarListDelegate(list_view_);
   list_view_->setItemDelegate(list_delegate);
   QSizePolicy list_policy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   list_policy.setVerticalStretch(100);
@@ -118,16 +120,16 @@ void SystemInfoAvatarFrame::initUI() {
   list_view_->setFixedWidth(882);
   list_view_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   list_view_->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  list_view_->setStyleSheet(ReadFile(":/styles/avatar_list_view.css"));;
+  list_view_->setStyleSheet(ReadFile(kStyleAvatarListViewCss));;
 
-  QHBoxLayout* list_layout = new QHBoxLayout();
+  auto* list_layout = new QHBoxLayout();
   list_layout->setContentsMargins(0, 0, 0, 0);
   list_layout->setSpacing(0);
   list_layout->addStretch();
   list_layout->addWidget(list_view_);
   list_layout->addStretch();
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(kMainLayoutSpacing);
   layout->addSpacing(50);

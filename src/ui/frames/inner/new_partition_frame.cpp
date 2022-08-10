@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +24,7 @@
 #include <QStandardItemModel>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/frames/consts.h"
@@ -151,7 +153,7 @@ void NewPartitionFrame::initUI() {
   title_label_ = new TitleLabel(tr("New Partition"));
   comment_label_ = new CommentLabel(
       tr("Create a new partition and define the type and size"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
@@ -185,7 +187,7 @@ void NewPartitionFrame::initUI() {
   size_slider_ = new PartitionSizeSlider();
   size_slider_->setFixedWidth(mount_point_box_->width());
 
-  QVBoxLayout* content_layout = new QVBoxLayout();
+  auto* content_layout = new QVBoxLayout();
   content_layout->setContentsMargins(0, 0, 0, 0);
   content_layout->setSpacing(3);
   content_layout->addWidget(type_label_);
@@ -203,7 +205,7 @@ void NewPartitionFrame::initUI() {
   content_layout->addWidget(size_label_);
   content_layout->addWidget(size_slider_);
 
-  QFrame* content_frame = new QFrame();
+  auto* content_frame = new QFrame();
   content_frame->setObjectName("content_frame");
   content_frame->setContentsMargins(0, 0, 0, 0);
   content_frame->setLayout(content_layout);
@@ -213,7 +215,7 @@ void NewPartitionFrame::initUI() {
   cancel_button_ = new NavButton(tr("Cancel"));
   create_button_ = new NavButton(tr("OK"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addStretch();
@@ -229,7 +231,7 @@ void NewPartitionFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/new_partition_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleNewPartitionFrameCss));
 }
 
 void NewPartitionFrame::updateSlideSize() {

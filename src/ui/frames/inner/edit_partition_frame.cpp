@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +25,7 @@
 #include <QLabel>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/frames/consts.h"
@@ -41,10 +43,9 @@ namespace installer {
 
 namespace {
 
-const int kWindowWidth = 640;
-const int kProgressBarWidth = 280;
-
-const int kContentSpacing = 15;
+constexpr const int kWindowWidth = 640;
+constexpr const int kProgressBarWidth = 280;
+constexpr const int kContentSpacing = 15;
 
 // Check whether partition with |mount_point| should be formatted
 // compulsively.
@@ -197,7 +198,7 @@ void EditPartitionFrame::initUI() {
   comment_label_ = new CommentLabel(
       tr("Please make sure important data were made a backup, then "
          "select the disk to install"));
-  QHBoxLayout* comment_layout = new QHBoxLayout();
+  auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
   comment_layout->addWidget(comment_label_);
@@ -209,13 +210,13 @@ void EditPartitionFrame::initUI() {
   usage_label_ = new QLabel();
   usage_label_->setObjectName("usage_label");
 
-  QHBoxLayout* name_layout = new QHBoxLayout();
+  auto* name_layout = new QHBoxLayout();
   name_layout->setContentsMargins(0, 0, 0, 0);
   name_layout->setSpacing(0);
   name_layout->addWidget(name_label_);
   name_layout->addStretch();
   name_layout->addWidget(usage_label_);
-  QFrame* name_frame = new QFrame();
+  auto* name_frame = new QFrame();
   name_frame->setObjectName("name_frame");
   name_frame->setContentsMargins(0, 0, 0, 0);
   name_frame->setLayout(name_layout);
@@ -224,7 +225,7 @@ void EditPartitionFrame::initUI() {
   usage_bar_ = new RoundedProgressBar();
   usage_bar_->setFixedSize(kProgressBarWidth, 8);
 
-  QLabel* separator_label = new QLabel();
+  auto* separator_label = new QLabel();
   separator_label->setObjectName("separator_label");
   separator_label->setFixedSize(560, 2);
 
@@ -249,7 +250,7 @@ void EditPartitionFrame::initUI() {
   format_check_box_->setObjectName("format_check_box");
   format_check_box_->setFixedWidth(20);
 
-  QHBoxLayout* format_layout =new QHBoxLayout();
+  auto* format_layout =new QHBoxLayout();
   format_layout->setContentsMargins(0, 0, 0, 0);
   format_layout->setSpacing(0);
   format_layout->addWidget(format_check_box_);
@@ -257,7 +258,7 @@ void EditPartitionFrame::initUI() {
   format_layout->addWidget(format_label_);
   format_layout->addStretch();
 
-  QVBoxLayout* content_layout = new QVBoxLayout();
+  auto* content_layout = new QVBoxLayout();
   content_layout->setContentsMargins(0, 0, 0, 0);
   content_layout->setSpacing(3);
   content_layout->addWidget(fs_label_);
@@ -268,7 +269,7 @@ void EditPartitionFrame::initUI() {
   content_layout->addSpacing(kContentSpacing);
   content_layout->addLayout(format_layout);
 
-  QFrame* content_frame = new QFrame();
+  auto* content_frame = new QFrame();
   content_frame->setObjectName("content_frame");
   content_frame->setContentsMargins(0, 0, 0, 0);
   content_frame->setLayout(content_layout);
@@ -278,7 +279,7 @@ void EditPartitionFrame::initUI() {
   cancel_button_ = new NavButton(tr("Cancel"));
   ok_button_ = new NavButton(tr("OK"));
 
-  QVBoxLayout* layout = new QVBoxLayout();
+  auto* layout = new QVBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addStretch();
@@ -302,7 +303,7 @@ void EditPartitionFrame::initUI() {
 
   this->setLayout(layout);
   this->setContentsMargins(0, 0, 0, 0);
-  this->setStyleSheet(ReadFile(":/styles/edit_partition_frame.css"));
+  this->setStyleSheet(ReadFile(kStyleEditPartitionFrameCss));
 }
 
 void EditPartitionFrame::onFsChanged(int index) {

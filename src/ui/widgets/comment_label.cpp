@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +19,7 @@
 #include "ui/widgets/comment_label.h"
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 
 namespace installer {
 
@@ -25,7 +27,7 @@ CommentLabel::CommentLabel(const QString& text, QWidget* parent)
   : QLabel(text, parent) {
   this->setObjectName("comment_label");
 
-  this->setStyleSheet(ReadFile(":/styles/comment_label.css"));
+  this->setStyleSheet(ReadFile(kStyleCommentLabelCss));
   this->setFixedWidth(540);
   this->setWordWrap(true);
 }

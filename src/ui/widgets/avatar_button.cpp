@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +23,13 @@
 #include <QPainterPath>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 
 namespace installer {
 
 namespace {
 
-const int kIconSize = 100;
+constexpr const int kIconSize = 100;
 
 }  // namespace
 
@@ -39,7 +41,7 @@ AvatarButton::AvatarButton(const QString& icon, QWidget* parent)
   this->setObjectName("avatar_button");
 
   this->setFixedSize(kIconSize, kIconSize);
-  this->setStyleSheet(ReadFile(":/styles/avatar_button.css"));
+  this->setStyleSheet(ReadFile(kStyleAvatarButtonCss));
 }
 
 void AvatarButton::updateIcon(const QString& icon) {

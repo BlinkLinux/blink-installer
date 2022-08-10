@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #include <QStyle>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/utils/widget_util.h"
 #include "ui/widgets/rounded_progress_bar.h"
@@ -30,15 +32,13 @@ namespace installer {
 
 namespace {
 
-const int kBtnSize = 24;
+constexpr const int kBtnSize = 24;
 
-const char kStyleFile[] = ":/styles/advanced_partition_button.css";
-
-const char kCtlBtnState[] = "ctlState";
-const char kCtlBtnStateDelete[] = "delete";
-const char kCtlBtnStateEdit[] = "edit";
-const char kCtlBtnStateNew[] = "new";
-const char kCtlBtnStateHide[] = "hide";
+constexpr const char kCtlBtnState[] = "ctlState";
+constexpr const char kCtlBtnStateDelete[] = "delete";
+constexpr const char kCtlBtnStateEdit[] = "edit";
+constexpr const char kCtlBtnStateNew[] = "new";
+constexpr const char kCtlBtnStateHide[] = "hide";
 
 }  // namespace
 
@@ -70,38 +70,38 @@ void AdvancedPartitionButton::initConnections() {
 }
 
 void AdvancedPartitionButton::initUI() {
-  QLabel* os_label = new QLabel();
+  auto* os_label = new QLabel();
   os_label->setObjectName("os_label");
   os_label->setPixmap(GetOsTypeIcon(partition_.os));
 
   // partition label name
-  QLabel* name_label = new QLabel();
+  auto* name_label = new QLabel();
   name_label->setObjectName("name_label");
   name_label->setText(GetPartitionLabel(partition_));
 
   // partition path
-  QLabel* path_label = new QLabel();
+  auto* path_label = new QLabel();
   path_label->setObjectName("path_label");
   if (partition_.type != PartitionType::Unallocated) {
     const QString name = GetPartitionName(partition_.path);
     path_label->setText(QString("(%1)").arg(name));
   }
 
-  QHBoxLayout* path_layout = new QHBoxLayout();
+  auto* path_layout = new QHBoxLayout();
   path_layout->setContentsMargins(0, 0, 0, 0);
   path_layout->setSpacing(10);
   path_layout->addWidget(os_label);
   path_layout->addWidget(name_label);
   path_layout->addWidget(path_label);
   path_layout->addStretch();
-  QFrame* path_frame = new QFrame();
+  auto* path_frame = new QFrame();
   path_frame->setObjectName("path_frame");
   path_frame->setContentsMargins(0, 0, 0, 0);
   path_frame->setLayout(path_layout);
   path_frame->setFixedWidth(220);
 
   // partition space usage
-  QLabel* usage_label = new QLabel();
+  auto* usage_label = new QLabel();
   usage_label->setObjectName("usage_label");
   usage_label->setText(GetPartitionUsage(partition_));
   usage_label->setFixedWidth(64);
@@ -111,13 +111,13 @@ void AdvancedPartitionButton::initUI() {
   usage_bar->setFixedSize(100, 6);
 
   // mount point
-  QLabel* mount_point_label = new QLabel();
+  auto* mount_point_label = new QLabel();
   mount_point_label->setObjectName("mount_point_label");
   mount_point_label->setText(partition_.mount_point);
   mount_point_label->setFixedWidth(64);
 
   // tip
-  QLabel* tip_label = new QLabel();
+  auto* tip_label = new QLabel();
   tip_label->setObjectName("tip_label");
   tip_label->setFixedWidth(112);
   if (partition_.mount_point == kMountPointRoot) {
@@ -128,7 +128,7 @@ void AdvancedPartitionButton::initUI() {
   }
 
   // filesystem name
-  QLabel* fs_label = new QLabel();
+  auto* fs_label = new QLabel();
   fs_label->setObjectName("fs_label");
   if (partition_.type == PartitionType::Normal ||
       partition_.type == PartitionType::Logical) {
@@ -136,7 +136,7 @@ void AdvancedPartitionButton::initUI() {
   }
   fs_label->setFixedWidth(80);
 
-  QFrame* control_button_wrapper = new QFrame();
+  auto* control_button_wrapper = new QFrame();
   control_button_wrapper->setObjectName("control_button_wrapper");
   control_button_wrapper->setContentsMargins(0, 0, 0, 0);
   control_button_wrapper->setFixedSize(kBtnSize, kBtnSize);
@@ -147,7 +147,7 @@ void AdvancedPartitionButton::initUI() {
   control_button_->setFixedSize(kBtnSize, kBtnSize);
   control_button_->setProperty(kCtlBtnState, kCtlBtnStateHide);
 
-  QHBoxLayout* layout = new QHBoxLayout();
+  auto* layout = new QHBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   layout->addSpacing(20);
@@ -171,7 +171,7 @@ void AdvancedPartitionButton::initUI() {
   this->setCheckable(true);
   this->setChecked(false);
   this->setFlat(true);
-  this->setStyleSheet(ReadFile(kStyleFile));
+  this->setStyleSheet(ReadFile(kStyleAdvancedPartitionButtonCss));
 }
 
 void AdvancedPartitionButton::updateStatus() {

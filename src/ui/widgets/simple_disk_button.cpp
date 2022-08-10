@@ -23,6 +23,7 @@
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
+#include "resources/styles/styles.h"
 #include "ui/delegates/partition_util.h"
 
 namespace installer {
@@ -90,7 +91,7 @@ void SimpleDiskButton::initUI() {
 
   this->setLayout(layout);
 
-  this->setStyleSheet(ReadFile(":/styles/simple_disk_button.css"));
+  this->setStyleSheet(ReadFile(kStyleSimpleDiskButtonCss));
   this->setCheckable(true);
   this->setFixedSize(kButtonWidth, kButtonHeight);
 }

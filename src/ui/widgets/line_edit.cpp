@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,13 +23,14 @@
 #include <QResizeEvent>
 
 #include "base/file_util.h"
+#include "resources/styles/styles.h"
 
 namespace installer {
 
 LineEdit::LineEdit(const QString& icon, QWidget* parent) : QLineEdit(parent) {
   this->setObjectName("line_edit");
 
-  this->setStyleSheet(ReadFile(":/styles/line_edit.css"));
+  this->setStyleSheet(ReadFile(kStyleLineEditCss));
   // Same width as in table combobox.
   this->setFixedSize(310, 36);
 
