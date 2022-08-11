@@ -32,7 +32,6 @@ sudo aptitude install \
     libxtst-dev \
     pkg-config \
     qt5-qmake \
-    qt5-default \
     qtbase5-dev \
     qttools5-dev-tools \
     zlib1g-dev \
