@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,6 +54,17 @@ class ControlPanelFrame : public QFrame {
  public slots:
   void toggleVisible();
 
+ private slots:
+  // Highlight current line when position of text cursor is changed.
+  void onLogViewerCursorPositionChanged();
+
+  // Switch pages on tab bar changed to |index|.
+  void onTabBarChanged(int index);
+
+  void onTimerTimeout();
+
+  void onSuicideButtonClicked();
+
  private:
   void initConnections();
   void initUI();
@@ -69,25 +81,11 @@ class ControlPanelFrame : public QFrame {
   QPushButton* refresh_qr_button_ = nullptr;
   QPushButton* simulate_slide_button_ = nullptr;
   QPushButton* suicide_button_ = nullptr;
-
   QTextEdit* settings_viewer_ = nullptr;
-
-  QTermWidget* term_widget_ = nullptr;
 
   QTimer* timer_ = nullptr;
   QString log_file_path_;
   QString log_content_;
-
- private slots:
-  // Highlight current line when position of text cursor is changed.
-  void onLogViewerCursorPositionChanged();
-
-  // Switch pages on tab bar changed to |index|.
-  void onTabBarChanged(int index);
-
-  void onTimerTimeout();
-
-  void onSuicideButtonClicked();
 };
 
 }  // namespace installer
