@@ -43,7 +43,6 @@ find_package(PkgConfig REQUIRED)
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${CMAKE_SOURCE_DIR}/hooks\"")
 else()
-  add_definitions("-DN_DEBUG")
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${INSTALLER_SHARE_DIR}/hooks\"")
 endif()
 

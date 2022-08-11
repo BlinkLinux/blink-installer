@@ -42,7 +42,10 @@ bool MainController::init() {
   } else {
     log_file = QString("/var/log/%1").arg(kLogFileName);
   }
+
+#ifdef NDEBUG
   RedirectLog(log_file);
+#endif
 
   // Delete old settings file and generate a new one.
   DeleteConfigFile();
