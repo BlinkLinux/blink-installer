@@ -20,6 +20,14 @@ target_link_libraries(blink-installer
     installer-controllers
     )
 
+add_executable(blink-installer-settings
+    blink_installer_settings.cpp
+    )
+target_link_libraries(blink-installer-settings
+    Qt5::Core
+    )
+
+# Installation
 install(TARGETS
         blink-installer
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin

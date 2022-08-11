@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +34,7 @@
 
 namespace {
 
-const char kAppVersion[] = "0.0.1";
+const char kAppVersion[] = "0.1.1";
 const char kAppDesc[] = "Get/set configuration in a ini file.";
 
 const int kExitErr = 1;
