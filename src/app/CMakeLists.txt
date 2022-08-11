@@ -1,11 +1,12 @@
 
 set(RESOURCE_FILES
-    ../../resources/images/images.qrc
-    ../../resources/spinner/spinner.qrc
-    ../../resources/styles/styles.qrc
+    ${CMAKE_SOURCE_DIR}/resources/images/images.qrc
+    ${CMAKE_SOURCE_DIR}/resources/misc/misc.qrc
+    ${CMAKE_SOURCE_DIR}/resources/spinner/spinner.qrc
+    ${CMAKE_SOURCE_DIR}/resources/styles/styles.qrc
     ${CMAKE_BINARY_DIR}/i18n/installer.qrc
 
-    # Also include color-schems used in qtermwidget.
+    # Also include color-schemes used in qtermwidget.
     ../third_party/qtermwidget/lib/color-schemes/color-schemes.qrc
     ../third_party/qtermwidget/lib/kb-layouts/kb-layouts.qrc
     )
