@@ -42,11 +42,9 @@ find_package(PkgConfig REQUIRED)
 # Defines path to resource directories
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${CMAKE_SOURCE_DIR}/hooks\"")
-  add_definitions("-DRESOURCES_DIR=\"${CMAKE_SOURCE_DIR}/resources\"")
 else()
   add_definitions("-DN_DEBUG")
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${INSTALLER_SHARE_DIR}/hooks\"")
-  add_definitions("-DRESOURCES_DIR=\"${INSTALLER_SHARE_DIR}/resources\"")
 endif()
 
 add_subdirectory(config)

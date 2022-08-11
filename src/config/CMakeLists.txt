@@ -1,4 +1,10 @@
 
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    set(DRESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
+else()
+    set(RESOURCES_DIR "${INSTALLER_SHARE_DIR}/resources")
+endif()
+
 function(generate_config_file)
   set(INSTALLER_VERSION ${PROJECT_VERSION})
 

@@ -56,6 +56,7 @@ target_link_libraries(installer-sysinfo
 
     installer-base
     installer-config
+    installer-resources
     )
 
 if (BUILD_TESTING)

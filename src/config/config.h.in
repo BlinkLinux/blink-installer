@@ -25,7 +25,7 @@ constexpr char kDefaultLang[] = "en_US.UTF-8";
 constexpr const char kInstallerConfigFile[] = "/etc/blink-installer.conf";
 
 // Absolute path to default installer settings
-constexpr const char kDefaultSettingsFile[] = RESOURCES_DIR "/settings/default_settings.ini";
+constexpr const char kDefaultSettingsFile[] = "@RESOURCES_DIR@/settings/default_settings.ini";
 
 }  // namespace installer
 

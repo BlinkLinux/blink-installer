@@ -35,6 +35,7 @@
 #include "config/config.h"
 #include "resources/icons/icons.h"
 #include "resources/images/images.h"
+#include "resources/misc/misc.h"
 #include "service/settings_name.h"
 
 namespace installer {
@@ -217,7 +218,7 @@ QString GetReservedUsernameFile() {
   }
 
   // Returns default list.
-  return RESOURCES_DIR "/reserved_usernames";
+  return kMiscReservedUsernames;
 }
 
 QString GetVendorLogo() {

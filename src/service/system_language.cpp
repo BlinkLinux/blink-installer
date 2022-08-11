@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,13 +25,14 @@
 
 #include "base/command.h"
 #include "base/file_util.h"
+#include "resources/misc/misc.h"
 
 namespace installer {
 
 LanguageList GetLanguageList() {
   LanguageList list;
 
-  const QString content(ReadFile(RESOURCES_DIR "/languages.json"));
+  const QString content(ReadFile(kMiscLanguages));
   const QJsonArray lang_list =
       QJsonDocument::fromJson(content.toUtf8()).array();
   for (const QJsonValue& lang_value : lang_list) {

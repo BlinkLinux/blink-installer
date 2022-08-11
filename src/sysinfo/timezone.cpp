@@ -29,19 +29,17 @@
 
 #include "base/file_util.h"
 #include "config/config.h"
+#include "resources/misc/misc.h"
 
 namespace installer {
 
 namespace {
 
 // Absolute path to zone.tab file.
-const char kZoneTabFile[] = "/usr/share/zoneinfo/zone.tab";
-
-// Absolute path to backward timezone file.
-const char kTimezoneAliasFile[] = RESOURCES_DIR "/timezone_alias";
+constexpr const char kZoneTabFile[] = "/usr/share/zoneinfo/zone.tab";
 
 // Domain name for timezones.
-const char kTimezoneDomain[] = "deepin-installer-timezones";
+constexpr const char kTimezoneDomain[] = "deepin-installer-timezones";
 
 // Parse latitude and longitude of the zone's principal location.
 // See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
@@ -158,7 +156,7 @@ QString GetLocalTimezoneName(const QString& timezone, const QString& locale) {
 TimezoneAliasMap GetTimezoneAliasMap() {
   TimezoneAliasMap map;
 
-  const QString content = ReadFile(kTimezoneAliasFile);
+  const QString content = ReadFile(kMiscTimezoneAlias);
   for (const QString& line : content.split('\n')) {
     if (!line.isEmpty()) {
       const QStringList parts = line.split(':');
