@@ -164,6 +164,7 @@ qint64 GetFileSize(const QString& filepath) {
 }
 
 QString ReadFile(const QString& path) {
+  Q_ASSERT(!path.isEmpty());
   QFile file(path);
   if (file.exists()) {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -175,7 +176,7 @@ QString ReadFile(const QString& path) {
     file.close();
     return str;
   } else {
-    qWarning() << "ReadFileContent() file not found: " << path;
+    qWarning() << "ReadFile() file not found: " << path;
     return "";
   }
 }
