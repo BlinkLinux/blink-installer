@@ -3,7 +3,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 project(zlib_wrapper)
 
 set(CMAKE_AUTOMOC ON)
-find_package(Qt5Core REQUIRED)
+
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 find_package(PkgConfig REQUIRED)
 
 pkg_search_module(ZLib REQUIRED zlib)
@@ -14,7 +16,7 @@ set(SOURCES
     zip_util.h
     )
 set(LINK_LIBS
-    Qt5::Core
+    Qt${QT_VERSION_MAJOR}::Core
     ${ZLib_LIBRARIES}
     )
 

@@ -9,7 +9,7 @@ add_library(installer-controllers STATIC
     ${SOURCE_FILES}
     )
 target_link_libraries(installer-controllers
-    Qt5::Widgets
+    Qt${QT_VERSION_MAJOR}::Widgets
 
     installer-config
     installer-sysinfo

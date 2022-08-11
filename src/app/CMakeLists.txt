@@ -14,7 +14,7 @@ add_executable(blink-installer
     ${RESOURCE_FILES}
     )
 target_link_libraries(blink-installer
-    Qt5::Widgets
+    Qt${QT_VERSION_MAJOR}::Widgets
 
     installer-controllers
     )
@@ -23,7 +23,7 @@ add_executable(blink-installer-settings
     blink_installer_settings.cpp
     )
 target_link_libraries(blink-installer-settings
-    Qt5::Core
+    Qt${QT_VERSION_MAJOR}::Core
     )
 
 # Installation
