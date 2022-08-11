@@ -1,5 +1,6 @@
 
 set(RESOURCE_FILES
+    ${CMAKE_SOURCE_DIR}/resources/icons/icons.qrc
     ${CMAKE_SOURCE_DIR}/resources/images/images.qrc
     ${CMAKE_SOURCE_DIR}/resources/misc/misc.qrc
     ${CMAKE_SOURCE_DIR}/resources/spinner/spinner.qrc

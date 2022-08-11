@@ -594,7 +594,6 @@ ColorSchemeManager::~ColorSchemeManager()
 }
 void ColorSchemeManager::loadAllColorSchemes()
 {
-    qDebug() << "loadAllColorSchemes";
     int failed = 0;
 
     QList<QString> nativeColorSchemes = listColorSchemes();

@@ -80,7 +80,7 @@ void MainWindow::fullscreen() {
     current_page_ = PageId::PartitionId;
 
     // Set language.
-    QTranslator* translator = new QTranslator(this);
+    auto* translator = new QTranslator(this);
     const QString locale(ReadLocale());
     translator->load(GetLocalePath(locale));
     qApp->installTranslator(translator);
@@ -358,10 +358,9 @@ void MainWindow::updateBackground() {
     qWarning() << "background_label is not initialized!";
     return;
   }
-  const QString image_path = GetWindowBackground();
+  QPixmap source_pixmap(GetWindowBackground());
   // Other platforms may have performance issue.
-  const QPixmap pixmap =
-      QPixmap(image_path).scaled(size(), Qt::KeepAspectRatioByExpanding);
+  const QPixmap pixmap = source_pixmap.scaled(size(), Qt::KeepAspectRatioByExpanding);
   background_label_->setPixmap(pixmap);
   background_label_->setFixedSize(size());
 }

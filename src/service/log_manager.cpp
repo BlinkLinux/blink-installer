@@ -18,16 +18,16 @@
 #include "service/log_manager.h"
 
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+
 #include <QDateTime>
 #include <QDebug>
 #include <QFile>
 #include <QFileInfo>
-#include <QtGlobal>
 
 namespace installer {
 
