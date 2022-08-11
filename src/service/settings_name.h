@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,122 +24,122 @@ namespace installer {
 // Keys used in settings ini file.
 
 // Pages
-const char kSkipDiskSpaceInsufficientPage[] =
+constexpr char kSkipDiskSpaceInsufficientPage[] =
     "skip_disk_space_insufficient_page";
-const char kSkipVirtualMachinePage[] = "skip_virtual_machine_page";
-const char kSkipSelectLanguagePage[] = "skip_select_language_page";
-const char kSkipSystemInfoPage[] = "skip_system_info_page";
-const char kSkipTimezonePage[] = "skip_timezone_page";
-const char kSkipPartitionPage[] = "skip_partition_page";
+constexpr char kSkipVirtualMachinePage[] = "skip_virtual_machine_page";
+constexpr char kSkipSelectLanguagePage[] = "skip_select_language_page";
+constexpr char kSkipSystemInfoPage[] = "skip_system_info_page";
+constexpr char kSkipTimezonePage[] = "skip_timezone_page";
+constexpr char kSkipPartitionPage[] = "skip_partition_page";
 
 // System Language List
-const char kSelectLanguageDefaultLocale[] = "select_language_default_locale";
+constexpr char kSelectLanguageDefaultLocale[] = "select_language_default_locale";
 
 // System Info
-const char kSystemInfoDeepinVersion[] = "system_info_deepin_version";
-const char kSystemInfoLsbRelease[] = "system_info_lsb_release";
-const char kSystemInfoVendorName[] = "system_info_vendor_name";
-const char kSystemInfoSetupAfterReboot[] = "system_info_setup_after_reboot";
-const char kSystemInfoDefaultUsername[] = "system_info_default_username";
-const char kSystemInfoLockUsername[] = "system_info_lock_username";
-const char kSystemInfoUsernameMinLen[] = "system_info_username_min_len";
-const char kSystemInfoUsernameMaxLen[] = "system_info_username_max_len";
-const char kSystemInfoDefaultHostname[] = "system_info_default_hostname";
-const char kSystemInfoLockHostname[] = "system_info_lock_hostname";
-const char kSystemInfoHostnameAutoSuffix[] = "system_info_hostname_auto_suffix";
-const char kSystemInfoHostnameReserved[] = "system_info_hostname_reserved";
-const char kSystemInfoDefaultPassword[] = "system_info_default_password";
-const char kSystemInfoLockPassword[] = "system_info_lock_password";
-const char kSystemInfoPasswordMinLen[] = "system_info_password_min_len";
-const char kSystemInfoPasswordMaxLen[] = "system_info_password_max_len";
-const char kSystemInfoPasswordRequireNumber[] =
+constexpr char kSystemInfoDeepinVersion[] = "system_info_deepin_version";
+constexpr char kSystemInfoLsbRelease[] = "system_info_lsb_release";
+constexpr char kSystemInfoVendorName[] = "system_info_vendor_name";
+constexpr char kSystemInfoSetupAfterReboot[] = "system_info_setup_after_reboot";
+constexpr char kSystemInfoDefaultUsername[] = "system_info_default_username";
+constexpr char kSystemInfoLockUsername[] = "system_info_lock_username";
+constexpr char kSystemInfoUsernameMinLen[] = "system_info_username_min_len";
+constexpr char kSystemInfoUsernameMaxLen[] = "system_info_username_max_len";
+constexpr char kSystemInfoDefaultHostname[] = "system_info_default_hostname";
+constexpr char kSystemInfoLockHostname[] = "system_info_lock_hostname";
+constexpr char kSystemInfoHostnameAutoSuffix[] = "system_info_hostname_auto_suffix";
+constexpr char kSystemInfoHostnameReserved[] = "system_info_hostname_reserved";
+constexpr char kSystemInfoDefaultPassword[] = "system_info_default_password";
+constexpr char kSystemInfoLockPassword[] = "system_info_lock_password";
+constexpr char kSystemInfoPasswordMinLen[] = "system_info_password_min_len";
+constexpr char kSystemInfoPasswordMaxLen[] = "system_info_password_max_len";
+constexpr char kSystemInfoPasswordRequireNumber[] =
     "system_info_password_require_number";
-const char kSystemInfoPasswordRequireLowerCase[] =
+constexpr char kSystemInfoPasswordRequireLowerCase[] =
     "system_info_password_require_lower_case";
-const char kSystemInfoPasswordRequireUpperCase[] =
+constexpr char kSystemInfoPasswordRequireUpperCase[] =
     "system_info_password_require_upper_case";
-const char kSystemInfoPasswordRequireSpecialChar[] =
+constexpr char kSystemInfoPasswordRequireSpecialChar[] =
     "system_info_password_require_special_char";
-const char kSystemInfoDefaultAvator[] = "system_info_default_avatar";
-const char kSystemInfoDdeAvatarDir[] = "system_info_dde_avatar_dir";
-const char kSystemInfoDisableAvatorPage[] = "system_info_disable_avatar_page";
+constexpr char kSystemInfoDefaultAvator[] = "system_info_default_avatar";
+constexpr char kSystemInfoDdeAvatarDir[] = "system_info_dde_avatar_dir";
+constexpr char kSystemInfoDisableAvatorPage[] = "system_info_disable_avatar_page";
 
-const char kSystemInfoDefaultKeyboardLayout[] =
+constexpr char kSystemInfoDefaultKeyboardLayout[] =
     "system_info_default_keyboard_layout";
-const char kSystemInfoDefaultKeyboardLayoutVariant[] =
+constexpr char kSystemInfoDefaultKeyboardLayoutVariant[] =
     "system_info_default_keyboard_layout_variant";
-const char kSystemInfoDisableKeyboardPage[] =
+constexpr char kSystemInfoDisableKeyboardPage[] =
     "system_info_disable_keyboard_page";
 
 // Timezone
-const char kTimezoneDefault[] = "timezone_default";
-const char kTimezoneUseWindowsTime[] = "timezone_use_windows_time";
-const char kTimezoneUseGeoIp[] = "timezone_use_geoip";
-const char kTimezoneUseRegdomain[] = "timezone_use_regdomain";
+constexpr char kTimezoneDefault[] = "timezone_default";
+constexpr char kTimezoneUseWindowsTime[] = "timezone_use_windows_time";
+constexpr char kTimezoneUseGeoIp[] = "timezone_use_geoip";
+constexpr char kTimezoneUseRegdomain[] = "timezone_use_regdomain";
 
 // Partition
-const char kPartitionSkipFullDiskPartitionPage[] =
+constexpr char kPartitionSkipFullDiskPartitionPage[] =
     "partition_skip_full_disk_partition_page";
-const char kPartitionSkipSimplePartitionPage[] =
+constexpr char kPartitionSkipSimplePartitionPage[] =
     "partition_skip_simple_partition_page";
-const char kPartitionEnableSwapFile[] = "partition_enable_swap_file";
-const char kPartitionEnableSwapFileInAdvancedPage[] =
+constexpr char kPartitionEnableSwapFile[] = "partition_enable_swap_file";
+constexpr char kPartitionEnableSwapFileInAdvancedPage[] =
     "partition_enable_swap_file_in_advanced_page";
-const char kPartitionForceSwapFileInSimplePage[] =
+constexpr char kPartitionForceSwapFileInSimplePage[] =
     "partition_force_swap_file_in_simple_page";
-const char kPartitionMemoryThresholdForSwapArea[] =
+constexpr char kPartitionMemoryThresholdForSwapArea[] =
     "partition_memory_threshold_for_swap_area";
-const char kPartitionSwapPartitionSize[] = "partition_swap_partition_size";
-const char kPartitionMinimumDiskSpaceRequired[] =
+constexpr char kPartitionSwapPartitionSize[] = "partition_swap_partition_size";
+constexpr char kPartitionMinimumDiskSpaceRequired[] =
     "partition_minimum_disk_space_required";
-const char kPartitionRecommendedDiskSpace[] =
+constexpr char kPartitionRecommendedDiskSpace[] =
     "partition_recommended_disk_space";
-const char kPartitionDefaultBootSpace[] = "partition_default_boot_space";
-const char kPartitionDefaultEFISpace[] = "partition_default_efi_space";
-const char kPartitionEFIMinimumSpace[] = "partition_efi_minimum_space";
-const char kPartitionSupportedFs[] = "partition_supported_fs";
-const char kPartitionDefaultFs[] = "partition_default_fs";
-const char kPartitionDoAutoPart[] = "partition_do_auto_part";
-const char kPartitionMountPoints[] = "partition_mount_points";
-const char kPartitionFormattedMountPoints[] =
+constexpr char kPartitionDefaultBootSpace[] = "partition_default_boot_space";
+constexpr char kPartitionDefaultEFISpace[] = "partition_default_efi_space";
+constexpr char kPartitionEFIMinimumSpace[] = "partition_efi_minimum_space";
+constexpr char kPartitionSupportedFs[] = "partition_supported_fs";
+constexpr char kPartitionDefaultFs[] = "partition_default_fs";
+constexpr char kPartitionDoAutoPart[] = "partition_do_auto_part";
+constexpr char kPartitionMountPoints[] = "partition_mount_points";
+constexpr char kPartitionFormattedMountPoints[] =
     "partition_formatted_mount_points";
-const char kPartitionBootOnFirstPartition[] =
+constexpr char kPartitionBootOnFirstPartition[] =
     "partition_boot_on_first_partition";
-const char kPartitionPreferLogicalPartition[] =
+constexpr char kPartitionPreferLogicalPartition[] =
     "partition_prefer_logical_partition";
-const char kPartitionBootPartitionFs[] = "partition_boot_partition_fs";
-const char kPartitionEnableOsProber[] = "partition_enable_os_prober";
-const char kPartitionHideInstallationDevice[] =
+constexpr char kPartitionBootPartitionFs[] = "partition_boot_partition_fs";
+constexpr char kPartitionEnableOsProber[] = "partition_enable_os_prober";
+constexpr char kPartitionHideInstallationDevice[] =
     "partition_hide_installation_device";
 
-const char kPartitionFullDiskLargeDiskThreshold[] =
+constexpr char kPartitionFullDiskLargeDiskThreshold[] =
     "partition_full_disk_large_disk_threshold";
-const char kPartitionFullDiskSmallLegacyPolicy[] =
+constexpr char kPartitionFullDiskSmallLegacyPolicy[] =
     "partition_full_disk_small_legacy_policy";
-const char kPartitionFullDiskSmallUEFIPolicy[] =
+constexpr char kPartitionFullDiskSmallUEFIPolicy[] =
     "partition_full_disk_small_uefi_policy";
-const char kPartitionFullDiskLargeLegacyPolicy[] =
+constexpr char kPartitionFullDiskLargeLegacyPolicy[] =
     "partition_full_disk_large_legacy_policy";
-const char kPartitionFullDiskLargeUEFIPolicy[] =
+constexpr char kPartitionFullDiskLargeUEFIPolicy[] =
     "partition_full_disk_large_uefi_policy";
-const char kPartitionFullDiskLargeRootPartRange[] =
+constexpr char kPartitionFullDiskLargeRootPartRange[] =
     "partition_full_disk_large_root_part_range";
 
 // Install progress page
-const char kInstallProgressPageDisableSlide[] =
+constexpr char kInstallProgressPageDisableSlide[] =
     "install_progress_page_disable_slide";
-const char kInstallProgressPageDisableSlideAnimation[] =
+constexpr char kInstallProgressPageDisableSlideAnimation[] =
     "install_progress_page_disable_slide_animation";
-const char kInstallProgressPageAnimationDuration[] =
+constexpr char kInstallProgressPageAnimationDuration[] =
     "install_progress_page_animation_duration";
 
 // Install failed page
-const char kInstallFailedFeedbackServer[] = "install_failed_feedback_server";
-const char kInstallFailedQRErrMsgLen[] = "install_failed_qr_err_msg_len";
-const char kInstallFailedErrMsgLen[] = "install_failed_err_msg_len";
+constexpr char kInstallFailedFeedbackServer[] = "install_failed_feedback_server";
+constexpr char kInstallFailedQRErrMsgLen[] = "install_failed_qr_err_msg_len";
+constexpr char kInstallFailedErrMsgLen[] = "install_failed_err_msg_len";
 
 // Misc
-const char kScreenDefaultBrightness[] = "screen_default_brightness";
+constexpr char kScreenDefaultBrightness[] = "screen_default_brightness";
 
 }  // namespace installer
 

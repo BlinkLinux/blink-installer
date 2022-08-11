@@ -24,20 +24,20 @@
 namespace installer {
 
 struct ZoneInfo {
- public:
-  QString country;
-  QString timezone;
+  QString country{};
+  QString timezone{};
 
   // Coordinates of zone.
-  double latitude;
-  double longitude;
+  double latitude{};
+  double longitude{};
 
   // Distance to clicked point for comparison.
-  double distance;
+  double distance{};
 };
+
 bool ZoneInfoDistanceComp(const ZoneInfo& a, const ZoneInfo& b);
 QDebug& operator<<(QDebug& debug, const ZoneInfo& info);
-typedef QList<ZoneInfo> ZoneInfoList;
+using ZoneInfoList = QList<ZoneInfo>;
 
 // Read available timezone info in zone.tab file.
 ZoneInfoList GetZoneInfoList();
