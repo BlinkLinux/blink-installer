@@ -57,8 +57,8 @@ int main(int argc, char* argv[]) {
 
   QCommandLineParser parser;
   parser.setApplicationDescription(kAppDesc);
-  parser.addHelpOption();
-  parser.addVersionOption();
+  const auto help_option = parser.addHelpOption();
+  const auto version_option = parser.addVersionOption();
   parser.addPositionalArgument("command", "Set or get value", "get/set");
   parser.addPositionalArgument("ini-file", "Absolute path to ini file");
   parser.addPositionalArgument("section",
@@ -70,6 +70,12 @@ int main(int argc, char* argv[]) {
   if (!parser.parse(app.arguments())) {
     // Show help and exit.
     parser.showHelp(kExitErr);
+  }
+  if (parser.isSet(help_option)) {
+    parser.showHelp(kExitOk);
+  }
+  if (parser.isSet(version_option)) {
+    parser.showVersion();
   }
 
   const QStringList pos_args = parser.positionalArguments();
