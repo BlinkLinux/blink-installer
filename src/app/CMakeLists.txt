@@ -3,6 +3,7 @@ set(RESOURCE_FILES
     ${CMAKE_SOURCE_DIR}/resources/icons/icons.qrc
     ${CMAKE_SOURCE_DIR}/resources/images/images.qrc
     ${CMAKE_SOURCE_DIR}/resources/misc/misc.qrc
+    ${CMAKE_SOURCE_DIR}/resources/slide/slide.qrc
     ${CMAKE_SOURCE_DIR}/resources/spinner/spinner.qrc
     ${CMAKE_SOURCE_DIR}/resources/styles/styles.qrc
     ${CMAKE_BINARY_DIR}/i18n/installer.qrc

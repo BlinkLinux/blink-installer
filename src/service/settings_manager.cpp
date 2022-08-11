@@ -237,7 +237,6 @@ QString GetWindowBackground() {
     return oem_file;
   }
 
-  qDebug() << Q_FUNC_INFO << kIconsDefaultWallpaper;
   return kIconsDefaultWallpaper;
 }
 
