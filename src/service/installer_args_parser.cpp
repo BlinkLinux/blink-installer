@@ -45,34 +45,25 @@ bool InstallerArgsParser::parse(const QStringList& args) {
   parser.addOption(log_file_option);
   const QCommandLineOption auto_install_option("auto-install", "Enable auto-install mode", "", "");
   parser.addOption(auto_install_option);
-  parser.addHelpOption();
-  parser.addVersionOption();
+  const auto help_option = parser.addHelpOption();
+  const auto version_option = parser.addVersionOption();
 
   if (!parser.parse(args)) {
     qCritical() << "Failed to parse argument" << args;
     // Also print help text if QCoreApplication is initialized.
-    if (QCoreApplication::instance()) {
+    if (QCoreApplication::instance() != nullptr) {
       qCritical().noquote() << parser.helpText();
     }
     return false;
   }
 
-  if (parser.isSet("version")) {
-    if (QCoreApplication::instance()) {
-      parser.showVersion();
-    }
+  if (parser.isSet(version_option)) {
+    parser.showVersion();
+    return true;
   }
-
-  // Print help text and exit normally.
-  if (parser.isSet("help")) {
-    if (QCoreApplication::instance()) {
-      parser.showHelp(0);
-      return true;
-    } else {
-      // NOTE(xushaohua): Return false to notify caller to exit.
-      qCritical().noquote() << parser.helpText();
-      return false;
-    }
+  if (parser.isSet(help_option)) {
+    parser.showHelp(0);
+    return true;
   }
 
   if (parser.isSet(auto_install_option)) {
