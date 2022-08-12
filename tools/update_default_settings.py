@@ -20,13 +20,15 @@
 # Generate default settings for non x86_64 platforms.
 # Execute this program after updating options in resources/settings.default_settings.ini.
 
-import configparser
+import configobj
 import os
 import shutil
 import sys
 
+
 SEC_NAME = "General"
 BASE_DIR = "resources/settings"
+
 
 def update_settings(settings_filename, settings):
     src_settings = os.path.join(BASE_DIR, "default_settings.ini")
@@ -36,19 +38,11 @@ def update_settings(settings_filename, settings):
         sys.exit(1)
     shutil.copy(src_settings, target_settings)
 
-    parser = configparser.ConfigParser()
-    parser.read(target_settings)
+    parser = configobj.ConfigObj(target_settings)
     for key, value in settings:
-        parser.set(SEC_NAME, key, value)
-    with open(target_settings, "w") as fh:
-        parser.write(fh)
+        parser[SEC_NAME][key] = value
+    parser.write()
 
-    parser = configparser.ConfigParser()
-    parser.read(target_settings)
-    for key, value in settings:
-        parser.set(SEC_NAME, key, value)
-    with open(target_settings, "w") as fh:
-        parser.write(fh)
 
 def main():
     x86_64_file = "default_settings_x86_64.ini"
