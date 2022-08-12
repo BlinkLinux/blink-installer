@@ -13,19 +13,19 @@ constexpr const char* kAppBuildDate = "@INSTALLER_BUILD_DATE@";
 
 // Name of application.
 // This name can be used as folder name, like in /usr/share or /usr/lib.
-constexpr const char kAppName[] = "blink-installer";
+constexpr const char* kAppName = "blink-installer";
 
 // Human readable name of application.
-constexpr const char kAppDisplayName[] = "Blink Installer";
+constexpr const char* kAppDisplayName = "Blink Installer";
 
 // Default locale used in program.
-constexpr char kDefaultLang[] = "en_US.UTF-8";
+constexpr const char* kDefaultLang = "en_US.UTF-8";
 
 // Absolute path to settings file.
-constexpr const char kInstallerConfigFile[] = "/etc/blink-installer.conf";
+constexpr const char* kInstallerConfigFile = "/etc/blink-installer.conf";
 
 // Absolute path to default installer settings
-constexpr const char kDefaultSettingsFile[] = "@RESOURCES_DIR@/settings/default_settings.ini";
+constexpr const char* kDefaultSettingsFile = "@DEFAULT_SETTINGS@";
 
 }  // namespace installer
 

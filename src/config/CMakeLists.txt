@@ -1,8 +1,9 @@
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    set(RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
+    set(DEFAULT_SETTINGS
+        "${CMAKE_SOURCE_DIR}/resources/settings/default_settings_${CMAKE_SYSTEM_PROCESSOR}.ini")
 else()
-    set(RESOURCES_DIR "${INSTALLER_SHARE_DIR}/resources")
+    set(DEFAULT_SETTINGS "${INSTALLER_SHARE_DIR}/resources/settings/default_settings.ini")
 endif()
 
 function(generate_config_file)
