@@ -18,18 +18,11 @@
 
 #include "ui/main_window.h"
 
-#include <QApplication>
-#include <QDebug>
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QResizeEvent>
-#include <QShortcut>
-#include <QStackedLayout>
-#include <QTranslator>
 
 #include "base/file_util.h"
 #include "resources/styles/styles.h"
-#include "service/languages.h"
 #include "service/power_manager.h"
 #include "service/screen_brightness.h"
 #include "service/settings_manager.h"
@@ -37,23 +30,6 @@
 #include "sysinfo/users.h"
 #include "sysinfo/virtual_machine.h"
 #include "third_party/global_shortcut/global_shortcut.h"
-#include "ui/delegates/main_window_util.h"
-#include "ui/frames/confirm_quit_frame.h"
-#include "ui/frames/control_panel_frame.h"
-#include "ui/frames/disk_space_insufficient_frame.h"
-#include "ui/frames/install_failed_frame.h"
-#include "ui/frames/install_progress_frame.h"
-#include "ui/frames/install_success_frame.h"
-#include "ui/frames/partition_frame.h"
-#include "ui/frames/privilege_error_frame.h"
-#include "ui/frames/select_language_frame.h"
-#include "ui/frames/system_info_frame.h"
-#include "ui/frames/timezone_frame.h"
-#include "ui/frames/virtual_machine_frame.h"
-#include "ui/utils/widget_util.h"
-#include "ui/widgets/page_indicator.h"
-#include "ui/widgets/pointer_button.h"
-#include "ui/xrandr/multi_head_manager.h"
 
 namespace installer {
 
@@ -79,11 +55,7 @@ void MainWindow::fullscreen() {
     // Read default locale from settings.ini and go to InstallProgressFrame.
     current_page_ = PageId::PartitionId;
 
-    // Set language.
-    auto* translator = new QTranslator(this);
-    const QString locale(ReadLocale());
-    translator->load(GetLocalePath(locale));
-    qApp->installTranslator(translator);
+    emit this->requestReloadTranslator();
   }
 
   multi_head_manager_->updateWallpaper();
@@ -535,6 +507,12 @@ void MainWindow::rebootSystem() {
 
 void MainWindow::shutdownSystem() {
   this->saveLogFile();
+
+#ifndef NDEBUG
+  // Do not shutdown system in debug.
+  this->close();
+  return;
+#endif
 
   if (!ShutdownSystemWithMagicKey()) {
     qWarning() << "ShutdownSystem() failed!";

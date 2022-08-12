@@ -21,31 +21,32 @@
 
 #include <QWidget>
 #include <QHash>
-class QLabel;
-class QPushButton;
-class QResizeEvent;
-class QShortcut;
-class QStackedLayout;
+#include <QLabel>
+#include <QPushButton>
+#include <QResizeEvent>
+#include <QShortcut>
+#include <QStackedLayout>
 
-class GlobalShortcut;
+#include "third_party/global_shortcut/global_shortcut.h"
+#include "ui/delegates/main_window_util.h"
+#include "ui/frames/confirm_quit_frame.h"
+#include "ui/frames/control_panel_frame.h"
+#include "ui/frames/disk_space_insufficient_frame.h"
+#include "ui/frames/install_failed_frame.h"
+#include "ui/frames/install_progress_frame.h"
+#include "ui/frames/install_success_frame.h"
+#include "ui/frames/partition_frame.h"
+#include "ui/frames/privilege_error_frame.h"
+#include "ui/frames/select_language_frame.h"
+#include "ui/frames/system_info_frame.h"
+#include "ui/frames/timezone_frame.h"
+#include "ui/frames/virtual_machine_frame.h"
+#include "ui/utils/widget_util.h"
+#include "ui/widgets/page_indicator.h"
+#include "ui/widgets/pointer_button.h"
+#include "ui/xrandr/multi_head_manager.h"
 
 namespace installer {
-
-class ConfirmQuitFrame;
-class ControlPanelFrame;
-class DiskSpaceInsufficientFrame;
-class InstallFailedFrame;
-class InstallProgressFrame;
-class InstallSuccessFrame;
-class MultiHeadManager;
-class PageIndicator;
-class PartitionFrame;
-class PartitionTableWarningFrame;
-class PrivilegeErrorFrame;
-class SelectLanguageFrame;
-class SystemInfoFrame;
-class TimezoneFrame;
-class VirtualMachineFrame;
 
 // MainWindow is a fullscreen window of deepin-installer.
 // All of ui frames are placed in MainWindow.
@@ -58,7 +59,7 @@ class MainWindow : public QWidget {
   Q_OBJECT
 
  public:
-  MainWindow();
+  explicit MainWindow();
 
   // Show fullscreen.
   void fullscreen();
@@ -72,6 +73,9 @@ class MainWindow : public QWidget {
 
   // Set filepath to which log file will be backup.
   void setLogFile(const QString& log_file);
+
+ signals:
+  void requestReloadTranslator();
 
  protected:
   // Move close button to appropriate position when window is resized.

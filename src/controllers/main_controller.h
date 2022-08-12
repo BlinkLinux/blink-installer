@@ -19,7 +19,14 @@ class MainController : public QObject {
 
   bool init();
 
+ private slots:
+  void reloadTranslator();
+
+  void onMainWindowClosed();
+
  private:
+  void initConnections();
+
   MainWindow* main_window_{nullptr};
 };
 

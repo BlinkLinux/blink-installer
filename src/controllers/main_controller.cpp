@@ -6,9 +6,11 @@
 
 #include <QApplication>
 #include <QDebug>
+#include <QTranslator>
 
 #include "config/config.h"
 #include "service/installer_args_parser.h"
+#include "service/languages.h"
 #include "service/log_manager.h"
 #include "service/settings_manager.h"
 #include "sysinfo/users.h"
@@ -18,11 +20,31 @@ namespace installer {
 MainController::MainController(QObject* parent)
     : QObject(parent),
       main_window_(new MainWindow()) {
-
+  this->initConnections();
 }
 
 MainController::~MainController() {
   main_window_->deleteLater();
+}
+
+void MainController::initConnections() {
+  connect(main_window_, &MainWindow::destroyed,
+          this, &MainController::onMainWindowClosed);
+  connect(main_window_, &MainWindow::requestReloadTranslator,
+          this, &MainController::reloadTranslator);
+}
+
+void MainController::reloadTranslator() {
+  // Set language.
+  auto* translator = new QTranslator(this);
+  const QString locale(ReadLocale());
+  translator->load(GetLocalePath(locale));
+  qApp->installTranslator(translator);
+}
+
+void MainController::onMainWindowClosed() {
+  qDebug() << Q_FUNC_INFO;
+  qApp->quit();
 }
 
 bool MainController::init() {
@@ -34,7 +56,7 @@ bool MainController::init() {
   }
 
   // Initialize log service.
-  constexpr const char kLogFileName[] = "blink-installer.log";
+  constexpr const char* kLogFileName = "blink-installer.log";
   QString log_file;
   if (!HasRootPrivilege()) {
     qCritical() << "Root privilege is required!";
