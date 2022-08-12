@@ -92,6 +92,11 @@ void MainWindow::setEnableAutoInstall(bool auto_install) {
   auto_install_ = auto_install;
 }
 
+void MainWindow::closeEvent(QCloseEvent* event) {
+  event->ignore();
+  this->setCurrentPage(PageId::ConfirmQuitId);
+}
+
 void MainWindow::resizeEvent(QResizeEvent* event) {
   this->updateBackground();
   QWidget::resizeEvent(event);

@@ -19,13 +19,14 @@
 #ifndef INSTALLER_UI_MAIN_WINDOW_H
 #define INSTALLER_UI_MAIN_WINDOW_H
 
-#include <QWidget>
+#include <QCloseEvent>
 #include <QHash>
 #include <QLabel>
 #include <QPushButton>
 #include <QResizeEvent>
 #include <QShortcut>
 #include <QStackedLayout>
+#include <QWidget>
 
 #include "third_party/global_shortcut/global_shortcut.h"
 #include "ui/delegates/main_window_util.h"
@@ -77,6 +78,9 @@ class MainWindow : public QWidget {
   void requestRebootSystem();
 
  protected:
+  // Switch to abort page on close-event received.
+  void closeEvent(QCloseEvent* event) override;
+
   // Move close button to appropriate position when window is resized.
   void resizeEvent(QResizeEvent* event) override;
 
