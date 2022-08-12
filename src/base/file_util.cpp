@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -128,10 +129,9 @@ QString GetFileBasename(const QString& filepath) {
   const int dot_index = filename.lastIndexOf(QChar('.'));
   if (dot_index > 0) {
     return filename.left(dot_index);
-  } else {
-    // Filename does not contain extension name.
-    return filename;
   }
+  // Filename does not contain extension name.
+  return filename;
 }
 
 QString GetFileExtname(const QString& filepath) {
@@ -148,23 +148,20 @@ QString GetFileName(const QString& filepath) {
   const int slash_index = filepath.lastIndexOf(QDir::separator());
   if (slash_index > -1) {
     return filepath.mid(slash_index + 1);
-  } else {
-    // filepath is the filename.
-    return filepath;
   }
+  // filepath is the filename.
+  return filepath;
 }
 
 qint64 GetFileSize(const QString& filepath) {
   QFileInfo info(filepath);
   if (info.exists()) {
     return info.size();
-  } else {
-    return 0;
   }
+  return 0;
 }
 
 QString ReadFile(const QString& path) {
-  Q_ASSERT(!path.isEmpty());
   QFile file(path);
   if (file.exists()) {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -175,10 +172,9 @@ QString ReadFile(const QString& path) {
     QString str = text_stream.readAll();
     file.close();
     return str;
-  } else {
-    qWarning() << "ReadFile() file not found: " << path;
-    return "";
   }
+  qWarning() << "ReadFile() file not found: " << path;
+  return "";
 }
 
 QString ReadGBKFile(const QString& path) {
@@ -192,10 +188,9 @@ QString ReadGBKFile(const QString& path) {
     QTextCodec* codec = QTextCodec::codecForName("GB18030");
     file.close();
     return codec->toUnicode(file_data);
-  } else {
-    qWarning() << "ReadGBKFile() file not found:" << path;
-    return "";
   }
+  qWarning() << "ReadGBKFile() file not found:" << path;
+  return "";
 }
 
 bool ReadRawFile(const QString& path, QByteArray& content) {
@@ -232,10 +227,9 @@ bool WriteTextFile(const QString& path, const QString& content) {
     text_stream.flush();
     file.close();
     return true;
-  }else {
-    qCritical() << "WriteTextFile() failed!" << ", path:" << path;
-    return false;
   }
+  qCritical() << "WriteTextFile() failed!" << ", path:" << path;
+  return false;
 }
 
 }  // namespace installer
