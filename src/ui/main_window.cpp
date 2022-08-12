@@ -23,7 +23,6 @@
 
 #include "base/file_util.h"
 #include "resources/styles/styles.h"
-#include "service/power_manager.h"
 #include "service/screen_brightness.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
@@ -48,6 +47,10 @@ MainWindow::MainWindow()
   this->initConnections();
 
   SetBrightness(GetSettingsInt(kScreenDefaultBrightness));
+}
+
+MainWindow::~MainWindow() {
+  this->saveLogFile();
 }
 
 void MainWindow::fullscreen() {
@@ -107,7 +110,7 @@ void MainWindow::initConnections() {
   connect(confirm_quit_frame_, &ConfirmQuitFrame::quitCancelled,
           this, &MainWindow::goNextPage);
   connect(confirm_quit_frame_, &ConfirmQuitFrame::quitConfirmed,
-          this, &MainWindow::shutdownSystem);
+          this, &MainWindow::requestShutdownSystem);
 
   connect(control_panel_frame_, &ControlPanelFrame::currentPageChanged,
           this, &MainWindow::onCurrentPageChanged);
@@ -119,19 +122,19 @@ void MainWindow::initConnections() {
           install_progress_frame_, &InstallProgressFrame::simulate);
 
   connect(disk_space_insufficient_frame_, &DiskSpaceInsufficientFrame::finished,
-          this, &MainWindow::shutdownSystem);
+          this, &MainWindow::requestShutdownSystem);
 
   connect(install_failed_frame_, &InstallFailedFrame::finished,
-          this, &MainWindow::shutdownSystem);
+          this, &MainWindow::requestShutdownSystem);
 
   connect(install_progress_frame_, &InstallProgressFrame::finished,
           this, &MainWindow::goNextPage);
 
   connect(install_success_frame_, &InstallSuccessFrame::finished,
-          this, &MainWindow::rebootSystem);
+          this, &MainWindow::requestRebootSystem);
 
   connect(partition_frame_, &PartitionFrame::reboot,
-          this, &MainWindow::rebootSystem);
+          this, &MainWindow::requestRebootSystem);
   connect(partition_frame_, &PartitionFrame::finished,
           this, &MainWindow::goNextPage);
 
@@ -168,7 +171,7 @@ void MainWindow::initConnections() {
           multi_head_manager_, &MultiHeadManager::switchXRandRMode);
   connect(brightness_increase_shortcut_, &QShortcut::activated,
           IncreaseBrightness);
-  connect(brithtness_decrease_shortcut_, &QShortcut::activated,
+  connect(brightness_decrease_shortcut_, &QShortcut::activated,
           DecreaseBrightness);
 }
 
@@ -284,7 +287,7 @@ void MainWindow::registerShortcut() {
   }
 
   brightness_increase_shortcut_ = new QShortcut(QKeySequence("Ctrl+="), this);
-  brithtness_decrease_shortcut_ = new QShortcut(QKeySequence("Ctrl+-"), this);
+  brightness_decrease_shortcut_ = new QShortcut(QKeySequence("Ctrl+-"), this);
 }
 
 void MainWindow::saveLogFile() {
@@ -339,7 +342,7 @@ void MainWindow::updateBackground() {
 
 void MainWindow::onCurrentPageChanged(int index) {
   // Ignore null id.
-  const PageId id = static_cast<PageId>(index + 1);
+  const auto id = static_cast<PageId>(index + 1);
   this->setCurrentPage(id);
 }
 
@@ -490,34 +493,6 @@ void MainWindow::goNextPage() {
       qWarning() << "[MainWindow]::goNextPage() We shall never reach here"
                  << static_cast<int>(current_page_) << this->sender();
       break;
-    }
-  }
-}
-
-void MainWindow::rebootSystem() {
-  this->saveLogFile();
-
-  if (!RebootSystemWithMagicKey()) {
-    qWarning() << "RebootSystem failed!";
-    if (!RebootSystem()) {
-      qWarning() << "RebootSystemWithMagicKey() failed!";
-    }
-  }
-}
-
-void MainWindow::shutdownSystem() {
-  this->saveLogFile();
-
-#ifndef NDEBUG
-  // Do not shutdown system in debug.
-  this->close();
-  return;
-#endif
-
-  if (!ShutdownSystemWithMagicKey()) {
-    qWarning() << "ShutdownSystem() failed!";
-    if (!ShutdownSystem()) {
-      qWarning() << "ShutdownSystemWithMagicKey() failed!";
     }
   }
 }

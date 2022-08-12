@@ -12,6 +12,7 @@
 #include "service/installer_args_parser.h"
 #include "service/languages.h"
 #include "service/log_manager.h"
+#include "service/power_manager.h"
 #include "service/settings_manager.h"
 #include "sysinfo/users.h"
 
@@ -28,10 +29,12 @@ MainController::~MainController() {
 }
 
 void MainController::initConnections() {
-  connect(main_window_, &MainWindow::destroyed,
-          this, &MainController::onMainWindowClosed);
   connect(main_window_, &MainWindow::requestReloadTranslator,
           this, &MainController::reloadTranslator);
+  connect(main_window_, &MainWindow::requestShutdownSystem,
+          this, &MainController::shutdownSystem);
+  connect(main_window_, &MainWindow::requestRebootSystem,
+          this, &MainController::rebootSystem);
 }
 
 void MainController::reloadTranslator() {
@@ -42,9 +45,36 @@ void MainController::reloadTranslator() {
   qApp->installTranslator(translator);
 }
 
-void MainController::onMainWindowClosed() {
-  qDebug() << Q_FUNC_INFO;
+void MainController::shutdownSystem() {
+#ifndef NDEBUG
+  // Do not shutdown system in debug.
+  main_window_->close();
   qApp->quit();
+  return;
+#endif
+
+  if (!ShutdownSystemWithMagicKey()) {
+    qWarning() << "ShutdownSystem() failed!";
+    if (!ShutdownSystem()) {
+      qWarning() << "ShutdownSystemWithMagicKey() failed!";
+    }
+  }
+}
+
+void MainController::rebootSystem() {
+#ifndef NDEBUG
+  // Do not shutdown system in debug.
+  main_window_->close();
+  qApp->quit();
+  return;
+#endif
+
+  if (!RebootSystemWithMagicKey()) {
+    qWarning() << "RebootSystem failed!";
+    if (!RebootSystem()) {
+      qWarning() << "RebootSystemWithMagicKey() failed!";
+    }
+  }
 }
 
 bool MainController::init() {

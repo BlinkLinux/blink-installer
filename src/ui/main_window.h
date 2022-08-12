@@ -60,6 +60,7 @@ class MainWindow : public QWidget {
 
  public:
   explicit MainWindow();
+  ~MainWindow() override;
 
   // Show fullscreen.
   void fullscreen();
@@ -76,10 +77,24 @@ class MainWindow : public QWidget {
 
  signals:
   void requestReloadTranslator();
+  void requestShutdownSystem();
+  void requestRebootSystem();
 
  protected:
   // Move close button to appropriate position when window is resized.
   void resizeEvent(QResizeEvent* event) override;
+
+ private slots:
+  // Go next page when current page index is changed in ControlPanelFrame.
+  void onCurrentPageChanged(int index);
+
+  // Show ConfirmQuitFrame when close_button_ is clicked.
+  void onCloseButtonClicked();
+
+  // Move main window to primary screen when it is changed to |geometry|.
+  void onPrimaryScreenChanged(const QRect& geometry);
+
+  void goNextPage();
 
  private:
   enum PageId {
@@ -147,24 +162,10 @@ class MainWindow : public QWidget {
 
   // Shortcut for screen brightness.
   QShortcut* brightness_increase_shortcut_ = nullptr;
-  QShortcut* brithtness_decrease_shortcut_ = nullptr;
+  QShortcut* brightness_decrease_shortcut_ = nullptr;
 
   QString log_file_;
   bool auto_install_;
-
- private slots:
-  // Go next page when current page index is changed in ControlPanelFrame.
-  void onCurrentPageChanged(int index);
-
-  // Show ConfirmQuitFrame when close_button_ is clicked.
-  void onCloseButtonClicked();
-
-  // Move main window to primary screen when it is changed to |geometry|.
-  void onPrimaryScreenChanged(const QRect& geometry);
-
-  void goNextPage();
-  void rebootSystem();
-  void shutdownSystem();
 };
 
 }  // namespace installer

@@ -22,7 +22,9 @@ class MainController : public QObject {
  private slots:
   void reloadTranslator();
 
-  void onMainWindowClosed();
+  void shutdownSystem();
+
+  void rebootSystem();
 
  private:
   void initConnections();
