@@ -26,10 +26,15 @@ class MainController : public QObject {
 
   void rebootSystem();
 
+  // Copy log file if needed.
+  void saveLogFile();
+
  private:
   void initConnections();
 
   MainWindow* main_window_{nullptr};
+
+  QString log_file_;
 };
 
 }  // namespace installer

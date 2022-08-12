@@ -46,6 +46,8 @@ void MainController::reloadTranslator() {
 }
 
 void MainController::shutdownSystem() {
+  this->saveLogFile();
+
 #ifndef NDEBUG
   // Do not shutdown system in debug.
   main_window_->close();
@@ -62,6 +64,8 @@ void MainController::shutdownSystem() {
 }
 
 void MainController::rebootSystem() {
+  this->saveLogFile();
+
 #ifndef NDEBUG
   // Do not shutdown system in debug.
   main_window_->close();
@@ -75,6 +79,11 @@ void MainController::rebootSystem() {
       qWarning() << "RebootSystemWithMagicKey() failed!";
     }
   }
+}
+
+void MainController::saveLogFile() {
+  // Copy log file.
+  CopyLogFile(log_file_);
 }
 
 bool MainController::init() {
@@ -114,7 +123,7 @@ bool MainController::init() {
   }
 
   main_window_->setEnableAutoInstall(args_parser.isAutoInstallSet());
-  main_window_->setLogFile(args_parser.getLogFile());
+  log_file_ = args_parser.getLogFile();
 
   // Notify background thread to scan device info.
   main_window_->scanDevicesAndTimezone();

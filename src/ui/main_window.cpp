@@ -37,7 +37,6 @@ MainWindow::MainWindow()
       pages_(),
       prev_page_(PageId::NullId),
       current_page_(PageId::NullId),
-      log_file_(),
       auto_install_(false) {
   this->setObjectName("main_window");
 
@@ -47,10 +46,6 @@ MainWindow::MainWindow()
   this->initConnections();
 
   SetBrightness(GetSettingsInt(kScreenDefaultBrightness));
-}
-
-MainWindow::~MainWindow() {
-  this->saveLogFile();
 }
 
 void MainWindow::fullscreen() {
@@ -95,10 +90,6 @@ void MainWindow::scanDevicesAndTimezone() {
 
 void MainWindow::setEnableAutoInstall(bool auto_install) {
   auto_install_ = auto_install;
-}
-
-void MainWindow::setLogFile(const QString& log_file) {
-  log_file_ = log_file;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -288,13 +279,6 @@ void MainWindow::registerShortcut() {
 
   brightness_increase_shortcut_ = new QShortcut(QKeySequence("Ctrl+="), this);
   brightness_decrease_shortcut_ = new QShortcut(QKeySequence("Ctrl+-"), this);
-}
-
-void MainWindow::saveLogFile() {
-  if (!log_file_.isEmpty()) {
-    // Copy log file.
-    CopyLogFile(log_file_);
-  }
 }
 
 void MainWindow::setCurrentPage(PageId page_id) {

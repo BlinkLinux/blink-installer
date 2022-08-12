@@ -60,7 +60,6 @@ class MainWindow : public QWidget {
 
  public:
   explicit MainWindow();
-  ~MainWindow() override;
 
   // Show fullscreen.
   void fullscreen();
@@ -71,9 +70,6 @@ class MainWindow : public QWidget {
 
   // Enable auto-install mode.
   void setEnableAutoInstall(bool auto_install);
-
-  // Set filepath to which log file will be backup.
-  void setLogFile(const QString& log_file);
 
  signals:
   void requestReloadTranslator();
@@ -118,9 +114,6 @@ class MainWindow : public QWidget {
   void initUI();
   void registerShortcut();
 
-  // Copy log file if needed.
-  void saveLogFile();
-
   // Switch frame page based on name.
   void setCurrentPage(PageId page_id);
 
@@ -164,7 +157,6 @@ class MainWindow : public QWidget {
   QShortcut* brightness_increase_shortcut_ = nullptr;
   QShortcut* brightness_decrease_shortcut_ = nullptr;
 
-  QString log_file_;
   bool auto_install_;
 };
 
