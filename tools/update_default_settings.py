@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Generate default settings for loongson and sw platforms.
-# Execute this program after updating options in resources/default_settings.ini.
+# Generate default settings for non x86_64 platforms.
+# Execute this program after updating options in resources/settings.default_settings.ini.
 
 import configparser
 import os
@@ -25,58 +26,62 @@ import shutil
 import sys
 
 SEC_NAME = "General"
+BASE_DIR = "resources/settings"
 
-def update_settings(settings_file, settings):
-    src_settings = "resources/default_settings.ini"
+def update_settings(settings_filename, settings):
+    src_settings = os.path.join(BASE_DIR, "default_settings.ini")
+    target_settings = os.path.join(BASE_DIR, settings_filename)
     if not os.path.exists(src_settings):
         print("Failed to find", src_settings)
         sys.exit(1)
-    shutil.copy(src_settings, settings_file)
+    shutil.copy(src_settings, target_settings)
 
     parser = configparser.ConfigParser()
-    parser.read(settings_file)
+    parser.read(target_settings)
     for key, value in settings:
         parser.set(SEC_NAME, key, value)
-    with open(settings_file, "w") as fh:
+    with open(target_settings, "w") as fh:
         parser.write(fh)
 
     parser = configparser.ConfigParser()
-    parser.read(settings_file)
+    parser.read(target_settings)
     for key, value in settings:
         parser.set(SEC_NAME, key, value)
-    with open(settings_file, "w") as fh:
+    with open(target_settings, "w") as fh:
         parser.write(fh)
 
 def main():
-    arm_file = "resources/arm_default_settings.ini"
-    loongson_file = "resources/loongson_default_settings.ini"
-    sw_file = "resources/sw_default_settings.ini"
-    professional_file = "resources/professional_default_settings.ini"
+    x86_64_file = "default_settings_x86_64.ini"
+    aarch64_file = "default_settings_aarch64.ini"
+    mips64_file = "default_settings_mips64.ini"
+    sw64_file = "default_settings_sw64.ini"
 
-    arm_settings = (
-            ("skip_virtual_machine_page", "true"),
+    x86_64_settings = []
+
+    aarch64_settings = (
+        ("skip_virtual_machine_page", "true"),
     )
 
-    loongson_settings = (
-            ("skip_virtual_machine_page", "true"),
-            ("skip_select_language_page", "true"),
-            ("skip_timezone_page", "true"),
-            ("select_language_default_locale", "zh_CN"),
-            ("system_info_disable_keyboard_page", "true"),
-            ("system_info_default_keyboard_layout", '"us"'),
-            ("timezone_default", '"Asia/Shanghai"'),
-            ("timezone_use_regdomain", "false"),
-            ("partition_skip_simple_partition_page", "true"),
-            ("partition_enable_simple_disk_page", "true"),
-            ("partition_enable_swap_file", "false"),
-            ("partition_formatted_mount_points", '"/;/tmp;/var"'),
-            ("partition_enable_os_prober", "false"),
-            ("partition_boot_on_first_partition", "true"),
-            ("partition_supported_fs", '"ext4;ext3;ext2;efi;linux-swap"'),
-            ("partition_prefer_logical_partition", "false"),
+    mips64_settings = (
+        ("skip_virtual_machine_page", "true"),
+        ("skip_select_language_page", "true"),
+        ("skip_timezone_page", "true"),
+        ("select_language_default_locale", "zh_CN"),
+        ("system_info_disable_keyboard_page", "true"),
+        ("system_info_default_keyboard_layout", '"us"'),
+        ("timezone_default", '"Asia/Shanghai"'),
+        ("timezone_use_regdomain", "false"),
+        ("partition_skip_simple_partition_page", "true"),
+        ("partition_enable_simple_disk_page", "true"),
+        ("partition_enable_swap_file", "false"),
+        ("partition_formatted_mount_points", '"/;/tmp;/var"'),
+        ("partition_enable_os_prober", "false"),
+        ("partition_boot_on_first_partition", "true"),
+        ("partition_supported_fs", '"ext4;ext3;ext2;efi;linux-swap"'),
+        ("partition_prefer_logical_partition", "false"),
     )
 
-    sw_settings = (
+    sw64_settings = (
         ("skip_virtual_machine_page", "true"),
         ("skip_select_language_page", "true"),
         ("skip_timezone_page", "true"),
@@ -97,14 +102,10 @@ def main():
         ("partition_prefer_logical_partition", "false"),
     )
 
-    professinal_settings = (
-        ("timezone_use_local_time_regardless", "true"),
-    )
-
-    update_settings(arm_file, arm_settings)
-    update_settings(loongson_file, loongson_settings)
-    update_settings(sw_file, sw_settings)
-    update_settings(professional_file, professinal_settings)
+    update_settings(x86_64_file, x86_64_settings)
+    update_settings(aarch64_file, aarch64_settings)
+    update_settings(mips64_file, mips64_settings)
+    update_settings(sw64_file, sw64_settings)
 
 if __name__ == "__main__":
     main()
