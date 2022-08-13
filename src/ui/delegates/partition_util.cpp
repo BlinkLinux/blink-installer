@@ -39,8 +39,8 @@ namespace {
 constexpr const int kLabelMaxLen = 25;
 
 // Mount points of live system in use currently.
-constexpr const char kCasperMountPoint[] = "/cdrom";
-constexpr const char kLiveMountPoint[] = "/lib/live/mount/medium";
+constexpr const char* kCasperMountPoint = "/cdrom";
+constexpr const char* kLiveMountPoint = "/lib/live/mount/medium";
 
 // Get distribution description at partition |path| if it contains an OS.
 QString GetOsDescription(const QString& path) {

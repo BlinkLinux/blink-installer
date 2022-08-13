@@ -30,10 +30,10 @@ namespace installer {
 namespace {
 
 // Number of beacon packets to capture before exit.
-constexpr const char kTsharkPackets[] = "200";
+constexpr const char* kTsharkPackets = "200";
 
 // Time in seconds before exit.
-constexpr const char kTsharkDuration[] = "10";
+constexpr const char* kTsharkDuration = "10";
 
 // Read output of scan_regdomain.sh and extract country code.
 QStringList ParseRegdomainList(const QString& text) {

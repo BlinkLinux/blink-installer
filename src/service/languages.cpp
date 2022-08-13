@@ -25,8 +25,8 @@ namespace installer {
 
 namespace {
 
-constexpr const char kDefaultLanguageFile[] = ":i18n/installer-en_US.qm";
-constexpr const char kLanguageFileTpl[] = ":i18n/installer-%1.qm";
+constexpr const char* kDefaultLanguageFile = ":i18n/installer-en_US.qm";
+constexpr const char* kLanguageFileTpl = ":i18n/installer-%1.qm";
 
 }  // namespace
 

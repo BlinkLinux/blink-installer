@@ -36,10 +36,10 @@ namespace installer {
 
 namespace {
 
-constexpr const char kLeftBtn[] = "left_frame_button";
-constexpr const char kMidBtn[] = "mid_frame_button";
-constexpr const char kRightBtn[] = "right_frame_button";
-constexpr const char kSoloBtn[] = "solo_frame_button";
+constexpr const char* kLeftBtn = "left_frame_button";
+constexpr const char* kMidBtn = "mid_frame_button";
+constexpr const char* kRightBtn = "right_frame_button";
+constexpr const char* kSoloBtn = "solo_frame_button";
 
 }  // namespace
 
