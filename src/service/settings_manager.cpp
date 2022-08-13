@@ -191,7 +191,7 @@ QStringList GetAvatars() {
 }
 
 QString GetDefaultAvatar() {
-  QString default_avatar(GetSettingsString(kSystemInfoDefaultAvator));
+  QString default_avatar(GetSettingsString(kSystemInfoDefaultAvatar));
   if (!default_avatar.isEmpty() && QFile::exists(default_avatar)) {
     // Returns default avatar
     return default_avatar;

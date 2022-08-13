@@ -84,8 +84,8 @@ slide 目录的结果应该与 resources/slide 目录相同.
 
 
 ## 系统基本信息
-* `system_info_deepin_version` 这一项保存了 `/etc/deepin-version` 的内容,
- 系统更新时, 应该先读取这个项的值, 再写入到 `/etc/deepin-version` 中. 它的值
+* `system_info_debian_version` 这一项保存了 `/etc/debian_version` 的内容,
+ 系统更新时, 应该先读取这个项的值, 再写入到 `/etc/debian_version` 中. 它的值
  是经过 base64 编码的. * `system_info_lsb_release` 这一项保存了
  `/etc/lsb-release` 的内容, 系统更新时, 应该先读取这个项的值,
  再写入到 `/etc/lsb-release` 中. 它的值是经过 base64 编码的.

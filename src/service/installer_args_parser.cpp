@@ -18,10 +18,10 @@
 
 #include "installer_args_parser.h"
 
-#include <QCoreApplication>
-#include <QDebug>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QCoreApplication>
+#include <QDebug>
 
 namespace installer {
 

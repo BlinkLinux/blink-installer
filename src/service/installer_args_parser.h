@@ -23,7 +23,7 @@
 
 namespace installer {
 
-// Parse argument list for deepin-installer.
+// Parse argument list for installer.
 // Do not use it in first-boot-setup.
 class InstallerArgsParser {
  public:
