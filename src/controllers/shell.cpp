@@ -26,7 +26,7 @@ int initShell(int argc, char** argv) {
   QApplication::setApplicationName(kAppName);
   QApplication::setApplicationVersion(kAppVersion);
   QApplication::setOrganizationDomain("biofan.org");
-  QApplication::setWindowIcon(QIcon(kIconsBlinkInstallerSvg));
+  QApplication::setWindowIcon(QIcon(kIconBlinkInstallerSvg));
   QApplication app(argc, argv);
 
   QScopedPointer<MainController> controller(new MainController);

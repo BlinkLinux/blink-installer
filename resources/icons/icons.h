@@ -7,9 +7,10 @@
 
 namespace installer {
 
-constexpr const char kIconsBlinkInstallerDesktop[] = ":/icons/blink-installer.desktop";
-constexpr const char kIconsBlinkInstallerSvg[] = ":/icons/blink-installer.svg";
-constexpr const char kIconsDefaultWallpaper[] = ":/icons/default-wallpaper.jpg";
+// icons/
+constexpr const char* kIconBlinkInstallerDesktop = ":/icons/blink-installer.desktop";
+constexpr const char* kIconBlinkInstallerSvg = ":/icons/blink-installer.svg";
+constexpr const char* kIconDefaultWallpaperJpg = ":/icons/default-wallpaper.jpg";
 
 }  // namespace installer
 

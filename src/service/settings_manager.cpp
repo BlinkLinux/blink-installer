@@ -237,7 +237,7 @@ QString GetWindowBackground() {
     return oem_file;
   }
 
-  return kIconsDefaultWallpaper;
+  return kIconDefaultWallpaperJpg;
 }
 
 bool AppendConfigFile(const QString& conf_file) {

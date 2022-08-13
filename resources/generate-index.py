@@ -24,7 +24,7 @@ def generate_entry(fd, folder, filename):
     name_parts.append(ext_name.replace(".", ""))
     key = "".join(part.capitalize() for part in name_parts)
     value = ":/{}/{}".format(folder, filename)
-    item = 'constexpr const char k{0}{1}[] = "{2}";\n'.format(prefix, key, value)
+    item = 'constexpr const char* k{0}{1} = "{2}";\n'.format(prefix, key, value)
     fd.write(item)
 
 def walkdir(folder):
