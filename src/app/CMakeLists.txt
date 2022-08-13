@@ -26,6 +26,15 @@ target_link_libraries(blink-installer-settings
     Qt${QT_VERSION_MAJOR}::Core
     )
 
+if (BUILD_TESTING)
+  add_executable(installer-qr-widget-test
+      qr_widget_test.cpp
+      )
+  target_link_libraries(installer-qr-widget-test
+      installer-ui
+      )
+endif()
+
 # Installation
 install(TARGETS
         blink-installer
