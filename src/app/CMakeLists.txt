@@ -33,6 +33,13 @@ if (BUILD_TESTING)
   target_link_libraries(installer-qr-widget-test
       installer-ui
       )
+
+  add_executable(installer-timezone-frame-test
+      timezone_frame_test.cpp
+      )
+  target_link_libraries(installer-timezone-frame-test
+      installer-ui
+      )
 endif()
 
 # Installation
