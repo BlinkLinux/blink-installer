@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,22 +18,13 @@
 
 #include "sysinfo/release_version.h"
 
-#include <QSettings>
+#include "base/file_util.h"
 
 namespace installer {
 
-ReleaseVersion GetReleaseVersioin() {
-  ReleaseVersion version = {"", ""};
-  QSettings settings("/etc/deepin-version", QSettings::IniFormat);
-  settings.beginGroup("Release");
-  if (settings.contains("Version")) {
-    version.version = settings.value("Version").toString();
-  }
-  if (settings.contains("Type")) {
-    version.type = settings.value("Type").toString();
-  }
-  settings.endGroup();
-
+ReleaseVersion GetReleaseVersion() {
+  ReleaseVersion version{};
+  version.version = ReadFile("/etc/debian_version");
   return version;
 }
 
