@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +18,8 @@
 
 #include "ui/xrandr/xrandr_wrapper.h"
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -29,7 +30,7 @@ namespace installer {
 
 namespace {
 
-const char kRandRCmd[] = "xrandr";
+constexpr const char* kRandRCmd = "xrandr";
 
 struct _crtc_t {
   RRCrtc id;
@@ -43,15 +44,15 @@ struct _crtc_t {
   RROutput* outputs;
   bool changed;
 };
-typedef struct _crtc_t crtc_t;
+using crtc_t = struct _crtc_t;
 
 // Initialized |crtc| object with default values.
 void InitCrtc(crtc_t* crtc) {
-  Q_ASSERT(crtc != NULL);
+  Q_ASSERT(crtc != nullptr);
 
   memset(crtc, 0, sizeof(crtc_t));
   crtc->rotation = RR_Rotate_0;
-  crtc->outputs = NULL;
+  crtc->outputs = nullptr;
   crtc->changed = false;
 }
 

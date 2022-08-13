@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +70,7 @@ enum class PartitionFlag {
   ESP,
 };
 QDebug& operator<<(QDebug& debug, const PartitionFlag& flag);
-typedef QList<PartitionFlag> PartitionFlags;
+using PartitionFlags = QList<PartitionFlag>;
 
 class Partition {
  public:
@@ -124,7 +125,7 @@ class Partition {
 };
 QDebug& operator<<(QDebug& debug, const Partition& partition);
 
-typedef QList<Partition> PartitionList;
+using PartitionList = QList<Partition>;
 
 // Get index of extended partition in |partitions|. Returns -1 if not found.
 int ExtendedPartitionIndex(const PartitionList& partitions);
