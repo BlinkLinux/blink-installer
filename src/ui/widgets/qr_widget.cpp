@@ -54,9 +54,9 @@ void QRWidget::paintEvent(QPaintEvent* event) {
   }
 
   QPainter painter(this);
-  QRcode *qr = QRcode_encodeString(content_.toStdString().c_str(),
+  QRcode* qr = QRcode_encodeString(content_.toStdString().c_str(),
                                    1, QR_ECLEVEL_L, QR_MODE_8, 1);
-  if (qr != NULL){
+  if (qr != nullptr){
     QColor fg("black");
     QColor bg("white");
     painter.setBrush(bg);
