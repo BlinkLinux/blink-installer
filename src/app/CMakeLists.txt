@@ -27,7 +27,12 @@ target_link_libraries(blink-installer-settings
     )
 
 if (BUILD_TESTING)
-
+  add_executable(installer-combobox-test
+      combobox_test.cpp
+      )
+  target_link_libraries(installer-combobox-test
+      installer-ui
+      )
 
   add_executable(installer-qr-widget-test
       qr_widget_test.cpp
