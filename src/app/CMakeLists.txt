@@ -31,6 +31,14 @@ if (BUILD_TESTING)
       combobox_test.cpp
       )
   target_link_libraries(installer-combobox-test
+      installer-resources
+      installer-ui
+      )
+  add_executable(installer-control-button-test
+      control_button_test.cpp
+      ${RESOURCE_FILES}
+      )
+  target_link_libraries(installer-control-button-test
       installer-ui
       )
 
