@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
+#include "sysinfo/release_version.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
@@ -37,10 +39,11 @@ namespace {
 QString GetCommentLabel() {
   const int minimum = GetSettingsInt(kPartitionMinimumDiskSpaceRequired);
   const int recommended = GetSettingsInt(kPartitionRecommendedDiskSpace);
-  return QObject::tr("It needs more than %1GB disk space to install deepin, "
+  return QObject::tr("It needs more than %1GB disk space to install %3, "
       "for better performance, %2GB and more space is recommended")
       .arg(minimum)
-      .arg(recommended);
+      .arg(recommended)
+      .arg(GetTargetDistribution());
 }
 
 }  // namespace

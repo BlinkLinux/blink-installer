@@ -28,4 +28,9 @@ ReleaseVersion GetReleaseVersion() {
   return version;
 }
 
+QString GetTargetDistribution() {
+  // TODO(Shaohua): Read distro from config file.
+  return "Debian bookworm";
+}
+
 }  // namespace installer

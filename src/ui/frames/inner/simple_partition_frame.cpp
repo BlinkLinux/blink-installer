@@ -28,6 +28,7 @@
 #include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
+#include "sysinfo/release_version.h"
 #include "ui/delegates/partition_util.h"
 #include "ui/utils/widget_util.h"
 #include "ui/widgets/device_model_label.h"
@@ -379,8 +380,9 @@ void SimplePartitionFrame::onPartitionButtonClicked() {
 
     // If selected partitions contains windows system, show another message.
     if (button->partition().os == OsType::Windows) {
-      msg_label_->setText(tr("Windows will not boot if install deepin on "
-                             "Windows disk, please confirm to continue"));
+      msg_label_->setText(tr("Windows will not boot if install %1 on "
+                             "Windows disk, please confirm to continue")
+          .arg(GetTargetDistribution()));
     }
 
     this->appendOperations();

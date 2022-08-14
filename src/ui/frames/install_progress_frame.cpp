@@ -33,6 +33,7 @@
 #include "service/hooks_manager.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
+#include "sysinfo/release_version.h"
 #include "ui/frames/consts.h"
 #include "ui/frames/inner/install_progress_slide_frame.h"
 #include "ui/widgets/comment_label.h"
@@ -123,8 +124,8 @@ void InstallProgressFrame::changeEvent(QEvent* event) {
   if (event->type() == QEvent::LanguageChange) {
     title_label_->setText(tr("Installing"));
     comment_label_->setText(
-        tr("You can experience the incredible pleasure of deepin after "
-           "the time for just a cup of coffee"));
+        tr("You can experience the incredible pleasure of %1 after "
+           "the time for just a cup of coffee").arg(GetTargetDistribution()));
   } else {
     QFrame::changeEvent(event);
   }
@@ -148,8 +149,8 @@ void InstallProgressFrame::initConnections() {
 void InstallProgressFrame::initUI() {
   title_label_ = new TitleLabel(tr("Installing"));
   comment_label_ = new CommentLabel(
-      tr("You can experience the incredible pleasure of deepin after "
-         "the time for just a cup of coffee"));
+      tr("You can experience the incredible pleasure of %1 after "
+         "the time for just a cup of coffee").arg(GetTargetDistribution()));
   auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);

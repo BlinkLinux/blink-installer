@@ -26,6 +26,7 @@
 #include "base/file_util.h"
 #include "resources/images/images.h"
 #include "resources/styles/styles.h"
+#include "sysinfo/release_version.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/expanded_nav_button.h"
@@ -61,7 +62,7 @@ void PartitionTableWarningFrame::changeEvent(QEvent* event) {
     list_item1_->setText(
         QString("1.%1\n2.%2")
             .arg(tr("Reboot, enter BIOS, and disable UEFI"))
-            .arg(tr("Exit BIOS, and enter deepin to install")));
+            .arg(tr("Exit BIOS, and enter %1 to install").arg(GetTargetDistribution())));
     list_title2_->setText(QString("B.%1").arg(tr("Format the disk")));
     list_item2_->setText(
         QString("1.%1\n2.%2")
@@ -119,7 +120,7 @@ void PartitionTableWarningFrame::initUI() {
   list_item1_ = new QLabel(
       QString("1.%1\n2.%2")
           .arg(tr("Reboot, enter BIOS, and disable UEFI"))
-          .arg(tr("Exit BIOS, and enter deepin to install")),
+          .arg(tr("Exit BIOS, and enter %1 to install").arg(GetTargetDistribution())),
       this);
   list_item1_->setObjectName("list_item1");
   list_item1_->setWordWrap(true);

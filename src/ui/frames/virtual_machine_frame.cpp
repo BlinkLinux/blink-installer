@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+#include "sysinfo/release_version.h"
 #include "ui/frames/consts.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/nav_button.h"
@@ -41,8 +43,9 @@ void VirtualMachineFrame::changeEvent(QEvent* event) {
     comment_label_->setText(
         tr("System has detected that you are using a virtual machine, "
            "which will affect the system performance and operation experience, "
-           "for a smooth experience, it is recommended to install deepin "
-           "in real-machine environment"));
+           "for a smooth experience, it is recommended to install %1 "
+           "in real-machine environment")
+        .arg(GetTargetDistribution()));
     next_button_->setText(tr("Continue"));
   } else {
     QFrame::changeEvent(event);
@@ -59,8 +62,9 @@ void VirtualMachineFrame::initUI() {
   comment_label_ = new CommentLabel(
       tr("System has detected that you are using a virtual machine, "
          "which will affect the system performance and operation experience, "
-         "for a smooth experience, it is recommended to install deepin "
-         "in real-machine environment"));
+         "for a smooth experience, it is recommended to install %1 "
+         "in real-machine environment")
+      .arg(GetTargetDistribution()));
   QHBoxLayout* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);

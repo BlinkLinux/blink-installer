@@ -23,6 +23,7 @@
 #include <QtCore/QEvent>
 
 #include "resources/images/images.h"
+#include "sysinfo/release_version.h"
 #include "ui/widgets/comment_label.h"
 #include "ui/widgets/nav_button.h"
 #include "ui/widgets/title_label.h"
@@ -41,8 +42,8 @@ void InstallSuccessFrame::changeEvent(QEvent* event) {
   if (event->type() == QEvent::LanguageChange) {
     title_label_->setText(tr("Successfully Installed"));
     comment_label_->setText(
-        tr("Reboot to enjoy the new experience with deepin, "
-           "hope you like it!"));
+        tr("Reboot to enjoy the new experience with %1, "
+           "hope you like it!").arg(GetTargetDistribution()));
     eject_label_->setText(tr("Please remove the installation media before reboot"));
     reboot_button_->setText(tr("Experience now"));
   } else {
@@ -60,7 +61,8 @@ void InstallSuccessFrame::initUI() {
   status_label->setPixmap(QPixmap(kImageSucceedPng));
   title_label_ = new TitleLabel(tr("Successfully Installed"));
   comment_label_ = new CommentLabel(
-      tr("Reboot to enjoy the new experience with deepin, hope you like it!"));
+      tr("Reboot to enjoy the new experience with %1, hope you like it!")
+      .arg(GetTargetDistribution()));
   auto* comment_layout = new QHBoxLayout();
   comment_layout->setContentsMargins(0, 0, 0, 0);
   comment_layout->setSpacing(0);
