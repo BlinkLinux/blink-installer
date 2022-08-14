@@ -21,11 +21,11 @@
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE  /* For tm_gmtoff and tm_zone */
 #endif
-#include <cmath>
-#include <libintl.h>
-#include <clocale>
-#include <ctime>
 #include <QDebug>
+#include <clocale>
+#include <cmath>
+#include <ctime>
+#include <libintl.h>
 
 #include "base/file_util.h"
 #include "config/config.h"
@@ -36,10 +36,10 @@ namespace installer {
 namespace {
 
 // Absolute path to zone.tab file.
-constexpr const char kZoneTabFile[] = "/usr/share/zoneinfo/zone.tab";
+constexpr const char* kZoneTabFile = "/usr/share/zoneinfo/zone.tab";
 
 // Domain name for timezones.
-constexpr const char kTimezoneDomain[] = "deepin-installer-timezones";
+constexpr const char* kTimezoneDomain = "blink-installer-timezones";
 
 // Parse latitude and longitude of the zone's principal location.
 // See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.

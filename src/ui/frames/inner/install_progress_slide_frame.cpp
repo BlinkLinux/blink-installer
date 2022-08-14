@@ -42,7 +42,8 @@ InstallProgressSlideFrame::InstallProgressSlideFrame(QWidget* parent)
 void InstallProgressSlideFrame::startSlide(bool disable_slide,
                                            bool disable_animation,
                                            int duration) {
-  qDebug() << "startSlide()" << disable_slide << disable_animation << duration;
+  qDebug() << Q_FUNC_INFO << ", disable_slide:" << disable_slide
+           << "disable_animation:" << disable_animation << ", duration:" << duration;
   const QString locale = ReadLocale();
   slide_files_ = GetSlideFiles(locale);
 
@@ -111,14 +112,14 @@ void InstallProgressSlideFrame::initUI() {
 void InstallProgressSlideFrame::updateSlideImage() {
   Q_ASSERT(slide_index_ < slide_files_.length());
   const QString filepath(slide_files_.at(slide_index_));
-  if (QFile::exists(filepath)) {
-    const QPixmap pixmap(filepath);
-    container_label_->setPixmap(pixmap);
-  } else {
-    qWarning() << "slide file not found:" << filepath;
-  }
-  container_label_->show();
+  const QPixmap pixmap(filepath);
   slide_index_ = (slide_index_ + 1) % slide_files_.length();
+  if (pixmap.isNull()) {
+    qWarning() << "slide file not found:" << filepath;
+    return;
+  }
+  container_label_->setPixmap(pixmap);
+  container_label_->show();
 }
 
 void InstallProgressSlideFrame::onAnimationCurrentLoopChanged() {

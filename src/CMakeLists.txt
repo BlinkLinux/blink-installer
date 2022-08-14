@@ -29,13 +29,24 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Set current directory as root of header files.
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-find_package(Qt5 5.12 COMPONENTS
-    Network
-    Widgets
-    X11Extras
-    Xml
-    REQUIRED
-    )
+option(USE_QT6 "Build and link with Qt6.2+" OFF)
+
+if (USE_QT6)
+  find_package(Qt6 6.2 REQUIRED COMPONENTS
+      Network
+      Widgets
+      Xml
+      REQUIRED
+      )
+else()
+  find_package(Qt5 5.12 REQUIRED COMPONENTS
+      Network
+      Widgets
+      X11Extras
+      Xml
+      )
+endif()
+
 
 find_package(PkgConfig REQUIRED)
 
@@ -43,7 +54,6 @@ find_package(PkgConfig REQUIRED)
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${CMAKE_SOURCE_DIR}/hooks\"")
 else()
-  add_definitions("-DN_DEBUG")
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${INSTALLER_SHARE_DIR}/hooks\"")
 endif()
 

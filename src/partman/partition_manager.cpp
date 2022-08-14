@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,10 +42,10 @@ PartitionFlags GetPartitionFlags(PedPartition* lp_partition) {
   PartitionFlags flags;
   for (PedPartitionFlag lp_flag =
          ped_partition_flag_next(static_cast<PedPartitionFlag>(NULL));
-       lp_flag;
+       lp_flag != 0u;
        lp_flag = ped_partition_flag_next(lp_flag)) {
-    if (ped_partition_is_flag_available(lp_partition, lp_flag) &&
-        ped_partition_get_flag(lp_partition, lp_flag)) {
+    if ((ped_partition_is_flag_available(lp_partition, lp_flag) != 0) &&
+        (ped_partition_get_flag(lp_partition, lp_flag) != 0)) {
       flags.append(static_cast<PartitionFlag>(lp_flag));
     }
   }

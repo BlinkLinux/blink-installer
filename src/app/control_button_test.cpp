@@ -25,11 +25,11 @@
 
 namespace {
 
-constexpr const char kCtlBtnState[] = "ctlState";
-constexpr const char kCtlBtnStateDelete[] = "delete";
-constexpr const char kCtlBtnStateEdit[] = "edit";
-constexpr const char kCtlBtnStateNew[] = "new";
-constexpr const char kCtlBtnStateHide[] = "hide";
+constexpr const char* kCtlBtnState = "ctlState";
+constexpr const char* kCtlBtnStateDelete = "delete";
+constexpr const char* kCtlBtnStateEdit = "edit";
+constexpr const char* kCtlBtnStateNew = "new";
+constexpr const char* kCtlBtnStateHide = "hide";
 
 }  // namespace
 
@@ -38,11 +38,11 @@ int main(int argc, char** argv) {
 
   installer::PointerButton ctl_btn;
   ctl_btn.setObjectName("control_button");
-  ctl_btn.setStyleSheet(installer::ReadFile(kStyleAdvancedPartitionButtonCss));
+  ctl_btn.setStyleSheet(installer::ReadFile(installer::kStyleAdvancedPartitionButtonCss));
   ctl_btn.setFixedSize(18, 18);
   ctl_btn.setProperty(kCtlBtnState, kCtlBtnStateNew);
   ctl_btn.setFlat(true);
   ctl_btn.show();
 
-  return app.exec();
+  return QApplication::exec();
 }

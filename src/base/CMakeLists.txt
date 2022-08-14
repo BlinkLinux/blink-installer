@@ -20,7 +20,7 @@ add_library(installer-base STATIC
     ${SOURCE_FILES}
     )
 target_link_libraries(installer-base
-    Qt5::Core
+    Qt${QT_VERSION_MAJOR}::Core
     )
 
 if (BUILD_TESTING)

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +29,7 @@ struct XkbModel {
   QString description = "";
   QString vendor = "";
 };
-typedef QList<XkbModel> XkbModelList;
+using XkbModelList = QList<XkbModel>;
 
 struct XkbLayoutVariant {
   QString name = "";
@@ -36,7 +37,7 @@ struct XkbLayoutVariant {
   QString short_description = "";
   QStringList language_list;
 };
-typedef QList<XkbLayoutVariant> XKbLayoutVariantList;
+using XKbLayoutVariantList = QList<XkbLayoutVariant>;
 
 struct XkbLayout {
   QString name = "";
@@ -45,7 +46,7 @@ struct XkbLayout {
   QStringList language_list;
   XKbLayoutVariantList variant_list;
 };
-typedef QList<XkbLayout> XkbLayoutList;
+using XkbLayoutList = QList<XkbLayout>;
 
 struct XkbConfig {
   XkbModelList model_list;

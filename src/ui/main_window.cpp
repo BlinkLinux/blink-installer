@@ -18,42 +18,17 @@
 
 #include "ui/main_window.h"
 
-#include <QApplication>
-#include <QDebug>
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QResizeEvent>
-#include <QShortcut>
-#include <QStackedLayout>
-#include <QTranslator>
 
 #include "base/file_util.h"
 #include "resources/styles/styles.h"
-#include "service/languages.h"
-#include "service/power_manager.h"
 #include "service/screen_brightness.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "sysinfo/users.h"
 #include "sysinfo/virtual_machine.h"
 #include "third_party/global_shortcut/global_shortcut.h"
-#include "ui/delegates/main_window_util.h"
-#include "ui/frames/confirm_quit_frame.h"
-#include "ui/frames/control_panel_frame.h"
-#include "ui/frames/disk_space_insufficient_frame.h"
-#include "ui/frames/install_failed_frame.h"
-#include "ui/frames/install_progress_frame.h"
-#include "ui/frames/install_success_frame.h"
-#include "ui/frames/partition_frame.h"
-#include "ui/frames/privilege_error_frame.h"
-#include "ui/frames/select_language_frame.h"
-#include "ui/frames/system_info_frame.h"
-#include "ui/frames/timezone_frame.h"
-#include "ui/frames/virtual_machine_frame.h"
-#include "ui/utils/widget_util.h"
-#include "ui/widgets/page_indicator.h"
-#include "ui/widgets/pointer_button.h"
-#include "ui/xrandr/multi_head_manager.h"
 
 namespace installer {
 
@@ -62,7 +37,6 @@ MainWindow::MainWindow()
       pages_(),
       prev_page_(PageId::NullId),
       current_page_(PageId::NullId),
-      log_file_(),
       auto_install_(false) {
   this->setObjectName("main_window");
 
@@ -79,11 +53,7 @@ void MainWindow::fullscreen() {
     // Read default locale from settings.ini and go to InstallProgressFrame.
     current_page_ = PageId::PartitionId;
 
-    // Set language.
-    QTranslator* translator = new QTranslator(this);
-    const QString locale(ReadLocale());
-    translator->load(GetLocalePath(locale));
-    qApp->installTranslator(translator);
+    emit this->requestReloadTranslator();
   }
 
   multi_head_manager_->updateWallpaper();
@@ -122,8 +92,9 @@ void MainWindow::setEnableAutoInstall(bool auto_install) {
   auto_install_ = auto_install;
 }
 
-void MainWindow::setLogFile(const QString& log_file) {
-  log_file_ = log_file;
+void MainWindow::closeEvent(QCloseEvent* event) {
+  event->ignore();
+  this->setCurrentPage(PageId::ConfirmQuitId);
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -135,7 +106,7 @@ void MainWindow::initConnections() {
   connect(confirm_quit_frame_, &ConfirmQuitFrame::quitCancelled,
           this, &MainWindow::goNextPage);
   connect(confirm_quit_frame_, &ConfirmQuitFrame::quitConfirmed,
-          this, &MainWindow::shutdownSystem);
+          this, &MainWindow::requestShutdownSystem);
 
   connect(control_panel_frame_, &ControlPanelFrame::currentPageChanged,
           this, &MainWindow::onCurrentPageChanged);
@@ -147,19 +118,19 @@ void MainWindow::initConnections() {
           install_progress_frame_, &InstallProgressFrame::simulate);
 
   connect(disk_space_insufficient_frame_, &DiskSpaceInsufficientFrame::finished,
-          this, &MainWindow::shutdownSystem);
+          this, &MainWindow::requestShutdownSystem);
 
   connect(install_failed_frame_, &InstallFailedFrame::finished,
-          this, &MainWindow::shutdownSystem);
+          this, &MainWindow::requestShutdownSystem);
 
   connect(install_progress_frame_, &InstallProgressFrame::finished,
           this, &MainWindow::goNextPage);
 
   connect(install_success_frame_, &InstallSuccessFrame::finished,
-          this, &MainWindow::rebootSystem);
+          this, &MainWindow::requestRebootSystem);
 
   connect(partition_frame_, &PartitionFrame::reboot,
-          this, &MainWindow::rebootSystem);
+          this, &MainWindow::requestRebootSystem);
   connect(partition_frame_, &PartitionFrame::finished,
           this, &MainWindow::goNextPage);
 
@@ -196,7 +167,7 @@ void MainWindow::initConnections() {
           multi_head_manager_, &MultiHeadManager::switchXRandRMode);
   connect(brightness_increase_shortcut_, &QShortcut::activated,
           IncreaseBrightness);
-  connect(brithtness_decrease_shortcut_, &QShortcut::activated,
+  connect(brightness_decrease_shortcut_, &QShortcut::activated,
           DecreaseBrightness);
 }
 
@@ -312,14 +283,7 @@ void MainWindow::registerShortcut() {
   }
 
   brightness_increase_shortcut_ = new QShortcut(QKeySequence("Ctrl+="), this);
-  brithtness_decrease_shortcut_ = new QShortcut(QKeySequence("Ctrl+-"), this);
-}
-
-void MainWindow::saveLogFile() {
-  if (!log_file_.isEmpty()) {
-    // Copy log file.
-    CopyLogFile(log_file_);
-  }
+  brightness_decrease_shortcut_ = new QShortcut(QKeySequence("Ctrl+-"), this);
 }
 
 void MainWindow::setCurrentPage(PageId page_id) {
@@ -358,17 +322,16 @@ void MainWindow::updateBackground() {
     qWarning() << "background_label is not initialized!";
     return;
   }
-  const QString image_path = GetWindowBackground();
+  QPixmap source_pixmap(GetWindowBackground());
   // Other platforms may have performance issue.
-  const QPixmap pixmap =
-      QPixmap(image_path).scaled(size(), Qt::KeepAspectRatioByExpanding);
+  const QPixmap pixmap = source_pixmap.scaled(size(), Qt::KeepAspectRatioByExpanding);
   background_label_->setPixmap(pixmap);
   background_label_->setFixedSize(size());
 }
 
 void MainWindow::onCurrentPageChanged(int index) {
   // Ignore null id.
-  const PageId id = static_cast<PageId>(index + 1);
+  const auto id = static_cast<PageId>(index + 1);
   this->setCurrentPage(id);
 }
 
@@ -519,28 +482,6 @@ void MainWindow::goNextPage() {
       qWarning() << "[MainWindow]::goNextPage() We shall never reach here"
                  << static_cast<int>(current_page_) << this->sender();
       break;
-    }
-  }
-}
-
-void MainWindow::rebootSystem() {
-  this->saveLogFile();
-
-  if (!RebootSystemWithMagicKey()) {
-    qWarning() << "RebootSystem failed!";
-    if (!RebootSystem()) {
-      qWarning() << "RebootSystemWithMagicKey() failed!";
-    }
-  }
-}
-
-void MainWindow::shutdownSystem() {
-  this->saveLogFile();
-
-  if (!ShutdownSystemWithMagicKey()) {
-    qWarning() << "ShutdownSystem() failed!";
-    if (!ShutdownSystem()) {
-      qWarning() << "ShutdownSystemWithMagicKey() failed!";
     }
   }
 }

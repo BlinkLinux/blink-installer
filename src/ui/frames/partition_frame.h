@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,33 +20,28 @@
 #define INSTALLER_UI_FRAMES_PARTITION_FRAME_H
 
 #include <QFrame>
-class QStackedLayout;
+#include <QStackedLayout>
 
-#include "partman/operation.h"
 #include "partman/partition.h"
+#include "ui/delegates/full_disk_delegate.h"
+#include "ui/frames/inner/advanced_partition_frame.h"
+#include "ui/frames/inner/full_disk_frame.h"
+#include "ui/frames/inner/new_table_loading_frame.h"
+#include "ui/frames/inner/new_table_warning_frame.h"
+#include "ui/frames/inner/partition_loading_frame.h"
+#include "ui/frames/inner/partition_number_limitation_frame.h"
+#include "ui/frames/inner/partition_table_warning_frame.h"
+#include "ui/frames/inner/prepare_install_frame.h"
+#include "ui/frames/inner/select_bootloader_frame.h"
+#include "ui/widgets/comment_label.h"
+#include "ui/widgets/nav_button.h"
+#include "ui/widgets/title_label.h"
+#include "ui/frames/inner/edit_partition_frame.h"
+#include "ui/frames/inner/new_partition_frame.h"
+#include "ui/frames/inner/simple_partition_frame.h"
+#include "ui/models/partition_model.h"
 
 namespace installer {
-
-class AdvancedPartitionDelegate;
-class AdvancedPartitionFrame;
-class CommentLabel;
-class EditPartitionFrame;
-class FullDiskDelegate;
-class FullDiskFrame;
-class NavButton;
-class NewPartitionFrame;
-class NewTableLoadingFrame;
-class NewTableWarningFrame;
-class PartitionLoadingFrame;
-class PartitionModel;
-class PartitionNumberLimitationFrame;
-class PartitionTableWarningFrame;
-class PointerButton;
-class PrepareInstallFrame;
-class SelectBootloaderFrame;
-class SimplePartitionDelegate;
-class SimplePartitionFrame;
-class TitleLabel;
 
 // Handles partition operations.
 class PartitionFrame : public QFrame {

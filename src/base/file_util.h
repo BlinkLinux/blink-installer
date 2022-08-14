@@ -25,7 +25,7 @@ namespace installer {
 
 // Create a folder with |folder_name| in |parent_dir| directory and
 // returns a QDir object referencing to its absolute path.
-QDir ConcateDir(const QDir& parent_dir, const QString& folder_name);
+QDir ConcatDir(const QDir& parent_dir, const QString& folder_name);
 
 // Copy file from |src_file| to |dest_file|.
 // If |dest_file| exists, overwrite its content if |overwrite| is true, or

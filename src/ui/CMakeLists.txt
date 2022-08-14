@@ -197,7 +197,6 @@ set(LINK_LIBS
 
     global-shortcut
     qrencode
-    qtermwidget5
     zlib_wrapper
 
     installer-partman

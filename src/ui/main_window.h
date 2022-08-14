@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,33 +19,35 @@
 #ifndef INSTALLER_UI_MAIN_WINDOW_H
 #define INSTALLER_UI_MAIN_WINDOW_H
 
-#include <QWidget>
+#include <QCloseEvent>
 #include <QHash>
-class QLabel;
-class QPushButton;
-class QResizeEvent;
-class QShortcut;
-class QStackedLayout;
+#include <QLabel>
+#include <QPushButton>
+#include <QResizeEvent>
+#include <QShortcut>
+#include <QStackedLayout>
+#include <QWidget>
 
-class GlobalShortcut;
+#include "third_party/global_shortcut/global_shortcut.h"
+#include "ui/delegates/main_window_util.h"
+#include "ui/frames/confirm_quit_frame.h"
+#include "ui/frames/control_panel_frame.h"
+#include "ui/frames/disk_space_insufficient_frame.h"
+#include "ui/frames/install_failed_frame.h"
+#include "ui/frames/install_progress_frame.h"
+#include "ui/frames/install_success_frame.h"
+#include "ui/frames/partition_frame.h"
+#include "ui/frames/privilege_error_frame.h"
+#include "ui/frames/select_language_frame.h"
+#include "ui/frames/system_info_frame.h"
+#include "ui/frames/timezone_frame.h"
+#include "ui/frames/virtual_machine_frame.h"
+#include "ui/utils/widget_util.h"
+#include "ui/widgets/page_indicator.h"
+#include "ui/widgets/pointer_button.h"
+#include "ui/xrandr/multi_head_manager.h"
 
 namespace installer {
-
-class ConfirmQuitFrame;
-class ControlPanelFrame;
-class DiskSpaceInsufficientFrame;
-class InstallFailedFrame;
-class InstallProgressFrame;
-class InstallSuccessFrame;
-class MultiHeadManager;
-class PageIndicator;
-class PartitionFrame;
-class PartitionTableWarningFrame;
-class PrivilegeErrorFrame;
-class SelectLanguageFrame;
-class SystemInfoFrame;
-class TimezoneFrame;
-class VirtualMachineFrame;
 
 // MainWindow is a fullscreen window of deepin-installer.
 // All of ui frames are placed in MainWindow.
@@ -57,7 +60,7 @@ class MainWindow : public QWidget {
   Q_OBJECT
 
  public:
-  MainWindow();
+  explicit MainWindow();
 
   // Show fullscreen.
   void fullscreen();
@@ -69,12 +72,29 @@ class MainWindow : public QWidget {
   // Enable auto-install mode.
   void setEnableAutoInstall(bool auto_install);
 
-  // Set filepath to which log file will be backup.
-  void setLogFile(const QString& log_file);
+ signals:
+  void requestReloadTranslator();
+  void requestShutdownSystem();
+  void requestRebootSystem();
 
  protected:
+  // Switch to abort page on close-event received.
+  void closeEvent(QCloseEvent* event) override;
+
   // Move close button to appropriate position when window is resized.
   void resizeEvent(QResizeEvent* event) override;
+
+ private slots:
+  // Go next page when current page index is changed in ControlPanelFrame.
+  void onCurrentPageChanged(int index);
+
+  // Show ConfirmQuitFrame when close_button_ is clicked.
+  void onCloseButtonClicked();
+
+  // Move main window to primary screen when it is changed to |geometry|.
+  void onPrimaryScreenChanged(const QRect& geometry);
+
+  void goNextPage();
 
  private:
   enum PageId {
@@ -97,9 +117,6 @@ class MainWindow : public QWidget {
   void initPages();
   void initUI();
   void registerShortcut();
-
-  // Copy log file if needed.
-  void saveLogFile();
 
   // Switch frame page based on name.
   void setCurrentPage(PageId page_id);
@@ -142,24 +159,9 @@ class MainWindow : public QWidget {
 
   // Shortcut for screen brightness.
   QShortcut* brightness_increase_shortcut_ = nullptr;
-  QShortcut* brithtness_decrease_shortcut_ = nullptr;
+  QShortcut* brightness_decrease_shortcut_ = nullptr;
 
-  QString log_file_;
   bool auto_install_;
-
- private slots:
-  // Go next page when current page index is changed in ControlPanelFrame.
-  void onCurrentPageChanged(int index);
-
-  // Show ConfirmQuitFrame when close_button_ is clicked.
-  void onCloseButtonClicked();
-
-  // Move main window to primary screen when it is changed to |geometry|.
-  void onPrimaryScreenChanged(const QRect& geometry);
-
-  void goNextPage();
-  void rebootSystem();
-  void shutdownSystem();
 };
 
 }  // namespace installer

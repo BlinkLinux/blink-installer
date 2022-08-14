@@ -39,7 +39,7 @@ add_library(installer-partman STATIC
     ${SOURCE_FILES}
     )
 target_link_libraries(installer-partman
-    Qt5::Core
+    Qt${QT_VERSION_MAJOR}::Core
     PkgConfig::Parted
 
     installer-sysinfo

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,29 +25,29 @@ namespace installer {
 
 namespace {
 
+constexpr const char* kOsProberOutputFile = "/tmp/blink-installer-os-prober.conf";
+constexpr const char* kPartmanIgnoreUefiFile = "/var/lib/partman/ignore_uefi";
+
 // Cache output of `os-prober` command.
 QString ReadOsProberOutput() {
-  const QString cache_path("/tmp/deepin-installer-os-prober.conf");
+  const QString cache_path(kOsProberOutputFile);
   if (QFile::exists(cache_path)) {
     return ReadFile(cache_path);
-  } else {
-    // Create ignore_uefi file to make os-prober scan windows systems
-    // in UEFI mode.
-    const QString partman_flag = "/var/lib/partman/ignore_uefi";
-    if (!CreateParentDirs(partman_flag)) {
-      qWarning() << "Failed to create parent folder of: " << partman_flag;
-    }
-    WriteTextFile(partman_flag, "deepin-installer");
-
-    QString output;
-    if (SpawnCmd("os-prober", {}, output)) {
-      WriteTextFile(cache_path, output);
-      return output;
-    } else {
-      qCritical() << "os-prober failed";
-      return QString();
-    }
   }
+  // Create ignore_uefi file to make os-prober scan windows systems in UEFI mode.
+  const QString partman_flag = kPartmanIgnoreUefiFile;
+  if (!CreateParentDirs(partman_flag)) {
+    qWarning() << "Failed to create parent folder of: " << partman_flag;
+  }
+  WriteTextFile(partman_flag, "blink-installer");
+
+  QString output;
+  if (SpawnCmd("os-prober", {}, output)) {
+    WriteTextFile(cache_path, output);
+    return output;
+  }
+  qCritical() << "os-prober failed";
+  return {};
 }
 
 }  // namespace
@@ -56,7 +57,7 @@ OsProberItems GetOsProberItems() {
 
   const QString output = ReadOsProberOutput();
   if (!output.isEmpty()) {
-    for (const QString& line : output.split('\n')) {
+    for (const QString& line: output.split('\n')) {
       if (line.isEmpty()) {
         continue;
       }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,21 +17,18 @@
  */
 
 #include <QApplication>
-#include <QFrame>
 
-#include "ui/delegates/simple_partition_delegate.h"
-#include "ui/frames/inner/simple_partition_frame.h"
+#include "ui/frames/timezone_frame.h"
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
 
-  QFrame window;
-  installer::SimplePartitionDelegate delegate;
-  installer::SimplePartitionFrame frame(&delegate, &window);
-  delegate.scanDevices();
-  window.resize(640, 480);
-  window.show();
-  window.setStyleSheet("background: transparent;");
+  installer::TimezoneFrame frame;
+  frame.setAttribute(Qt::WA_TranslucentBackground, true);
+//  frame.setWindowFlags(Qt::FramelessWindowHint);
+  frame.show();
+  QObject::connect(&frame, &installer::TimezoneFrame::finished,
+                   &app, &QApplication::quit);
 
-  return app.exec();
+  return QApplication::exec();
 }

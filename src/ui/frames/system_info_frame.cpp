@@ -148,7 +148,7 @@ void SystemInfoFrame::restoreLastPage() {
 }
 
 void SystemInfoFrame::showAvatarPage() {
-  if (!GetSettingsBool(kSystemInfoDisableAvatorPage)) {
+  if (!GetSettingsBool(kSystemInfoDisableAvatarPage)) {
     stacked_layout_->setCurrentWidget(avatar_frame_);
     this->updateHeadBar();
   }

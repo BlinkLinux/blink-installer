@@ -34,11 +34,11 @@ namespace {
 
 constexpr const int kBtnSize = 24;
 
-constexpr const char kCtlBtnState[] = "ctlState";
-constexpr const char kCtlBtnStateDelete[] = "delete";
-constexpr const char kCtlBtnStateEdit[] = "edit";
-constexpr const char kCtlBtnStateNew[] = "new";
-constexpr const char kCtlBtnStateHide[] = "hide";
+constexpr const char* kCtlBtnState = "ctlState";
+constexpr const char* kCtlBtnStateDelete = "delete";
+constexpr const char* kCtlBtnStateEdit = "edit";
+constexpr const char* kCtlBtnStateNew = "new";
+constexpr const char* kCtlBtnStateHide = "hide";
 
 }  // namespace
 

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +54,7 @@ QDebug& operator<<(QDebug& debug, const FsType& fs_type);
 FsType GetFsTypeByName(const QString& name);
 QString GetFsTypeName(FsType fs_type);
 
-typedef QList<FsType> FsTypeList;
+using FsTypeList = QList<FsType>;
 
 }  // namespace installer
 

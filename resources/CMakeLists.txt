@@ -28,12 +28,7 @@ install(
 )
 
 # Install default_settings.ini based on current architecture.
-set(INSTALLER_BUILD_ARCH "")
-execute_process(COMMAND uname -m
-                OUTPUT_VARIABLE INSTALLER_BUILD_ARCH)
-message("build arch: ${INSTALLER_BUILD_ARCH}")
-
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/default_settings_${INSTALLER_BUILD_ARCH}.ini
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/default_settings_${CMAKE_SYSTEM_PROCESSOR}.ini
         DESTINATION ${INSTALLER_SHARE_DIR}/resources
         RENAME default_settings.ini
         )

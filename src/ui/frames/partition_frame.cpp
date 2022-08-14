@@ -28,35 +28,18 @@
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
 #include "ui/delegates/advanced_partition_delegate.h"
-#include "ui/delegates/full_disk_delegate.h"
-#include "ui/delegates/simple_partition_delegate.h"
 #include "ui/delegates/partition_util.h"
+#include "ui/delegates/simple_partition_delegate.h"
 #include "ui/frames/consts.h"
-#include "ui/frames/inner/advanced_partition_frame.h"
-#include "ui/frames/inner/edit_partition_frame.h"
-#include "ui/frames/inner/full_disk_frame.h"
-#include "ui/frames/inner/new_partition_frame.h"
-#include "ui/frames/inner/new_table_loading_frame.h"
-#include "ui/frames/inner/new_table_warning_frame.h"
-#include "ui/frames/inner/partition_loading_frame.h"
-#include "ui/frames/inner/partition_number_limitation_frame.h"
-#include "ui/frames/inner/partition_table_warning_frame.h"
-#include "ui/frames/inner/prepare_install_frame.h"
-#include "ui/frames/inner/select_bootloader_frame.h"
-#include "ui/frames/inner/simple_partition_frame.h"
-#include "ui/models/partition_model.h"
-#include "ui/widgets/comment_label.h"
-#include "ui/widgets/nav_button.h"
-#include "ui/widgets/title_label.h"
 
 namespace installer {
 
 namespace {
 
-constexpr const char kLeftBtn[] = "left_frame_button";
-constexpr const char kMidBtn[] = "mid_frame_button";
-constexpr const char kRightBtn[] = "right_frame_button";
-constexpr const char kSoloBtn[] = "solo_frame_button";
+constexpr const char* kLeftBtn = "left_frame_button";
+constexpr const char* kMidBtn = "mid_frame_button";
+constexpr const char* kRightBtn = "right_frame_button";
+constexpr const char* kSoloBtn = "solo_frame_button";
 
 }  // namespace
 

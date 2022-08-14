@@ -45,23 +45,23 @@ namespace {
 // Absolute path to oem dir.
 QString g_oem_dir;
 
-constexpr const char kLocaleKey[] = "DI_LOCALE";
+constexpr const char* kLocaleKey = "DI_LOCALE";
 
 // File name of installer wallpaper.
-constexpr const char kOemWallpaperFilename[] = "installer-background.jpg";
+constexpr const char* kOemWallpaperFilename = "installer-background.jpg";
 
 // File name of auto partition script.
-constexpr const char kAutoPartFile[] = "auto_part.sh";
+constexpr const char* kAutoPartFile = "auto_part.sh";
 // File name of architecture specific of auto partition script.
-constexpr const char kAutoPartArchSpecFile[] = "auto_part_%1.sh";
+constexpr const char* kAutoPartArchSpecFile = "auto_part_%1.sh";
 
 // Absolute path to oem folder.
-constexpr const char kDebugOemDir[] = "/tmp/oem";
-constexpr const char kUbuntuOemDir[] = "/cdrom/oem";
-constexpr const char kDeepinOemDir[] = "/lib/live/mount/medium/oem";
+constexpr const char* kDebugOemDir = "/tmp/oem";
+constexpr const char* kUbuntuOemDir = "/cdrom/oem";
+constexpr const char* kDeepinOemDir = "/lib/live/mount/medium/oem";
 
 // Filename of oem settings
-constexpr const char kOemSettingsFilename[] = "settings.ini";
+constexpr const char* kOemSettingsFilename = "settings.ini";
 
 void AppendToConfigFile(const QString& key, const QVariant& value) {
   QSettings settings(kInstallerConfigFile, QSettings::IniFormat);
@@ -191,7 +191,7 @@ QStringList GetAvatars() {
 }
 
 QString GetDefaultAvatar() {
-  QString default_avatar(GetSettingsString(kSystemInfoDefaultAvator));
+  QString default_avatar(GetSettingsString(kSystemInfoDefaultAvatar));
   if (!default_avatar.isEmpty() && QFile::exists(default_avatar)) {
     // Returns default avatar
     return default_avatar;
@@ -237,7 +237,7 @@ QString GetWindowBackground() {
     return oem_file;
   }
 
-  return kIconsDefaultWallpaper;
+  return kIconDefaultWallpaperJpg;
 }
 
 bool AppendConfigFile(const QString& conf_file) {

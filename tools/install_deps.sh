@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,10 +19,14 @@
 
 # Install package dependencies for development environment.
 
-sudo aptitude install \
+sudo apt install -y \
+    btrfs-progs \
     cmake \
+    dosfstools \
+    e2fsprogs \
     g++ \
     gettext \
+    jfsutils \
     libattr1-dev \
     libparted-dev \
     libqt5x11extras5-dev \
@@ -30,20 +35,15 @@ sudo aptitude install \
     libxrandr-dev \
     libxss-dev \
     libxtst-dev \
-    pkg-config \
-    qt5-qmake \
-    qt5-default \
-    qtbase5-dev \
-    qttools5-dev-tools \
-    zlib1g-dev \
-    btrfs-progs \
-    dosfstools \
-    e2fsprogs \
-    jfsutils \
     mtools \
     ntfs-3g \
     os-prober \
     parted \
+    pkg-config \
+    qt5-qmake \
+    qtbase5-dev \
+    qttools5-dev \
+    qttools5-dev-tools \
     reiserfsprogs \
     squashfs-tools \
     tshark \
@@ -51,4 +51,5 @@ sudo aptitude install \
     util-linux \
     x11-xserver-utils \
     xfsprogs \
-    xkb-data
+    xkb-data \
+    zlib1g-dev

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +19,8 @@
 #ifndef INSTALLER_SYSINFO_TIMEZONE_H
 #define INSTALLER_SYSINFO_TIMEZONE_H
 
-#include <QList>
 #include <QHash>
+#include <QList>
 
 namespace installer {
 
@@ -59,7 +60,7 @@ QString GetLocalTimezoneName(const QString& timezone, const QString& locale);
 
 // A map between old name of timezone and current name.
 // e.g. Asia/Chongqing -> Asia/Shanghai
-typedef QHash<QString, QString> TimezoneAliasMap;
+using TimezoneAliasMap = QHash<QString, QString>;
 TimezoneAliasMap GetTimezoneAliasMap();
 
 // Returns true if |timezone| is in /usr/share/zoneinfo/zone.tab

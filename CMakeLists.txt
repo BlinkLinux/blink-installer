@@ -27,6 +27,11 @@ add_custom_target(installer-generate-deps
     )
 
 set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/blink-installer)
+set(INSTALLER_BUILD_ARCH "")
+execute_process(COMMAND uname -m
+    OUTPUT_VARIABLE INSTALLER_BUILD_ARCH)
+string(STRIP ${INSTALLER_BUILD_ARCH} INSTALLER_BUILD_ARCH)
+message("build arch: ___${INSTALLER_BUILD_ARCH}___")
 
 # Import folders
 add_subdirectory(docs)

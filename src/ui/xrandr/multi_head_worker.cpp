@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,9 +63,9 @@ void MultiHeadWorker::doStart() {
 
   is_running_ = true;
 
-  Display* dpy = NULL;
-  dpy = XOpenDisplay(NULL);
-  if (!dpy) {
+  Display* dpy = nullptr;
+  dpy = XOpenDisplay(nullptr);
+  if (dpy == nullptr) {
     qCritical() << "Failed to open X display";
     return;
   }
@@ -80,10 +81,12 @@ void MultiHeadWorker::doStart() {
   XRRSelectInput(dpy, root, RROutputChangeNotifyMask |
                             RRScreenChangeNotifyMask);
 
-  int event_base, error_base;
-  int major, minor;
-  if (!XRRQueryExtension(dpy, &event_base, &error_base) ||
-      !XRRQueryVersion(dpy, &major, &minor)) {
+  int event_base;
+  int error_base;
+  int major;
+  int minor;
+  if ((XRRQueryExtension(dpy, &event_base, &error_base) == 0) ||
+      (XRRQueryVersion(dpy, &major, &minor) == 0)) {
     qCritical() << "RandR extension missing!";
     return;
   }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +42,7 @@ void PrivilegeErrorFrame::initConnection() {
 void PrivilegeErrorFrame::initUI() {
   TitleLabel* title_label = new TitleLabel("Privilege error!");
   CommentLabel* comment_label = new CommentLabel(
-      "Please execute with root account");
+      "Please run with root account");
 
   continue_button_ = new NavButton("Continue");
 

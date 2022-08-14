@@ -20,14 +20,14 @@ int initShell(int argc, char** argv) {
   qputenv("LC_ALL", kDefaultLang);
   qputenv("LANG", kDefaultLang);
 
-  QApplication app(argc, argv);
   QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
   QApplication::setApplicationDisplayName(kAppDisplayName);
   QApplication::setApplicationName(kAppName);
   QApplication::setApplicationVersion(kAppVersion);
   QApplication::setOrganizationDomain("biofan.org");
-  QApplication::setWindowIcon(QIcon(kIconsBlinkInstallerSvg));
+  QApplication::setWindowIcon(QIcon(kIconBlinkInstallerSvg));
+  QApplication app(argc, argv);
 
   QScopedPointer<MainController> controller(new MainController);
   if (!controller->init()) {

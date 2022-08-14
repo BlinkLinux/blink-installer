@@ -27,7 +27,7 @@ struct ReleaseVersion {
   QString type;
 };
 
-ReleaseVersion GetReleaseVersioin();
+ReleaseVersion GetReleaseVersion();
 
 }  // namespace installer
 

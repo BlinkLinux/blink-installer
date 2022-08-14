@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,26 +19,24 @@
 #ifndef INSTALLER_UI_FRAMES_INNER_SIMPLE_PARTITION_FRAME_H
 #define INSTALLER_UI_FRAMES_INNER_SIMPLE_PARTITION_FRAME_H
 
+#include <QAbstractButton>
+#include <QButtonGroup>
 #include <QFrame>
-class QAbstractButton;
-class QButtonGroup;
-class QGridLayout;
-class QLabel;
-class QShowEvent;
+#include <QGridLayout>
+#include <QLabel>
+#include <QShowEvent>
 
-#include "partman/partition.h"
+#include "ui/delegates/simple_partition_delegate.h"
 
 namespace installer {
 
-class SimplePartitionDelegate;
-
 // List device partitions in simple mode.
 class SimplePartitionFrame : public QFrame {
-  Q_OBJECT
+ Q_OBJECT
 
  public:
-  SimplePartitionFrame(SimplePartitionDelegate* delegate,
-                       QWidget* parent = nullptr);
+  explicit SimplePartitionFrame(SimplePartitionDelegate* delegate,
+                                QWidget* parent = nullptr);
 
   // Validate whether a root partition is selected and large enough.
   bool validate();
@@ -62,6 +61,7 @@ class SimplePartitionFrame : public QFrame {
   void appendOperations();
 
   void initConnections();
+
   void initUI();
 
   // Repaint partition list.
@@ -83,8 +83,9 @@ class SimplePartitionFrame : public QFrame {
 
  private slots:
   void onDeviceRefreshed();
-  
+
   void onPartitionButtonClicked();
+
   // Di-select the unchecked button.
   void onPartitionButtonToggled(QAbstractButton* button, bool checked);
 };

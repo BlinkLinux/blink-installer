@@ -94,7 +94,7 @@ bool ReadErrorMsg(QString& msg, QString& encoded_msg) {
 
   const QString stripped_msg =
       raw_msg.right(GetSettingsInt(kInstallFailedErrMsgLen));
-  const ReleaseVersion version = GetReleaseVersioin();
+  const ReleaseVersion version = GetReleaseVersion();
   msg = QString("%1\n%2, %3, %4")
       .arg(stripped_msg)
       .arg(kAppVersion)

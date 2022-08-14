@@ -1,13 +1,12 @@
 
 set(RESOURCE_FILES
-    ../../resources/images/images.qrc
-    ../../resources/spinner/spinner.qrc
-    ../../resources/styles/styles.qrc
+    ${CMAKE_SOURCE_DIR}/resources/icons/icons.qrc
+    ${CMAKE_SOURCE_DIR}/resources/images/images.qrc
+    ${CMAKE_SOURCE_DIR}/resources/misc/misc.qrc
+    ${CMAKE_SOURCE_DIR}/resources/slide/slide.qrc
+    ${CMAKE_SOURCE_DIR}/resources/spinner/spinner.qrc
+    ${CMAKE_SOURCE_DIR}/resources/styles/styles.qrc
     ${CMAKE_BINARY_DIR}/i18n/installer.qrc
-
-    # Also include color-schems used in qtermwidget.
-    ../third_party/qtermwidget/lib/color-schemes/color-schemes.qrc
-    ../third_party/qtermwidget/lib/kb-layouts/kb-layouts.qrc
     )
 
 add_executable(blink-installer
@@ -15,7 +14,7 @@ add_executable(blink-installer
     ${RESOURCE_FILES}
     )
 target_link_libraries(blink-installer
-    Qt5::Widgets
+    Qt${QT_VERSION_MAJOR}::Widgets
 
     installer-controllers
     )
@@ -24,8 +23,38 @@ add_executable(blink-installer-settings
     blink_installer_settings.cpp
     )
 target_link_libraries(blink-installer-settings
-    Qt5::Core
+    Qt${QT_VERSION_MAJOR}::Core
     )
+
+if (BUILD_TESTING)
+  add_executable(installer-combobox-test
+      combobox_test.cpp
+      )
+  target_link_libraries(installer-combobox-test
+      installer-resources
+      installer-ui
+      )
+  add_executable(installer-control-button-test
+      control_button_test.cpp
+      ${RESOURCE_FILES}
+      )
+  target_link_libraries(installer-control-button-test
+      installer-ui
+      )
+
+  add_executable(installer-qr-widget-test
+      qr_widget_test.cpp
+      )
+  target_link_libraries(installer-qr-widget-test
+      installer-ui
+      )
+  add_executable(installer-timezone-frame-test
+      timezone_frame_test.cpp
+      )
+  target_link_libraries(installer-timezone-frame-test
+      installer-ui
+      )
+endif()
 
 # Installation
 install(TARGETS

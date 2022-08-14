@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,12 +58,12 @@ void ScreenBrightness::set(int value) {
   WriteTextFile(brightness_file, brightness_str);
 }
 
-typedef QList<ScreenBrightness> ScreenBrightnessList;
+using ScreenBrightnessList = QList<ScreenBrightness>;
 
 ScreenBrightnessList GetScreenBrightnessList() {
-  const char kSysBrightnessDir[] = "/sys/class/backlight";
-  const char kMaxFile[] = "max_brightness";
-  const char kActualFile[] = "actual_brightness";
+  const char* kSysBrightnessDir = "/sys/class/backlight";
+  const char* kMaxFile = "max_brightness";
+  const char* kActualFile = "actual_brightness";
 
   QDir sys(kSysBrightnessDir);
   ScreenBrightnessList result;

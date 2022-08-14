@@ -92,7 +92,7 @@ void TimezoneFrame::readConf() {
     timezone_source_ = TimezoneSource::Conf;
   } else {
     const bool use_geoip = GetSettingsBool(kTimezoneUseGeoIp);
-    const bool use_regdomain = GetSettingsBool(kTimezoneUseRegdomain);
+    const bool use_regdomain = GetSettingsBool(kTimezoneUseRegDomain);
     timezone_manager_->update(use_geoip, use_regdomain);
 
     // Use default timezone.

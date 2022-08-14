@@ -18,25 +18,20 @@
 
 #include "ui/frames/inner/simple_partition_frame.h"
 
-#include <QButtonGroup>
 #include <QDebug>
 #include <QEvent>
-#include <QGridLayout>
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QScrollArea>
-#include <QShowEvent>
 
 #include "base/file_util.h"
 #include "resources/images/images.h"
 #include "resources/styles/styles.h"
 #include "service/settings_manager.h"
 #include "service/settings_name.h"
-#include "ui/delegates/simple_partition_delegate.h"
 #include "ui/delegates/partition_util.h"
+#include "ui/utils/widget_util.h"
 #include "ui/widgets/device_model_label.h"
 #include "ui/widgets/simple_partition_button.h"
-#include "ui/utils/widget_util.h"
 
 namespace installer {
 

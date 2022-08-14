@@ -6,10 +6,13 @@
 
 #include <QApplication>
 #include <QDebug>
+#include <QTranslator>
 
 #include "config/config.h"
 #include "service/installer_args_parser.h"
+#include "service/languages.h"
 #include "service/log_manager.h"
+#include "service/power_manager.h"
 #include "service/settings_manager.h"
 #include "sysinfo/users.h"
 
@@ -18,11 +21,69 @@ namespace installer {
 MainController::MainController(QObject* parent)
     : QObject(parent),
       main_window_(new MainWindow()) {
-
+  this->initConnections();
 }
 
 MainController::~MainController() {
   main_window_->deleteLater();
+}
+
+void MainController::initConnections() {
+  connect(main_window_, &MainWindow::requestReloadTranslator,
+          this, &MainController::reloadTranslator);
+  connect(main_window_, &MainWindow::requestShutdownSystem,
+          this, &MainController::shutdownSystem);
+  connect(main_window_, &MainWindow::requestRebootSystem,
+          this, &MainController::rebootSystem);
+}
+
+void MainController::reloadTranslator() {
+  // Set language.
+  auto* translator = new QTranslator(this);
+  const QString locale(ReadLocale());
+  translator->load(GetLocalePath(locale));
+  qApp->installTranslator(translator);
+}
+
+void MainController::shutdownSystem() {
+  this->saveLogFile();
+
+#ifndef NDEBUG
+  // Do not shutdown system in debug.
+  main_window_->close();
+  qApp->quit();
+  return;
+#endif
+
+  if (!ShutdownSystemWithMagicKey()) {
+    qWarning() << "ShutdownSystem() failed!";
+    if (!ShutdownSystem()) {
+      qWarning() << "ShutdownSystemWithMagicKey() failed!";
+    }
+  }
+}
+
+void MainController::rebootSystem() {
+  this->saveLogFile();
+
+#ifndef NDEBUG
+  // Do not shutdown system in debug.
+  main_window_->close();
+  qApp->quit();
+  return;
+#endif
+
+  if (!RebootSystemWithMagicKey()) {
+    qWarning() << "RebootSystem failed!";
+    if (!RebootSystem()) {
+      qWarning() << "RebootSystemWithMagicKey() failed!";
+    }
+  }
+}
+
+void MainController::saveLogFile() {
+  // Copy log file.
+  CopyLogFile(log_file_);
 }
 
 bool MainController::init() {
@@ -34,7 +95,7 @@ bool MainController::init() {
   }
 
   // Initialize log service.
-  constexpr const char kLogFileName[] = "blink-installer.log";
+  constexpr const char* kLogFileName = "blink-installer.log";
   QString log_file;
   if (!HasRootPrivilege()) {
     qCritical() << "Root privilege is required!";
@@ -42,7 +103,10 @@ bool MainController::init() {
   } else {
     log_file = QString("/var/log/%1").arg(kLogFileName);
   }
+
+#ifdef NDEBUG
   RedirectLog(log_file);
+#endif
 
   // Delete old settings file and generate a new one.
   DeleteConfigFile();
@@ -59,7 +123,7 @@ bool MainController::init() {
   }
 
   main_window_->setEnableAutoInstall(args_parser.isAutoInstallSet());
-  main_window_->setLogFile(args_parser.getLogFile());
+  log_file_ = args_parser.getLogFile();
 
   // Notify background thread to scan device info.
   main_window_->scanDevicesAndTimezone();

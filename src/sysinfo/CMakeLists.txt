@@ -51,8 +51,8 @@ add_library(installer-sysinfo STATIC
     ${SOURCE_FILES}
     )
 target_link_libraries(installer-sysinfo
-    Qt5::Core
-    Qt5::Xml
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Xml
 
     installer-base
     installer-config
