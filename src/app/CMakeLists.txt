@@ -42,6 +42,13 @@ if (BUILD_TESTING)
       installer-ui
       )
 
+  add_executable(installer-progress-bar-test
+      progressbar_test.cpp
+      )
+  target_link_libraries(installer-progress-bar-test
+      installer-ui
+      )
+
   add_executable(installer-qr-widget-test
       qr_widget_test.cpp
       )
