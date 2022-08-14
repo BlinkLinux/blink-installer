@@ -64,6 +64,14 @@ if (BUILD_TESTING)
       installer-ui
       )
 
+  add_executable(installer-system-info-tip-test
+      system_info_tip_test.cpp
+      ${RESOURCE_FILES}
+      )
+  target_link_libraries(installer-system-info-tip-test
+      installer-ui
+      )
+
   add_executable(installer-timezone-frame-test
       timezone_frame_test.cpp
       )
