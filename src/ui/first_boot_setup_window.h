@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +35,7 @@ class MultiHeadManager;
 class SystemInfoFrame;
 class TimezoneFrame;
 
-// Main window of deepin_installer_first_boot.
+// Main window of installer_first_boot.
 class FirstBootSetupWindow : public QFrame {
   Q_OBJECT
 
