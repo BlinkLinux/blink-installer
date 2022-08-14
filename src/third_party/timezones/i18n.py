@@ -9,7 +9,7 @@ import subprocess
 
 HEADER_FILE = "system-config-date-timezones.h"
 POT_FILE="system-config-date-timezones.pot"
-PO_FILE="deepin-installer-timezones.po"
+PO_FILE="blink-installer-timezones.po"
 
 def generate_header_file():
     """Generate C header file from zone.tab"""
