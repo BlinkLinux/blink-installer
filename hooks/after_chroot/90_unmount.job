@@ -24,8 +24,8 @@ chown root:root ${target}
 # sync data to disk
 sync
 
-[ -d /target/deepinhost ] && umount -l /target/deepinhost 
-rm -rf /target/deepinhost
+[ -d /target/installer-host ] && umount -l /target/installer-host 
+rm -rf /target/installer-host
 
 for i in $(cat /proc/mounts | awk '{print $2}' | grep -e ^$target | sort -r); do
   umount -v $i

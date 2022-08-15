@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +28,7 @@ export APT_OPTIONS='-y -o Dpkg::Options::="--force-confdef" \
 
 # Absolute path to config file.
 # Do not read from/write to this file, call installer_get/installer_set instead.
-CONF_FILE=/etc/deepin-installer.conf
+CONF_FILE=/etc/blink-installer.conf
 
 # Print error message and exit
 error() {
@@ -65,9 +66,9 @@ debug() {
 installer_get() {
   local key="$1"
   [ -z "${CONF_FILE}" ] && exit "CONF_FILE is not defined"
-  which deepin-installer-settings 1>/dev/null || \
-    exit "deepin-installer-settings not found!"
-  deepin-installer-settings get "${CONF_FILE}" "${key}"
+  which blink-installer-settings 1>/dev/null || \
+    exit "blink-installer-settings not found!"
+  blink-installer-settings get "${CONF_FILE}" "${key}"
 }
 
 # Set value in conf file. Section name is ignored.
@@ -75,9 +76,9 @@ installer_set() {
   local key="$1"
   local value="$2"
   [ -z "${CONF_FILE}" ] && exit "CONF_FILE is not defined"
-  which deepin-installer-settings 1>/dev/null || \
-    exit "deepin-installer-settings not found!"
-  deepin-installer-settings set "${CONF_FILE}" "${key}" "${value}"
+  which blink-installer-settings 1>/dev/null || \
+    exit "blink-installer-settings not found!"
+  blink-installer-settings set "${CONF_FILE}" "${key}" "${value}"
 }
 
 # Check whether current platform is loongson or not.

@@ -17,9 +17,9 @@
 #
 # Backup log to disk.
 
-if [ -f /var/log/deepin-installer.log ]; then
-  install -v -Dm644 /var/log/deepin-installer.log \
-    /target/var/log/deepin-installer.log
+if [ -f /var/log/blink-installer.log ]; then
+  install -v -Dm644 /var/log/blink-installer.log \
+    /target/var/log/blink-installer.log
 fi
 
 return 0

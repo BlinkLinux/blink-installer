@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,8 +55,8 @@ case ${_HOOK_FILE} in
   */in_chroot/*)
     if [ "x${_IN_CHROOT}" = "xtrue" ]; then
       # Already in chroot env.
-      # Host device is mounted at /target/deepinhost
-      CONF_FILE="/deepinhost${CONF_FILE}"
+      # Host device is mounted at /target/installer-host
+      CONF_FILE="/installer-host${CONF_FILE}"
       if [ ! -f "${CONF_FILE}" ]; then
         error "Config file ${CONF_FILE} does not exists."
       fi

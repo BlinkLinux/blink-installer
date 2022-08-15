@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
 #
 
 # Remove unused packages
-# If `deepin-installer` is uninstalled, deepin-installer-settings
+# If `blink-installer` is uninstalled, blink-installer-settings
 # will be removed too. Both "installer_get" and "installer_set" will not
 # work any more in chroot environment.
 # So, always put this script to last step of in_chroot stage.
@@ -46,9 +47,9 @@ detect_vmware() {
   return 1
 }
 declare -a UNUSED_PKGS
-# Uninstall "deepin-installer" only if reboot_setup is false.
+# Uninstall "blink-installer" only if reboot_setup is false.
 if [ x$(installer_get "system_info_setup_after_reboot") != xtrue ]; then
-  UNUSED_PKGS+=("deepin-installer")
+  UNUSED_PKGS+=("blink-installer")
   UNUSED_PKGS+=("tshark")
   UNUSED_PKGS+=("wireshark-common")
 fi

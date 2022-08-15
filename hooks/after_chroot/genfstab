@@ -34,7 +34,7 @@ declare -A pseudofs_types=([anon_inodefs]=1
                            [tmpfs]=1
                            [overlayfs]=1
                            [overlay]=1)
-# Also remove overlay which points to /deepinhost
+# Also remove overlay which points to /installer-host
 
 # generated from: pkgfile -vbr '/fsck\..+' | awk -F. '{ print $NF }' | sort
 declare -A fsck_types=([cramfs]=1

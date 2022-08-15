@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Copy /etc/deepin-installer.conf to /target
+# Copy /etc/blink-installer.conf to /target
 
 if [ -f "${CONF_FILE}" ]; then
   install -v -m644 "${CONF_FILE}"  "/target/${CONF_FILE}" || \

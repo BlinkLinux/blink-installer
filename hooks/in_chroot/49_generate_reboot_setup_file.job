@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Generate /etc/deepin-installer-first-boot placeholder file if needed.
+# Generate /etc/blink-installer-first-boot placeholder file if needed.
 
 # If reboot-setup is enabled, backup lightdm.conf and modify it to execute
-# deepin-installer-first-boot.
+# blink-installer-first-boot.
 prepare_lightdm_deepin_installer_mode() {
   local CONF_FILE=/etc/lightdm/lightdm.conf
   local TEMP_CONF_FILE=/etc/lightdm/lightdm.conf.real
@@ -29,16 +30,16 @@ prepare_lightdm_deepin_installer_mode() {
 
   cat > "${CONF_FILE}" <<EOF
 [Seat:*]
-greeter-setup-script=/usr/bin/deepin-installer-first-boot
+greeter-setup-script=/usr/bin/blink-installer-first-boot
 EOF
 }
 
 if [ x$(installer_get "system_info_setup_after_reboot") = "xtrue" ]; then
-  touch /etc/deepin-installer-first-boot
+  touch /etc/blink-installer-first-boot
 
   # See "setup_lightdm.job" for more info.
-  if [ -f /lib/systemd/system/deepin-installer.target ]; then
-    systemctl set-default -f deepin-installer.target
+  if [ -f /lib/systemd/system/blink-installer.target ]; then
+    systemctl set-default -f blink-installer.target
   else
     prepare_lightdm_deepin_installer_mode
   fi

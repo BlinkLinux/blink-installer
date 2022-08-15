@@ -23,7 +23,7 @@ const int kExitOk = 0;
 const int kExitErr = 1;
 
 constexpr const char* kUnsquashfsAppName = "blink-installer-unsquashfs";
-constexpr const char* kUnsquashfsAppDesc = "Tool to extract squashfs filesystem";
+constexpr const char* kUnsquashfsAppDesc = "To extract squashfs filesystem";
 constexpr const char* kUnsquashfsAppVersion = "0.1.1";
 
 }  // namespace

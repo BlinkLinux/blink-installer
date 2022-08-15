@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +23,7 @@
 # Absolute path to config file.
 # Do not read/write this file directly, call installer_get and installer_set
 # instead.
-CONF_FILE=/etc/deepin-installer.conf
+CONF_FILE=/etc/blink-installer.conf
 
 . ./basic_utils.sh
 
@@ -47,9 +48,9 @@ uninstall_installer() {
   # NOTE(xushaohua): Remove dependencies of installer by hand.
   # Until state of packages are correctly marked in ISO.
   if detect_btrfs; then
-    apt-get -y purge deepin-installer tshark wireshark-common
+    apt-get -y purge blink-installer tshark wireshark-common
   else
-    apt-get -y purge deepin-installer btrfs-tools tshark wireshark-common
+    apt-get -y purge blink-installer btrfs-tools tshark wireshark-common
   fi
   apt-get -y autoremove --purge
 }
@@ -64,10 +65,10 @@ cleanup_lightdm_deepin_installer() {
 }
 
 cleanup_first_boot() {
-  local FILE=/etc/deepin-installer-first-boot
+  local FILE=/etc/blink-installer-first-boot
   [ -f "${FILE}" ] && rm -f "${FILE}"
 
-  if [ -f /lib/systemd/system/deepin-installer.target ]; then
+  if [ -f /lib/systemd/system/blink-installer.target ]; then
     # Restore default target of systemd
     systemctl set-default -f graphical.target
   else
@@ -77,7 +78,7 @@ cleanup_first_boot() {
 }
 
 main() {
-  [ -f "${CONF_FILE}" ] || error "deepin-installer.conf not found"
+  [ -f "${CONF_FILE}" ] || error "blink-installer.conf not found"
   cat "${CONF_FILE}"
 
   generate_machine_id
