@@ -4,11 +4,16 @@
 
 #include "unsquashfs/shell.h"
 
-#include <QCoreApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QCoreApplication>
 #include <QDateTime>
+#include <QFile>
 #include <QString>
+#include <QThread>
+
+#include "config/config.h"
+#include "unsquashfs/fs.h"
 
 namespace installer {
 
@@ -17,9 +22,9 @@ namespace {
 const int kExitOk = 0;
 const int kExitErr = 1;
 
-constexpr const char kAppName[] = "deepin-installer-unsquashfs";
-constexpr const char kAppDesc[] = "Tool to extract squashfs filesystem";
-constexpr const char kAppVersion[] = "0.0.1";
+constexpr const char* kUnsquashfsAppName = "blink-installer-unsquashfs";
+constexpr const char* kUnsquashfsAppDesc = "Tool to extract squashfs filesystem";
+constexpr const char* kUnsquashfsAppVersion = "0.1.1";
 
 }  // namespace
 
@@ -36,8 +41,8 @@ int runShell(int argc, char** argv) {
   qputenv("LANG", kDefaultLang);
   (void) setlocale(LC_ALL, kDefaultLang);
 
-  QCoreApplication::setApplicationName(kAppName);
-  QCoreApplication::setApplicationVersion(kAppVersion);
+  QCoreApplication::setApplicationName(kUnsquashfsAppName);
+  QCoreApplication::setApplicationVersion(kUnsquashfsAppVersion);
   QCoreApplication app(argc, argv);
 
   QCommandLineParser parser;
@@ -49,18 +54,20 @@ int runShell(int argc, char** argv) {
       "progress","print progress info to <file>",
       "file", "");
   parser.addOption(progress_option);
-  parser.setApplicationDescription(kAppDesc);
-  parser.addHelpOption();
-  parser.addVersionOption();
+  parser.setApplicationDescription(kUnsquashfsAppDesc);
+  auto help_option = parser.addHelpOption();
+  auto version_option = parser.addVersionOption();
   parser.addPositionalArgument("file", "squashfs filesystem to be extracted");
 
   if (!parser.parse(QCoreApplication::arguments())) {
     parser.showHelp(kExitErr);
   }
 
-  if (parser.isSet("version") || parser.isSet("help")) {
-    // Show help and exit.
+  if (parser.isSet(help_option)) {
     parser.showHelp(kExitOk);
+  }
+  if (parser.isSet(version_option)) {
+    parser.showVersion();
   }
 
   const QStringList positional_args = parser.positionalArguments();
@@ -79,15 +86,6 @@ int runShell(int argc, char** argv) {
     fprintf(stderr, "Filesystem is empty: %s\n", src.toLocal8Bit().constData());
     parser.showHelp(kExitErr);
   }
-
-  struct utsname uname_buf;
-  if (uname(&uname_buf) == 0) {
-    // Do not use sendfile() on "sw" platform, as do_sendfile() always crashes!
-    g_use_sendfile = (strncmp(uname_buf.machine, "sw", 2) != 0);
-  } else {
-    g_use_sendfile = false;
-  }
-  fprintf(stdout, "use_sendfile: %s\n", g_use_sendfile ? "yes" : "no");
 
   const qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
   const QString mount_point(QString(kMountPointTmp).arg(timestamp));
@@ -114,7 +112,7 @@ int runShell(int argc, char** argv) {
     if (!UnMountFs(mount_point)) {
       fprintf(stderr, "Unmount %s failed\n",
               mount_point.toLocal8Bit().constData());
-      sleep(static_cast<unsigned int>(retry * 2 + 1));
+      QThread::sleep(static_cast<unsigned int>(retry * 2 + 1));
     } else {
       break;
     }

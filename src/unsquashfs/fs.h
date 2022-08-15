@@ -5,6 +5,9 @@
 #ifndef BLINK_INSTALLER_SRC_UNSQUASHFS_FS_H_
 #define BLINK_INSTALLER_SRC_UNSQUASHFS_FS_H_
 
+#include <ftw.h>
+#include <sys/stat.h>
+
 #include <QString>
 
 namespace installer {
@@ -19,8 +22,10 @@ bool SendFile(const char* src_file, const char* dest_file, ssize_t file_size);
 // Update xattr (access control lists and file capabilities)
 bool CopyXAttr(const char* src_file, const char* dest_file);
 
+int CountItem(const char* fpath, const struct ::stat* sb, int typeflag, struct ::FTW* ftwbuf);
+
 // Tree walk handler. Copy one item from |fpath|.
-int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW* ftwbuf);
+int CopyItem(const char* fpath, const struct ::stat* sb, int typeflag, struct ::FTW* ftwbuf);
 
 // Copy files from |mount_point| to |dest_dir|, keeping xattrs.
 bool CopyFiles(const QString& src_dir, const QString& dest_dir,
@@ -31,6 +36,12 @@ bool MountFs(const QString& src, const QString& mount_point);
 
 // Umount filesystem from |mount_point|.
 bool UnMountFs(const QString& mount_point);
+
+// Default folder name of target.
+constexpr const char* kDefaultDest = "squashfs-root";
+
+// Absolute folder path to mount filesystem to.
+constexpr const char* kMountPointTmp = "/dev/shm/installer-unsquashfs-%1";
 
 }  // namespace installer
 

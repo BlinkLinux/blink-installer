@@ -4,6 +4,7 @@
 
 #include "unsquashfs/fs.h"
 
+#undef _XOPEN_SOURCE
 #define _XOPEN_SOURCE 500  // Required by nftw().
 #include <climits>
 #include <cstdlib>
@@ -16,11 +17,6 @@
 #include <sys/xattr.h>
 #include <unistd.h>
 
-#include <QCommandLineOption>
-#include <QCommandLineParser>
-#include <QCoreApplication>
-#include <QDateTime>
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QtMath>
@@ -32,13 +28,8 @@ namespace installer {
 
 namespace {
 
+// TODO(Shaohua): R3e
 #define S_IMODE 07777
-
-// Default folder name of target.
-const char kDefaultDest[] = "squashfs-root";
-
-// Absolute folder path to mount filesystem to.
-const char kMountPointTmp[] = "/dev/shm/installer-unsquashfs-%1";
 
 // Maximum number of opened file descriptors.
 // See /proc/self/limits for more information.
@@ -71,7 +62,8 @@ void WriteProgress(int progress) {
 }
 
 bool SendFile(const char* src_file, const char* dest_file, ssize_t file_size) {
-  int src_fd, dest_fd;
+  int src_fd;
+  int dest_fd;
   src_fd = open(src_file, O_RDONLY);
   if (src_fd == -1) {
     fprintf(stderr, "SendFile() Failed to open src file: %s\n", src_file);
@@ -110,7 +102,7 @@ bool SendFile(const char* src_file, const char* dest_file, ssize_t file_size) {
     ssize_t num_read;
     while ((num_read = read(src_fd, buf, kBufSize)) > 0) {
       // TODO(xushaohua): write() may write less buf.
-      if (write(dest_fd, buf, (size_t)num_read) != num_read) {
+      if (write(dest_fd, buf, (size_t) num_read) != num_read) {
         ok = false;
         break;
       }
@@ -126,7 +118,6 @@ bool SendFile(const char* src_file, const char* dest_file, ssize_t file_size) {
   return ok;
 }
 
-
 bool CopySymLink(const char* src_file, const char* link_path) {
   char buf[PATH_MAX];
   ssize_t link_len = readlink(src_file, buf, PATH_MAX);
@@ -137,7 +128,7 @@ bool CopySymLink(const char* src_file, const char* link_path) {
   }
 
   char target[link_len + 1];
-  strncpy(target, buf, (size_t)link_len);
+  strncpy(target, buf, (size_t) link_len);
   target[link_len] = '\0';
   if (symlink(target, link_path) != 0) {
     fprintf(stderr, "CopySymLink() symlink() failed, %s (%s -> %s)\n",
@@ -186,12 +177,21 @@ bool CopyXAttr(const char* src_file, const char* dest_file) {
   return ok;
 }
 
-int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW* ftwbuf) {
+int CountItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW* ftwbuf) {
+  Q_UNUSED(fpath);
+  Q_UNUSED(sb);
+  Q_UNUSED(typeflag);
+  Q_UNUSED(ftwbuf);
+  g_total_files ++;
+  return 0;
+}
+
+int CopyItem(const char* fpath, const struct ::stat* sb, int typeflag, struct FTW* ftwbuf) {
   Q_UNUSED(sb);
   Q_UNUSED(typeflag);
   Q_UNUSED(ftwbuf);
 
-  struct stat st;
+  struct ::stat st;
   if (lstat(fpath, &st) != 0) {
     fprintf(stderr, "CopyItem() call lstat() failed: %s\n", fpath);
     perror("lstat()");
@@ -207,7 +207,7 @@ int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW*
       QDir(g_dest_dir).absoluteFilePath(relative_path);
 
   // Create parent dirs.
-  installer::CreateParentDirs(dest_filepath);
+  CreateParentDirs(dest_filepath);
 
   const std::string std_dest_filepath(dest_filepath.toStdString());
   const char* dest_file = std_dest_filepath.c_str();
@@ -217,8 +217,8 @@ int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW*
   bool ok = true;
 
   // Remove dest_file if it exists.
-  struct stat dest_stat;
-  if (stat(dest_file, &dest_stat) == 0) {
+  struct ::stat dest_stat;
+  if (::stat(dest_file, &dest_stat) == 0) {
     if (!S_ISDIR(dest_stat.st_mode)) {
       unlink(dest_file);
     }
@@ -232,7 +232,7 @@ int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW*
     ok = SendFile(fpath, dest_file, st.st_size);
   } else if (S_ISDIR(st.st_mode)) {
     // Directory
-    ok = installer::CreateDirs(dest_filepath);
+    ok = CreateDirs(dest_filepath);
   } else if (S_ISCHR(st.st_mode)) {
     // Character device
     ok = (mknod(dest_file, mode | S_IFCHR, st.st_dev) == 0);
@@ -281,7 +281,7 @@ int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW*
 //    ok = false;
   }
 
-  g_current_files ++;
+  g_current_files++;
   const int progress = qFloor(g_current_files * 100.0 / g_total_files);
   WriteProgress(progress);
 
@@ -290,7 +290,7 @@ int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW*
 
 bool CopyFiles(const QString& src_dir, const QString& dest_dir,
                const QString& progress_file) {
-  if (!installer::CreateDirs(dest_dir)) {
+  if (!CreateDirs(dest_dir)) {
     fprintf(stderr, "CopyFiles() failed to create dest dir: %s\n",
             dest_dir.toLocal8Bit().constData());
     return false;
@@ -311,12 +311,12 @@ bool CopyFiles(const QString& src_dir, const QString& dest_dir,
   g_dest_dir = dest_dir;
 
   // Count file numbers.
-  bool ok = (nftw(src_dir.toUtf8().data(),
+  bool ok = (::nftw(src_dir.toUtf8().data(),
                   CountItem, kMaxOpenFd, FTW_PHYS) == 0);
   if (!ok || (g_total_files == 0)) {
     fprintf(stderr, "CopyFiles() Failed to count file number!\n");
   } else {
-    ok = (nftw(src_dir.toUtf8().data(), CopyItem, kMaxOpenFd, FTW_PHYS) == 0);
+    ok = (::nftw(src_dir.toUtf8().data(), CopyItem, kMaxOpenFd, FTW_PHYS) == 0);
   }
 
   // Reset umask.
@@ -351,7 +351,7 @@ bool MountFs(const QString& src, const QString& mount_point) {
 }
 
 bool UnMountFs(const QString& mount_point) {
-  const bool ok = installer::SpawnCmd("umount", {"-R", mount_point});
+  const bool ok = SpawnCmd("umount", {"-R", mount_point});
   if (!ok) {
     fprintf(stderr, "Umount %s failed!", mount_point.toLocal8Bit().constData());
   }
