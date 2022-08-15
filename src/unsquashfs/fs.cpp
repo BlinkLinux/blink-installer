@@ -1,28 +1,8 @@
-/*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
- * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) 2022 Xu Shaohua <shaohua@biofan.org>. All rights reserved.
+// Use of this source is governed by GNU General Public License
+// that can be found in the LICENSE file.
 
-// Extract squash filesystem. Works with low memory machine.
-//  * First mount squashfs to system
-//  * Then copy each file in that folder to target, including file permissions.
-// If extraction progress is required, use --progress option.
-// Known issues:
-//  * Selected squashfs file can be mounted to one mount-point each time.
-//    Or else `mount` command raise device-busy error.
+#include "unsquashfs/fs.h"
 
 #define _XOPEN_SOURCE 500  // Required by nftw().
 #include <climits>
@@ -47,28 +27,18 @@
 
 #include "base/command.h"
 #include "base/file_util.h"
-#include "config/config.h"
 
-#define S_IMODE 07777
-
-// TODO(xushaohua): Added --debug option.
-// TODO(xushaohua): Added --force option.
-// TODO(xushaohua): Unmount squashfs file on error.
+namespace installer {
 
 namespace {
 
-const char kAppName[] = "deepin-installer-unsquashfs";
-const char kAppDesc[] = "Tool to extract squashfs filesystem";
-const char kAppVersion[] = "0.0.1";
+#define S_IMODE 07777
 
 // Default folder name of target.
 const char kDefaultDest[] = "squashfs-root";
 
 // Absolute folder path to mount filesystem to.
 const char kMountPointTmp[] = "/dev/shm/installer-unsquashfs-%1";
-
-const int kExitOk = 0;
-const int kExitErr = 1;
 
 // Maximum number of opened file descriptors.
 // See /proc/self/limits for more information.
@@ -89,7 +59,8 @@ int g_current_files = 0;
 // Use sendfile() system call or not.
 bool g_use_sendfile = true;
 
-// Write progress value to file.
+}  // namespace
+
 void WriteProgress(int progress) {
   if (g_progress_fd) {
     fseek(g_progress_fd, 0, SEEK_SET);
@@ -99,8 +70,6 @@ void WriteProgress(int progress) {
   }
 }
 
-// Copy regular file with sendfile() system call, from |src_file| to
-// |dest_file|. Size of |src_file| is |file_size|.
 bool SendFile(const char* src_file, const char* dest_file, ssize_t file_size) {
   int src_fd, dest_fd;
   src_fd = open(src_file, O_RDONLY);
@@ -157,6 +126,7 @@ bool SendFile(const char* src_file, const char* dest_file, ssize_t file_size) {
   return ok;
 }
 
+
 bool CopySymLink(const char* src_file, const char* link_path) {
   char buf[PATH_MAX];
   ssize_t link_len = readlink(src_file, buf, PATH_MAX);
@@ -179,7 +149,6 @@ bool CopySymLink(const char* src_file, const char* link_path) {
   }
 }
 
-// Update xattr (access control lists and file capabilities)
 bool CopyXAttr(const char* src_file, const char* dest_file) {
   bool ok = true;
   // size of extended attribute list, 64k.
@@ -217,9 +186,7 @@ bool CopyXAttr(const char* src_file, const char* dest_file) {
   return ok;
 }
 
-// Tree walk handler. Copy one item from |fpath|.
-int CopyItem(const char* fpath, const struct stat* sb,
-             int typeflag, struct FTW* ftwbuf) {
+int CopyItem(const char* fpath, const struct stat* sb, int typeflag, struct FTW* ftwbuf) {
   Q_UNUSED(sb);
   Q_UNUSED(typeflag);
   Q_UNUSED(ftwbuf);
@@ -321,17 +288,6 @@ int CopyItem(const char* fpath, const struct stat* sb,
   return ok ? 0 : 1;
 }
 
-int CountItem(const char* fpath, const struct stat* sb,
-              int typeflag, struct FTW* ftwbuf) {
-  Q_UNUSED(fpath);
-  Q_UNUSED(sb);
-  Q_UNUSED(typeflag);
-  Q_UNUSED(ftwbuf);
-  g_total_files ++;
-  return 0;
-}
-
-// Copy files from |mount_point| to |dest_dir|, keeping xattrs.
 bool CopyFiles(const QString& src_dir, const QString& dest_dir,
                const QString& progress_file) {
   if (!installer::CreateDirs(dest_dir)) {
@@ -377,26 +333,23 @@ bool CopyFiles(const QString& src_dir, const QString& dest_dir,
   return ok;
 }
 
-// Mount filesystem at |src| to |mount_point|
 bool MountFs(const QString& src, const QString& mount_point) {
-  if (!installer::CreateDirs(mount_point)) {
+  if (!CreateDirs(mount_point)) {
     fprintf(stderr, "MountFs() failed to create folder: %s\n",
             mount_point.toLocal8Bit().constData());
     return false;
   }
   QString output;
   QString err;
-  const bool ok = installer::SpawnCmd("mount", {src, mount_point}, output, err);
+  const bool ok = SpawnCmd("mount", {src, mount_point}, output, err);
   if (!ok) {
     fprintf(stderr, "MountFs() err: %s\n", err.toLocal8Bit().constData());
   }
 
   // TODO(xushaohua): Check |mount_point| dir is not empty.
-
   return ok;
 }
 
-// Umount filesystem from |mount_point|.
 bool UnMountFs(const QString& mount_point) {
   const bool ok = installer::SpawnCmd("umount", {"-R", mount_point});
   if (!ok) {
@@ -405,104 +358,4 @@ bool UnMountFs(const QString& mount_point) {
   return ok;
 }
 
-}  // namespace
-
-int main(int argc, char* argv[]) {
-  // Parse args
-  // Mount squashfs file
-  // Copy files to target
-  // Unmount from mount-point
-
-  // NOTE(xushaohua): "LANG" might not set in some live environment.
-  // Set locale to en_US.UTF-8, or else, mounted squashfs will display invalid
-  // character code.
-  qputenv("LC_ALL", installer::kDefaultLang);
-  qputenv("LANG", installer::kDefaultLang);
-  (void) setlocale(LC_ALL, installer::kDefaultLang);
-
-  QCoreApplication app(argc, argv);
-  app.setApplicationName(kAppName);
-  app.setApplicationVersion(kAppVersion);
-
-  QCommandLineParser parser;
-  const QCommandLineOption dest_option(
-      "dest", "extract to <pathname>, default \"squashfs-root\"",
-      "pathname", kDefaultDest);
-  parser.addOption(dest_option);
-  const QCommandLineOption progress_option(
-      "progress","print progress info to <file>",
-      "file", "");
-  parser.addOption(progress_option);
-  parser.setApplicationDescription(kAppDesc);
-  parser.addHelpOption();
-  parser.addVersionOption();
-  parser.addPositionalArgument("file", "squashfs filesystem to be extracted");
-
-  if (!parser.parse(app.arguments())) {
-    parser.showHelp(kExitErr);
-  }
-
-  if (parser.isSet("version") || parser.isSet("help")) {
-    // Show help and exit.
-    parser.showHelp(kExitOk);
-  }
-
-  const QStringList positional_args = parser.positionalArguments();
-  if (positional_args.length() != 1) {
-    fprintf(stderr, "Too many files to extract, expect one!\n");
-    parser.showHelp(kExitErr);
-  }
-
-  const QString src(positional_args.at(0));
-  const QFile src_file(src);
-  if (!src_file.exists()) {
-    fprintf(stderr, "File not found: %s\n", src.toLocal8Bit().constData());
-    parser.showHelp(kExitErr);
-  }
-  if (src_file.size() == 0) {
-    fprintf(stderr, "Filesystem is empty: %s\n", src.toLocal8Bit().constData());
-    parser.showHelp(kExitErr);
-  }
-
-  struct utsname uname_buf;
-  if (uname(&uname_buf) == 0) {
-    // Do not use sendfile() on "sw" platform, as do_sendfile() always crashes!
-    g_use_sendfile = (strncmp(uname_buf.machine, "sw", 2) != 0);
-  } else {
-    g_use_sendfile = false;
-  }
-  fprintf(stdout, "use_sendfile: %s\n", g_use_sendfile ? "yes" : "no");
-
-  const qint64 timestamp = QDateTime::currentMSecsSinceEpoch();
-  const QString mount_point(QString(kMountPointTmp).arg(timestamp));
-
-  const QString dest_dir = parser.value(dest_option);
-  const QString progress_file = parser.value(progress_option);
-
-  if (!MountFs(src, mount_point)) {
-    fprintf(stderr, "Mount %s to %s failed!\n",
-            src.toLocal8Bit().constData(),
-            mount_point.toLocal8Bit().constData());
-    exit(kExitErr);
-  }
-
-  const bool ok = CopyFiles(mount_point, dest_dir, progress_file);
-  if (!ok) {
-    fprintf(stderr, "Copy files failed!\n");
-  }
-
-  // Commit filesystem caches to disk.
-//  sync();
-
-  for (int retry = 0; retry < 5; ++retry) {
-    if (!UnMountFs(mount_point)) {
-      fprintf(stderr, "Unmount %s failed\n",
-              mount_point.toLocal8Bit().constData());
-      sleep(static_cast<unsigned int>(retry * 2 + 1));
-    } else {
-      break;
-    }
-  }
-
-  exit(ok ? kExitOk : kExitErr);
-}
+}  // namespace installer

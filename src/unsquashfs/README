@@ -1,0 +1,13 @@
+
+# About
+Extract squash filesystem. Works with low memory machine.
+
+Basic process:
+* First mount squashfs to system
+* Then copy each file in that folder to target, including file permissions.
+
+If extraction progress is required, use `--progress` option.
+
+Known issues:
+* Selected squashfs file can be mounted to one mount-point each time.
+  Or else `mount` command raise device-busy error.
