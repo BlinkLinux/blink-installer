@@ -16,9 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This simple program is used to test reading progress value of `unsquashfs`
-// command within GUI.
-
 #include <QApplication>
 
 #include "unsquashfs_gui/progress_window.h"

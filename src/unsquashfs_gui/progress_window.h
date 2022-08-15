@@ -20,7 +20,7 @@
 #define INSTALLER_MISC_UNSQUASHFS_PROGRESS_WINDOW_H
 
 #include <QFrame>
-#include <QLabel>
+#include <QLineEdit>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QTimer>
@@ -36,6 +36,7 @@ class UnsquashfsProgressWindow : public QFrame {
   explicit UnsquashfsProgressWindow(QWidget* parent = nullptr);
 
  private slots:
+  void onFileChooserButtonClicked();
 
   void onCtrlButtonClicked();
 
@@ -50,7 +51,8 @@ class UnsquashfsProgressWindow : public QFrame {
 
   void cancelWork();
 
-  QLabel* filepath_label_ = nullptr;
+  QLineEdit* filepath_edit_ = nullptr;
+  QPushButton* file_chooser_button_ = nullptr;
   QPushButton* ctrl_button_ = nullptr;
   QProgressBar* progress_bar_ = nullptr;
   bool work_running_ = false;

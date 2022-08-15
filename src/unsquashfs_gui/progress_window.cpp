@@ -35,8 +35,6 @@
 namespace installer {
 namespace {
 
-const char kSelectText[] = "Select squashfs file";
-
 const char kUnsquashfsBaseProgressFile[] = "/dev/shm/unsquashfs_progress";
 // Interval to read unsquashfs progress file, 500ms.
 const int kReadUnsquashfsInterval = 500;
@@ -67,6 +65,8 @@ UnsquashfsProgressWindow::UnsquashfsProgressWindow(QWidget* parent)
 }
 
 void UnsquashfsProgressWindow::initConnections() {
+  connect(file_chooser_button_, &QPushButton::clicked,
+          this, &UnsquashfsProgressWindow::onFileChooserButtonClicked);
   connect(ctrl_button_, &QPushButton::clicked,
           this, &UnsquashfsProgressWindow::onCtrlButtonClicked);
   connect(timer_, &QTimer::timeout,
@@ -74,17 +74,23 @@ void UnsquashfsProgressWindow::initConnections() {
 }
 
 void UnsquashfsProgressWindow::initUI() {
-  filepath_label_ = new QLabel(this);
-  ctrl_button_ = new QPushButton(kSelectText, this);
-  progress_bar_ = new QProgressBar(this);
+  auto* main_layout = new QVBoxLayout();
+  this->setLayout(main_layout);
+
+  auto* hbox_layout = new QHBoxLayout();
+  main_layout->addLayout(hbox_layout);
+  filepath_edit_ = new QLineEdit();
+  hbox_layout->addWidget(filepath_edit_);
+  file_chooser_button_ = new QPushButton("..");
+  hbox_layout->addWidget(file_chooser_button_);
+
+  progress_bar_ = new QProgressBar();
   progress_bar_->setOrientation(Qt::Horizontal);
   progress_bar_->setTextVisible(true);
+  main_layout->addWidget(progress_bar_);
 
-  QGridLayout* layout = new QGridLayout(this);
-  layout->addWidget(ctrl_button_, 0, 0);
-  layout->addWidget(filepath_label_, 1, 0);
-  layout->addWidget(progress_bar_, 1, 0, 1, 2);
-  this->setLayout(layout);
+  ctrl_button_ = new QPushButton("Start");
+  main_layout->addWidget(ctrl_button_);
 
   this->resize(640, 480);
   this->setWindowTitle("Unsquashfs Progress Window");
@@ -100,7 +106,7 @@ void UnsquashfsProgressWindow::startWork(const QString& filepath) {
   timer_->start();
 
   // Start a new worker.
-  UnsquashfsWorker* worker = new UnsquashfsWorker(filepath);
+  auto* worker = new UnsquashfsWorker(filepath);
   worker->setAutoDelete(true);
   QThreadPool::globalInstance()->start(worker);
 }
@@ -108,9 +114,17 @@ void UnsquashfsProgressWindow::startWork(const QString& filepath) {
 void UnsquashfsProgressWindow::cancelWork() {
   // TODO(xushaohua): stop worker.
   work_running_ = false;
-  ctrl_button_->setText(kSelectText);
   progress_bar_->reset();
   timer_->stop();
+}
+
+void UnsquashfsProgressWindow::onFileChooserButtonClicked() {
+  const QString filepath = QFileDialog::getOpenFileName(
+      this, "Select squashfs file",
+      QDir::homePath(), "Squashfs Files (*.squashfs)");
+  if (!filepath.isEmpty()) {
+    filepath_edit_->setText(filepath);
+  }
 }
 
 void UnsquashfsProgressWindow::onCtrlButtonClicked() {
@@ -118,15 +132,8 @@ void UnsquashfsProgressWindow::onCtrlButtonClicked() {
     // Work is running, so that it is cancellable.
     this->cancelWork();
   } else {
-    // Show file chooser dialog.
-    const QString filepath = QFileDialog::getOpenFileName(
-        this, "Select squashfs file",
-        QDir::homePath(), "Squashfs Files (*.squashfs)");
-    if (!filepath.isEmpty()) {
-      ctrl_button_->setText("Cancel");
-      filepath_label_->setText(filepath);
-      this->startWork(filepath);
-    }
+    this->startWork(filepath_edit_->text());
+    ctrl_button_->setText("Cancel");
   }
 }
 
