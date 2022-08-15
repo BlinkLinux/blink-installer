@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,10 +25,10 @@
 //    Or else `mount` command raise device-busy error.
 
 #define _XOPEN_SOURCE 500  // Required by nftw().
+#include <climits>
+#include <cstdlib>
 #include <fcntl.h>
 #include <ftw.h>
-#include <limits.h>
-#include <stdlib.h>
 #include <sys/sendfile.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -35,9 +36,9 @@
 #include <sys/xattr.h>
 #include <unistd.h>
 
-#include <QCoreApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QCoreApplication>
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
@@ -45,8 +46,8 @@
 #include <QtMath>
 
 #include "base/command.h"
-#include "base/consts.h"
 #include "base/file_util.h"
+#include "config/config.h"
 
 #define S_IMODE 07777
 
@@ -383,7 +384,8 @@ bool MountFs(const QString& src, const QString& mount_point) {
             mount_point.toLocal8Bit().constData());
     return false;
   }
-  QString output, err;
+  QString output;
+  QString err;
   const bool ok = installer::SpawnCmd("mount", {src, mount_point}, output, err);
   if (!ok) {
     fprintf(stderr, "MountFs() err: %s\n", err.toLocal8Bit().constData());
@@ -496,7 +498,7 @@ int main(int argc, char* argv[]) {
     if (!UnMountFs(mount_point)) {
       fprintf(stderr, "Unmount %s failed\n",
               mount_point.toLocal8Bit().constData());
-      sleep((unsigned int)(retry * 2 + 1));
+      sleep(static_cast<unsigned int>(retry * 2 + 1));
     } else {
       break;
     }

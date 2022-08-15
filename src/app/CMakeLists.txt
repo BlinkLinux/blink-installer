@@ -26,6 +26,16 @@ target_link_libraries(blink-installer-settings
     Qt${QT_VERSION_MAJOR}::Core
     )
 
+add_executable(blink-installer-unsquashfs
+    blink_installer_unsquashfs.cpp
+    )
+target_link_libraries(blink-installer-unsquashfs
+    Qt${QT_VERSION_MAJOR}::Core
+
+    installer-base
+    installer-config
+    )
+
 if (BUILD_TESTING)
   add_executable(installer-combobox-test
       combobox_test.cpp
