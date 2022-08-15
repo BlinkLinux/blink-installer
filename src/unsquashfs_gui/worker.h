@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,14 +22,18 @@
 #include <QRunnable>
 #include <QString>
 
-class Worker : public QRunnable {
+namespace installer {
+
+class UnsquashfsWorker : public QRunnable {
  public:
-  explicit Worker(const QString& squashfs_file);
+  explicit UnsquashfsWorker(const QString& squashfs_file);
 
   void run() override;
 
  private:
   QString squashfs_file_;
 };
+
+}  // namespace installer
 
 #endif  // INSTALLER_UI_TESTS_UNSQUASHFS_GUI_WORKER_H

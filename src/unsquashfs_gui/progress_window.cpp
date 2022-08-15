@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "unsquashfs_progress_window.h"
+#include "unsquashfs_gui/progress_window.h"
 
 #include <QDebug>
 #include <QDir>
@@ -30,8 +31,8 @@
 
 #include "base/command.h"
 #include "base/file_util.h"
-#include "worker.h"
 
+namespace installer {
 namespace {
 
 const char kSelectText[] = "Select squashfs file";
@@ -99,7 +100,7 @@ void UnsquashfsProgressWindow::startWork(const QString& filepath) {
   timer_->start();
 
   // Start a new worker.
-  Worker* worker = new Worker(filepath);
+  UnsquashfsWorker* worker = new UnsquashfsWorker(filepath);
   worker->setAutoDelete(true);
   QThreadPool::globalInstance()->start(worker);
 }
@@ -133,3 +134,5 @@ void UnsquashfsProgressWindow::onReadProgressTimeout() {
   const int progress = ReadProgressValue(kUnsquashfsBaseProgressFile);
   progress_bar_->setValue(progress);
 }
+
+}  // namespace installer

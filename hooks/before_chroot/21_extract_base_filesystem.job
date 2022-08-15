@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+# Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,7 +40,7 @@ extract_overlay_filesystem() {
 
   if [ -f ${MODULE} ]; then
     for file in $(cat ${MODULE}); do
-      deepin-installer-unsquashfs --dest /target ${CDROM}/overlay/${file} \
+      blink-installer-unsquashfs --dest /target ${CDROM}/overlay/${file} \
         1>/dev/null || error "unsquashfs failed: ${CDROM}/overlay/${file}"
     done
   fi
@@ -48,7 +49,7 @@ extract_overlay_filesystem() {
 # First, extract base filesystem
 readonly PROGRESS_FILE="/dev/shm/unsquashfs_progress"
 readonly BASE_MODULE="${LIVE_FILESYSTEM}/filesystem.squashfs"
-deepin-installer-unsquashfs --dest /target --progress "${PROGRESS_FILE}" \
+blink-installer-unsquashfs --dest /target --progress "${PROGRESS_FILE}" \
   "${BASE_MODULE}" 1>/dev/null || \
   error "installer-unsquashfs failed, ${BASE_MODULE}"
 

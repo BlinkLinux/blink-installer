@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,13 +21,13 @@
 
 #include <QApplication>
 
-#include "unsquashfs_progress_window.h"
+#include "unsquashfs_gui/progress_window.h"
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
   
-  UnsquashfsProgressWindow window;
+  installer::UnsquashfsProgressWindow window;
   window.show();
   
-  return app.exec();
+  return QApplication::exec();
 }

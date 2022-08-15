@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,20 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/tests/unsquashfs_gui/worker.h"
+#include "unsquashfs_gui/worker.h"
 
 #include <QDebug>
 #include <QDir>
 
 #include "base/command.h"
 
-Worker::Worker(const QString& squashfs_file)
+namespace installer {
+
+UnsquashfsWorker::UnsquashfsWorker(const QString& squashfs_file)
     : QRunnable(),
-      squashfs_file_(squashfs_file){
+      squashfs_file_(squashfs_file) {
 }
 
-void Worker::run() {
+void UnsquashfsWorker::run() {
   // Change working directory to folder in which squashfs_file_ is located.
   QDir::setCurrent(QFileInfo(squashfs_file_).absolutePath());
-  installer::RunScriptFile({UNSQUASHFS_SH, squashfs_file_});
+//  installer::RunScriptFile({UNSQUASHFS_SH, squashfs_file_});
 }
+
+}  // namespace installer

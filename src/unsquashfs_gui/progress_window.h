@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,22 +20,34 @@
 #define INSTALLER_MISC_UNSQUASHFS_PROGRESS_WINDOW_H
 
 #include <QFrame>
-class QLabel;
-class QProgressBar;
-class QPushButton;
-class QTimer;
+#include <QLabel>
+#include <QProgressBar>
+#include <QPushButton>
+#include <QTimer>
+
+#include "unsquashfs_gui/worker.h"
+
+namespace installer {
 
 class UnsquashfsProgressWindow : public QFrame {
-  Q_OBJECT
+ Q_OBJECT
 
  public:
   explicit UnsquashfsProgressWindow(QWidget* parent = nullptr);
 
+ private slots:
+
+  void onCtrlButtonClicked();
+
+  void onReadProgressTimeout();
+
  private:
   void initConnections();
+
   void initUI();
 
   void startWork(const QString& filepath);
+
   void cancelWork();
 
   QLabel* filepath_label_ = nullptr;
@@ -42,10 +55,8 @@ class UnsquashfsProgressWindow : public QFrame {
   QProgressBar* progress_bar_ = nullptr;
   bool work_running_ = false;
   QTimer* timer_ = nullptr;
-
- private slots:
-  void onCtrlButtonClicked();
-  void onReadProgressTimeout();
 };
+
+}  // namespace installer
 
 #endif  // INSTALLER_MISC_UNSQUASHFS_PROGRESS_WINDOW_H
