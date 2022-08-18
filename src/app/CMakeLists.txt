@@ -13,6 +13,9 @@ add_executable(blink-installer
     blink_installer.cpp
     ${RESOURCE_FILES}
     )
+add_dependencies(blink-installer
+    installer-generate-qm-files
+    )
 target_link_libraries(blink-installer
     Qt${QT_VERSION_MAJOR}::Widgets
 
