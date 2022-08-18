@@ -69,10 +69,10 @@ void KeySequenceToKeyCode(const QKeySequence& shortcut,
   Qt::KeyboardModifiers mods = Qt::ShiftModifier | Qt::ControlModifier |
                                Qt::AltModifier | Qt::MetaModifier;
   Qt::Key key = shortcut.isEmpty() ?
-                Qt::Key(0) :
+                Qt::Key() :
                 Qt::Key((shortcut[0] ^ mods) & shortcut[0]);
   Qt::KeyboardModifiers mod = shortcut.isEmpty() ?
-                              Qt::KeyboardModifiers(0) :
+                              Qt::KeyboardModifiers() :
                               Qt::KeyboardModifiers(shortcut[0] & mods);
   *native_key = nativeKeyCode(key);
   *native_mod = nativeModifiers(mod);
