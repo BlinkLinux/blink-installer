@@ -36,6 +36,7 @@ sudo apt install -y \
     libxss-dev \
     libxtst-dev \
     mtools \
+    ninja-build \
     ntfs-3g \
     os-prober \
     parted \
