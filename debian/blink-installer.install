@@ -1,7 +1,0 @@
-usr/bin/blink-installer
-usr/bin/blink-installer-settings
-usr/bin/blink-installer-unsquashfs
-usr/share/applications/blink-installer.desktop
-usr/share/blink-installer/hooks/*
-usr/share/blink-installer/resources/*
-usr/share/icons/hicolor/scalable/apps/blink-installer.svg
