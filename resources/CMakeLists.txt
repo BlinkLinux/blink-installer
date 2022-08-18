@@ -18,17 +18,17 @@ target_include_directories(installer-resources
     )
 
 install(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/blink-installer.desktop
+    FILES icons/blink-installer.desktop
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications
 )
 
 install(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/icons/blink-installer.svg
+    FILES icons/blink-installer.svg
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
 )
 
 # Install default_settings.ini based on current architecture.
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/default_settings_${CMAKE_SYSTEM_PROCESSOR}.ini
+install(FILES settings/default_settings_${CMAKE_SYSTEM_PROCESSOR}.ini
         DESTINATION ${INSTALLER_SHARE_DIR}/resources
         RENAME default_settings.ini
         )
