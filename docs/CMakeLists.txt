@@ -1,7 +1,13 @@
 install(
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    FILES
+    blink-installer.conf.md
+    blink-installer.md
+    hooks.md
+    i18n.md
+    partition.md
+    slide.md
+    timezone.md
+    uefi.md
+    wifi_regulatory_domain.md
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/doc/blink-installer
-    FILES_MATCHING PATTERN "*"
-    PATTERN "CMakeLists.txt" EXCLUDE
-    PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 )
