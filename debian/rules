@@ -11,16 +11,14 @@ use_systemd = on
 endif
 
 %:
-	dh $@  --parallel --with systemd
+	dh $@  --parallel
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DUSE_SYSTEMD=$(use_systemd)
 
-override_dh_systemd_start:
-	dh_systemd_start --no-start
-
+# TODO(Shaohua): Remove fixperms section
 override_dh_fixperms:
 	dh_fixperms
 	find debian -name '*.job' -exec chmod 755 {} \;

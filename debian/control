@@ -4,8 +4,7 @@ Priority: extra
 Maintainer: Xu Shaohua <shaohua@biofan.org>
 Build-Depends:
     cmake (>=3.1),
-    debhelper (>=9),
-    dh-systemd,
+    debhelper-compat (=13),
     g++ (>=6.3.0),
     gettext,
     libattr1-dev,
@@ -22,7 +21,7 @@ Build-Depends:
     qttools5-dev,
     qttools5-dev-tools,
     zlib1g-dev
-Standards-Version: 3.9.8
+Standards-Version: 4.6.1
 Homepage: http://github.com/BlinkLinux/blink-installer
 
 Package: blink-installer
