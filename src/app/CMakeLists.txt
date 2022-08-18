@@ -83,5 +83,6 @@ endif()
 # Installation
 install(TARGETS
         blink-installer
+        blink-installer-settings
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
         )

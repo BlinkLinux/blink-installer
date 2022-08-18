@@ -16,3 +16,8 @@ target_link_libraries(blink-installer-unsquashfs
     installer-base
     installer-config
     )
+
+## Installation
+install(TARGETS blink-installer-unsquashfs
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+    )
