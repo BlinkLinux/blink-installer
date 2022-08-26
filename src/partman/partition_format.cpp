@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +24,6 @@
 #include "sysinfo/machine.h"
 
 namespace installer {
-namespace {
 
 bool FormatBtrfs(const QString& path, const QString& label) {
   QString output;
@@ -274,9 +274,9 @@ bool FormatReiser4(const QString& path, const QString& label) {
   } else {
     const QString real_label = label.left(16);
     ok = SpawnCmd("mkfs.reiser4",
-                 {"--force", "--yes",
-                  QString("--label%1").arg(real_label), path},
-                 output, err);
+                  {"--force", "--yes",
+                   QString("--label%1").arg(real_label), path},
+                  output, err);
   }
   if (!ok) {
     qCritical() << "FormatReiser4() err:" << err;
@@ -319,8 +319,6 @@ bool FormatXfs(const QString& path, const QString& label) {
   return ok;
 }
 
-}  // namespace
-
 // Make filesystem on |partition| based on its fs type.
 bool Mkfs(const Partition& partition) {
   qDebug() << "Mkfs()" << partition;
@@ -346,12 +344,6 @@ bool Mkfs(const Partition& partition) {
     case FsType::EFI:
     case FsType::Fat32: {
       return FormatFat32(partition.path, partition.label);
-    }
-    case FsType::Hfs: {
-      return FormatHfs(partition.path, partition.label);
-    }
-    case FsType::HfsPlus: {
-      return FormatHfsPlus(partition.path, partition.label);
     }
     case FsType::Jfs: {
       return FormatJfs(partition.path, partition.label);

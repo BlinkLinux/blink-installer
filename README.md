@@ -6,7 +6,6 @@ Blink Installer, for debian based linux distributions.
 * btrfs-progs - btrfs filesystem utility
 * dosfstools - utilities for making and checking MS-DOS FAT filesystems
 * e2fsprogs - ext2/ext3/ext4 filesystem utility
-* hfsprogs - mkfs and fsck for HFS and HFS+ file systems
 * jfsutils - utilities for managing the JFS filesystem
 * lvm2 - linux logical volume manager
 * mtools - tools for manipulating MSDOS files

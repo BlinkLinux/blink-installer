@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +25,7 @@ namespace installer {
 namespace {
 
 // Unused file system.
-const char kFsUnused[] = "unused";
+constexpr const char* kFsUnused = "unused";
 
 }  // namespace
 
@@ -35,27 +36,25 @@ QDebug& operator<<(QDebug& debug, const FsType& fs_type) {
 
 FsType GetFsTypeByName(const QString& name) {
   const QString lower = name.toLower();
-  if (lower.isEmpty()) return FsType::Empty;
-  if (lower == kFsUnused) return FsType::Empty;
-  if (lower == "btrfs") return FsType::Btrfs;
-  if (lower == "efi") return FsType::EFI;
-  if (lower == "ext2") return FsType::Ext2;
-  if (lower == "ext3") return FsType::Ext3;
-  if (lower == "ext4") return FsType::Ext4;
-  if (lower == "f2fs") return FsType::F2fs;
-  if (lower == "fat16") return FsType::Fat16;
-  if (lower == "fat32") return FsType::Fat32;
-  if (lower == "hfs") return FsType::Hfs;
-  if (lower == "hfs+") return FsType::HfsPlus;
-  if (lower == "jfs") return FsType::Jfs;
-  if (lower.startsWith("linux-swap")) return FsType::LinuxSwap;
-  if (lower == "lvm2pv") return FsType::LVM2PV;
-  if (lower == "nilfs2") return FsType::Nilfs2;
-  if (lower == "ntfs") return FsType::NTFS;
-  if (lower == "others") return FsType::Others;
-  if (lower == "reiser4") return FsType::Reiser4;
-  if (lower == "reiserfs") return FsType::Reiserfs;
-  if (lower == "xfs") return FsType::Xfs;
+  if (lower.isEmpty()) { return FsType::Empty; }
+  if (lower == kFsUnused) { return FsType::Empty; }
+  if (lower == "btrfs") { return FsType::Btrfs; }
+  if (lower == "efi") { return FsType::EFI; }
+  if (lower == "ext2") { return FsType::Ext2; }
+  if (lower == "ext3") { return FsType::Ext3; }
+  if (lower == "ext4") { return FsType::Ext4; }
+  if (lower == "f2fs") { return FsType::F2fs; }
+  if (lower == "fat16") { return FsType::Fat16; }
+  if (lower == "fat32") { return FsType::Fat32; }
+  if (lower == "jfs") { return FsType::Jfs; }
+  if (lower.startsWith("linux-swap")) { return FsType::LinuxSwap; }
+  if (lower == "lvm2pv") { return FsType::LVM2PV; }
+  if (lower == "nilfs2") { return FsType::Nilfs2; }
+  if (lower == "ntfs") { return FsType::NTFS; }
+  if (lower == "others") { return FsType::Others; }
+  if (lower == "reiser4") { return FsType::Reiser4; }
+  if (lower == "reiserfs") { return FsType::Reiserfs; }
+  if (lower == "xfs") { return FsType::Xfs; }
   return FsType::Unknown;
 }
 

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2022 Xu Shaohua <shaohua@biofan.org>.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +27,38 @@ namespace installer {
 
 // Format filesystem.
 bool Mkfs(const Partition& partition);
+
+bool FormatBtrfs(const QString& path, const QString& label);
+
+bool FormatExt2(const QString& path, const QString& label);
+
+bool FormatExt3(const QString& path, const QString& label);
+
+bool FormatExt4(const QString& path, const QString& label);
+
+bool FormatF2fs(const QString& path, const QString& label);
+
+bool FormatFat16(const QString& path, const QString& label);
+
+bool FormatFat32(const QString& path, const QString& label);
+
+bool FormatHfs(const QString& path, const QString& label);
+
+bool FormatHfsPlus(const QString& path, const QString& label);
+
+bool FormatJfs(const QString& path, const QString& label);
+
+bool FormatLinuxSwap(const QString& path, const QString& label);
+
+bool FormatNilfs2(const QString& path, const QString& label);
+
+bool FormatNTFS(const QString& path, const QString& label);
+
+bool FormatReiser4(const QString& path, const QString& label);
+
+bool FormatReiserfs(const QString& path, const QString& label);
+
+bool FormatXfs(const QString& path, const QString& label);
 
 }  // namespace installer
 
