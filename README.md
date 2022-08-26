@@ -15,12 +15,5 @@ Blink Installer, for debian based linux distributions.
 * util-linux - miscellanous system utilities
 * xfsprogs - xfs filesystem utility
 
-## Restrictions
-* No DBus connections
-* No Window Manager
-* No window drag/drop operations
-* No cut/copy/paste operations
-
 ## Copyright
-This project is released under GNU General Public License which can be found in
-LICENSE file.
+This project is released under [GNU General Public](LICENSE) License
