@@ -231,25 +231,6 @@ bool FormatNTFS(const QString& path, const QString& label) {
   return ok;
 }
 
-bool FormatReiser4(const QString& path, const QString& label) {
-  QString output;
-  QString err;
-  bool ok;
-  if (label.isEmpty()) {
-    ok = SpawnCmd("mkfs.reiser4", {"--force", "--yes", path}, output, err);
-  } else {
-    const QString real_label = label.left(16);
-    ok = SpawnCmd("mkfs.reiser4",
-                  {"--force", "--yes",
-                   QString("--label%1").arg(real_label), path},
-                  output, err);
-  }
-  if (!ok) {
-    qCritical() << "FormatReiser4() err:" << err;
-  }
-  return ok;
-}
-
 bool FormatReiserfs(const QString& path, const QString& label) {
   QString output;
   QString err;
@@ -322,9 +303,6 @@ bool Mkfs(const Partition& partition) {
     }
     case FsType::NTFS: {
       return FormatNTFS(partition.path, partition.label);
-    }
-    case FsType::Reiser4: {
-      return FormatReiser4(partition.path, partition.label);
     }
     case FsType::Reiserfs: {
       return FormatReiserfs(partition.path, partition.label);
