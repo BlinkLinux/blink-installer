@@ -162,23 +162,6 @@ bool FormatFat32(const QString& path, const QString& label) {
   return ok;
 }
 
-bool FormatHfs(const QString& path, const QString& label) {
-  QString output;
-  QString err;
-  bool ok;
-  if (label.isEmpty()) {
-    ok = SpawnCmd("hformat", {path}, output, err);
-  } else {
-    const QString real_label = label.left(27);
-    ok = SpawnCmd("hformat", {QString("-l%1").arg(real_label), path},
-                  output, err);
-  }
-  if (!ok) {
-    qCritical() << "FormatHfs() err:" << err;
-  }
-  return ok;
-}
-
 bool FormatHfsPlus(const QString& path, const QString& label) {
   QString output;
   QString err;
@@ -344,6 +327,9 @@ bool Mkfs(const Partition& partition) {
     case FsType::EFI:
     case FsType::Fat32: {
       return FormatFat32(partition.path, partition.label);
+    }
+    case FsType::HfsPlus: {
+      return FormatHfsPlus(partition.path, partition.label);
     }
     case FsType::Jfs: {
       return FormatJfs(partition.path, partition.label);

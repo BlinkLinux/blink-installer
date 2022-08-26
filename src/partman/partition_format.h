@@ -42,8 +42,6 @@ bool FormatFat16(const QString& path, const QString& label);
 
 bool FormatFat32(const QString& path, const QString& label);
 
-bool FormatHfs(const QString& path, const QString& label);
-
 bool FormatHfsPlus(const QString& path, const QString& label);
 
 bool FormatJfs(const QString& path, const QString& label);
