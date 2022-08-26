@@ -45,7 +45,6 @@ sudo apt install -y \
     qtbase5-dev \
     qttools5-dev \
     qttools5-dev-tools \
-    reiserfsprogs \
     squashfs-tools \
     tshark \
     udev \

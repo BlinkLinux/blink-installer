@@ -11,7 +11,6 @@ Blink Installer, for debian based linux distributions.
 * lvm2 - linux logical volume manager
 * mtools - tools for manipulating MSDOS files
 * ntfs-3g - read/write NTFS driver for FUSE
-* reiserfsprogs - user-level tools for reiserfs filesystem
 * util-linux - miscellanous system utilities
 * xfsprogs - xfs filesystem utility
 

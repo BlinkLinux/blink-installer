@@ -50,8 +50,6 @@ bool FormatNilfs2(const QString& path, const QString& label);
 
 bool FormatNTFS(const QString& path, const QString& label);
 
-bool FormatReiserfs(const QString& path, const QString& label);
-
 bool FormatXfs(const QString& path, const QString& label);
 
 }  // namespace installer

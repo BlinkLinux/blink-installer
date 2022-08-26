@@ -231,24 +231,6 @@ bool FormatNTFS(const QString& path, const QString& label) {
   return ok;
 }
 
-bool FormatReiserfs(const QString& path, const QString& label) {
-  QString output;
-  QString err;
-  bool ok;
-  if (label.isEmpty()) {
-    ok = SpawnCmd("mkreiserfs", {"-f", "-f", path}, output, err);
-  } else {
-    const QString real_label = label.left(16);
-    ok = SpawnCmd("mkreiserfs",
-                  {"-f", "-f", QString("--label%1").arg(real_label), path},
-                  output, err);
-  }
-  if (!ok) {
-    qCritical() << "FormatReiserfs() err:" << err;
-  }
-  return ok;
-}
-
 bool FormatXfs(const QString& path, const QString& label) {
   QString output;
   QString err;
@@ -303,9 +285,6 @@ bool Mkfs(const Partition& partition) {
     }
     case FsType::NTFS: {
       return FormatNTFS(partition.path, partition.label);
-    }
-    case FsType::Reiserfs: {
-      return FormatReiserfs(partition.path, partition.label);
     }
     case FsType::Xfs: {
       return FormatXfs(partition.path, partition.label);
