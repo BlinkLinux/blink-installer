@@ -60,23 +60,6 @@ bool FormatExt2(const QString& path, const QString& label) {
   return ok;
 }
 
-bool FormatExt3(const QString& path, const QString& label) {
-  QString output;
-  QString err;
-  bool ok;
-  if (label.isEmpty()) {
-    ok = SpawnCmd("mkfs.ext3", {"-F", path}, output, err);
-  } else {
-    const QString real_label = label.left(16);
-    ok = SpawnCmd("mkfs.ext3", {"-F", QString("-L%1").arg(real_label), path},
-                  output, err);
-  }
-  if (!ok) {
-    qCritical() << "FormatExt3() err:" << err;
-  }
-  return ok;
-}
-
 bool FormatExt4(const QString& path, const QString& label) {
   QString output;
   QString err;
@@ -311,9 +294,6 @@ bool Mkfs(const Partition& partition) {
     }
     case FsType::Ext2: {
       return FormatExt2(partition.path, partition.label);
-    }
-    case FsType::Ext3: {
-      return FormatExt3(partition.path, partition.label);
     }
     case FsType::Ext4: {
       return FormatExt4(partition.path, partition.label);

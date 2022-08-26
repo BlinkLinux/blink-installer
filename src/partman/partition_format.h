@@ -32,8 +32,6 @@ bool FormatBtrfs(const QString& path, const QString& label);
 
 bool FormatExt2(const QString& path, const QString& label);
 
-bool FormatExt3(const QString& path, const QString& label);
-
 bool FormatExt4(const QString& path, const QString& label);
 
 bool FormatF2fs(const QString& path, const QString& label);
